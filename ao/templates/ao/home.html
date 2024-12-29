@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>山荘粟生</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% load static %}
+            <style> 
+                @font-face {
+                    font-family: 'keifont'; /*fontの名前を定義*/
+                    src: url("{% static 'ao/fonts/keifont.ttf' %}") format('truetype');
+                }
+    
+                a{text-decoration: none;}
+    
+                .word1{
+                    font-size: 50px;
+                    font-family: 'keifont',sans-serif;/*keifontが使えない場合はsans-serifにフォールバック*/
+                    color: #692424;
+                }
+    
+                .word2,.word3,.word4,.word5{
+                        font-size: 30px;
+                        color: white; /* テキストの色を白に設定 */
+                }
+                .word2:hover,.word3:hover,.word4:hover,.word5:hover{
+                        text-decoration:  underline;
+                }
+                
+    
+                .rectatop {
+                width: 100%; /* 横幅 */
+                height: 70px; /* 縦幅 */
+                background-color:  #800000; /* 背景色をワインレッドに設定 */
+                display: flex;  /* 子要素を中央配置するためにflexboxを使用 */
+                align-items: center; /* 縦方向の中央揃え */
+                justify-content: space-evenly; /* 子要素を均等に配置 */ 
+                }
+
+                .slider-container {
+                    position: relative;
+                    width: 100%;
+                    height: 80vh;
+                    overflow: hidden;
+                    margin-top: 10px; /* 上下に余白を追加 */
+                    border-radius: 3%;
+                }
+                .slide {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    transition: opacity 1s;
+                }
+                .slide img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                .slide.active {
+                    opacity: 1;
+                    transition: opacity 1s;
+                }
+            
+                .prev, .next {
+                margin: 30px;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                cursor: pointer;
+                font-size: 25px;
+                background-color: #800000;
+                
+                }
+
+
+            .box-container{
+                display: flex;
+                width: 98%;
+                height: 5vh;
+                align-items: center; /* 縦方向の中央揃え */
+                justify-content: center;
+                margin-top: 3px;
+                left: 10px;
+                background-color: rgba(0, 0, 14, 0.3);
+                position: absolute;
+                top: 90vh;
+                
+            }
+            
+
+            .box.now{
+                width: 25px;
+                height: 25px;
+                background-color:#800000; 
+                margin: 10px;
+                border-radius: 50%; /* 丸形にする */
+            }
+
+            .box{
+                width: 25px;
+                height: 25px;
+                margin: 10px;
+                background-color:#333333 ; 
+                border-radius: 50%; /* 丸形にする */
+                
+            }
+            
+
+            .button.triangle {
+                width: 22px;
+                height: 25px;
+                clip-path: polygon(0 0, 100% 50%, 0 100%);
+                background-color: #800000;
+                margin-left: 20px;
+                border: none;
+            }
+            
+            .button{
+                width: 22px;
+                height: 25px;
+                clip-path: polygon(0% 0%, 0% 100%, 35% 100%, 35% 0, 65% 0, 65% 100%, 100% 100%, 100% 0%);
+                background-color: #800000;
+                margin-left: 20px;
+                border: none;
+            }
+
+            .button:hover{
+                cursor: pointer;
+            }
+            </style>
+</head>
+<body>
+    <div class="word1">山荘粟生</div>
+    <div class="rectatop">
+        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>  
+        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>  
+        <a href="{% url 'contact' %}"><div class="word4">お問い合わせ</div></a>    
+        <a href="{% url 'test' %}"><div class="word5">テストページ</div></a> 
+    </div>
+
+    <div class="slider-container">
+        <div class="slide active">
+        <img src="/static/ao/images/S__214065164_0.jpg" alt="画像1">
+        </div>
+        <div class="slide">
+        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+        </div>
+        <div class="slide">
+        <img src="/static/ao/images/S__214065159_0.jpg" alt="画像3">
+        </div>
+    </div>
+
+    
+    <div class="box-container">
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="box"></div>
+        <div class="box now"></div>
+        <div class="box"></div>
+        <button class="button triangle" onclick="onoffslide(1)"></button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+
+    <script>
+        /* ここにJavaScriptを記述 */
+        const slides = document.querySelectorAll('.slide');
+        const boxs = document.querySelectorAll('.box');
+        const button = document.querySelector('.button'); // 修正ポイント: ボタンを取得
+    
+        let currentIndex = 1;
+        let isPlaying = true; // スライドショーの状態（再生中:true, 停止中:false）
+    
+        function moveSlide(step) {
+            slides[currentIndex].classList.remove('active');
+            boxs[currentIndex].classList.remove('now');
+            currentIndex = (currentIndex + step + slides.length) % slides.length;
+            slides[currentIndex].classList.add('active');
+            boxs[currentIndex].classList.add('now');
+        }
+    
+        function onoffslide() {
+            button.classList.toggle('triangle'); // 修正ポイント: クラスのトグル操作
+            if(isPlaying){
+                slideInterval = setInterval(() => {
+                    moveSlide(1);
+                }, 5000); // 5秒ごとにスライドを切り替え
+            
+                isPlaying = false; // 状態を更新
+            }else{
+                clearInterval(slideInterval);
+                isPlaying = true;
+            }
+        
+        }
+        
+        onoffslide();
+    </script>
+    
+    
+</body>
+</html>
