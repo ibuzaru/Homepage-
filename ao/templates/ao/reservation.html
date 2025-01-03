@@ -1,205 +1,240 @@
 <!DOCTYPE html>
 <html>
-    <head><title>予約</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<head>
+    <title>予約</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
-        <style> 
-            @font-face {
-                font-family: 'keifont'; /*fontの名前を定義*/
-                src: url("{% static 'ao/fonts/keifont.ttf' %}") format('truetype');
-            }
+    <style>
+        @font-face {
+            font-family: 'keifont';
+            src: url("{% static 'ao/fonts/keifont.ttf' %}") format('truetype');
+        }
 
-            a{text-decoration: none;}
+        a { text-decoration: none; }
 
-            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                margin: 0;
-                padding: 0;
-            }
-            .calendar-container{
-                font-size: 30px;
-            }
-            .calendar {
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                gap: 5px;
-                max-width: 400px;
-                margin: 20px auto;
-            }
-            .calendar-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: stretch;
-            }
-            .current-month{
-                font-size: 30px;
-                color: black;
-            }
-            .day, .weekday {
-                padding: 10px;
-                text-align: center;
-                border: 2px solid #ddd;
-            }
-            .weekday {
-                background-color: #f0f0f0;
-                font-weight: bold;
-            }
-            .day {
-                background-color: #f4f4f4;
-                cursor: pointer;
-            }
-            .day:hover {
-                background-color: #e0e0e0;
-            }
-            .day.disabled {
-                background-color: #ccc;
-                cursor: not-allowed;
-            }
-            .selected {
-                background-color: #4caf50;
-                color: white;
-            }
-            .word1{
-                font-size: 50px;
-                font-family: 'keifont',sans-serif;/*keifontが使えない場合はsans-serifにフォールバック*/
-            }
+        .rectatop {
+            width: 100%;
+            height: 50px;
+            background-color: #800000;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .word2, .word3, .word4{
+            font-size: 20px;
+            color: white;
+        }
 
-            .word2{
-                    font-size: 30px;
-                    color: white; /* テキストの色を白に設定 */
-            }
-            .word2:hover{
-                    text-decoration:  underline;
-            }
+        .word2:hover, .word3:hover, .word4:hover{
+            text-decoration: underline;
+        }
+
+        .box-container{
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .word5{
+            font-size: large;
+            font-weight: bold;
+        }
+        .word6{
+            font-size: medium;
+        }
+
+
+        .calendar-container { font-size: 30px; }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .prev, .next {
+            background-color: #800000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        .current-month { font-size: 30px; color: black; }
+
+        .day, .weekday {
             
-            
-            .word3{
-                    font-size: 30px;
-                    color: white; /* テキストの色を白に設定 */
-                        
-            }
-            .word3:hover{
-                     text-decoration:  underline;
-            }
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
 
-            .word4{
-                    font-size: 30px;
-                    color: white; /* テキストの色を白に設定 */
-                        
-            }
-            .word4:hover{
-                     text-decoration:  underline;
-            }
+        .weekday {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
 
-            .rectatop {
-            width: 100%; /* 横幅 */
-            height: 70px; /* 縦幅 */
-            background-color: #800000; /* 背景色をワインレッドに設定 */
-            display: flex;  /* 子要素を中央配置するためにflexboxを使用 */
-            align-items: center; /* 縦方向の中央揃え */
-            justify-content: space-evenly; /* 子要素を均等に配置 */
+        .day {
+            background-color: #f4f4f4;
+            cursor: pointer;
+        }
 
-            }
+        .day:hover { background-color: #e0e0e0; }
 
-        </style>
-    </head>
-    <body>
-        <div class="word1">予約</div>
-        <div class="rectatop">
-            <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>  
-            <a href="{% url 'resa' %}"><div class="word3">予約</div></a>  
-            <a href="{% url 'contact' %}"><div class="word4">お問い合わせ</div></a>     
-            
+        .day.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .selected { background-color: #4caf50; color: white; }
+        .selected-out { background-color: #ff7043; color: white; }
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+         }
+    </style>
+</head>
+<body>
+    <div class="rectatop">
+        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
+        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
+        <a href="{% url 'contact' %}"><div class="word4">お問い合わせ</div></a>
+    </div>
+    <div class="box-container">
+        <div class="word5">予約カレンダー</div>
+        <div class="word6">~カレンダーの日付を押してください~</div>
+    </div>
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button class="prev" id="prev-month">&lt;</button>
+            <div class="current-month" id="current-month"></div>
+            <button class="next" id="next-month">&gt;</button>
         </div>
-        <h1>予約カレンダー</h1>
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <button id="prev-month">&lt;</button>
-                <div class="current-month" id="current-month"></div>
-                <button id="next-month">&gt;</button>
-            </div>
-            <div class="calendar" id="calendar"></div>
-        </div>
+        <div class="calendar" id="calendar"></div>
+    </div>
+    <form method="get" action="{% url 'example' %}">
+        {% csrf_token %}
+        <input type="text" id="checkin-date" name="check_in" readonly placeholder="チェックイン日" >
+        <input type="text" id="checkout-date" name="check_out" readonly placeholder="チェックアウト日" >
+        <button type="submit" id="submit-button">予約へ進む</button>
+    </form>
     
-        <script>
-            const calendar = document.getElementById('calendar');
-            const currentMonth = document.getElementById('current-month');
-            const prevMonthButton = document.getElementById('prev-month');
-            const nextMonthButton = document.getElementById('next-month');
+    <script>
+        const submitButton = document.getElementById('submit-button');
+        const checkinDateInput = document.getElementById('checkin-date');
+        const checkoutDateInput = document.getElementById('checkout-date');
     
-            let date = new Date();
+        submitButton.addEventListener('click', (event) => {
+            if (!checkinDateInput.value) {
+                alert("チェックイン日を選択してください。");
+                event.preventDefault(); // フォーム送信をキャンセル
+            } 
+            else if (!checkoutDateInput.value) {
+                alert("チェックアウト日を選択してください。");
+                event.preventDefault(); // フォーム送信をキャンセル
+            }
+        });
     
-            // 曜日リスト
-            const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+        const calendar = document.getElementById('calendar');
+        const currentMonth = document.getElementById('current-month');
+        const prevMonthButton = document.getElementById('prev-month');
+        const nextMonthButton = document.getElementById('next-month');
     
-            function renderCalendar() {
-                calendar.innerHTML = '';
+        let date = new Date();
+        let checkInDate = null;
+        let checkOutDate = null;
     
-                const year = date.getFullYear();
-                const month = date.getMonth();
+        const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     
-                // Display month and year
-                currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+        function renderCalendar() {
+            calendar.innerHTML = '';
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+            weekdays.forEach(day => {
+                const weekdayElement = document.createElement('div');
+                weekdayElement.textContent = day;
+                weekdayElement.classList.add('weekday');
+                calendar.appendChild(weekdayElement);
+            });
     
-                // Add weekday headers
-                weekdays.forEach(day => {
-                    const weekdayElement = document.createElement('div');
-                    weekdayElement.textContent = day;
-                    weekdayElement.classList.add('weekday');
-                    calendar.appendChild(weekdayElement);
-                });
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
     
-                // First day of the month
-                const firstDay = new Date(year, month, 1).getDay();
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                calendar.appendChild(emptyCell);
+            }
     
-                // Number of days in the month
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.textContent = day;
+                dayElement.classList.add('day');
+    
+                const currentDate = new Date(year, month, day+1);
+                const today = new Date(); // 今日の日付を取得
                 
-                // 各月の曜日の日付調整
-                for (let i = 0; i < firstDay; i++) {
-                    const emptyCell = document.createElement('div');
-                    calendar.appendChild(emptyCell);
-                }
-
-                // Add days of the month
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayElement = document.createElement('div');
-                    dayElement.textContent = day;
-                    dayElement.classList.add('day');
-    
-                    // Example: Disable past days
-                    const today = new Date();
-                    const currentDate = new Date(year, month, day);
-                    if (currentDate < today.setHours(0, 0, 0, 0)) {
-                        dayElement.classList.add('disabled');
-                    } 
-                    else {
-                        dayElement.addEventListener('click', () => {
-                            document.querySelectorAll('.day.selected').forEach(el => el.classList.remove('selected'));
+                // 現在の日付より前の日付は無効にする
+                if (currentDate < today) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    dayElement.addEventListener('click', () => {
+                        if (!checkInDate || (checkInDate && checkOutDate)) {
+                            checkInDate = currentDate;
+                            checkOutDate = null;
+                            checkinDateInput.value = checkInDate.toISOString().slice(0, 10);
+                            checkoutDateInput.value = '';
+                            document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
                             dayElement.classList.add('selected');
-                            alert(`You selected ${currentDate.toDateString()}`);
-                        });
-                    }
-    
-                    calendar.appendChild(dayElement);
+                        } else if (!checkOutDate && currentDate > checkInDate) {
+                            checkOutDate = currentDate;
+                            checkoutDateInput.value = checkOutDate.toISOString().slice(0, 10);
+                            dayElement.classList.add('selected-out');
+                        }
+                    });
                 }
+    
+                calendar.appendChild(dayElement);
             }
+        }
     
-            prevMonthButton.addEventListener('click', () => {
-                date.setMonth(date.getMonth() - 1);
-                renderCalendar();
-            });
-    
-            nextMonthButton.addEventListener('click', () => {
-                date.setMonth(date.getMonth() + 1);
-                renderCalendar();
-            });
-    
+        prevMonthButton.addEventListener('click', () => {
+            date.setMonth(date.getMonth() - 1);
             renderCalendar();
-        </script>
-    </body> 
-
-
-</html>
+        });
     
+        nextMonthButton.addEventListener('click', () => {
+            date.setMonth(date.getMonth() + 1);
+            renderCalendar();
+        });
+    
+        renderCalendar();
+    </script>
+    
+   
+    
+</body>
+</html>
+

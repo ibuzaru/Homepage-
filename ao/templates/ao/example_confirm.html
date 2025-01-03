@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>予約確認</title>
+</head>
+<body>
+    <h1>予約内容確認</h1>
+    <p><strong>チェックイン日:</strong> {{ data.check_in_date }}</p>
+    <p><strong>チェックアウト日:</strong> {{ data.check_out_date }}</p>
+    <p><strong>名前:</strong> {{ data.name }}</p>
+    <p><strong>ふりがな:</strong> {{ data.furigana }}</p>
+    <p><strong>予約人数:</strong> {{ data.people }}</p>
+    <p><strong>メールアドレス:</strong> {{ data.email }}</p>
+    <p><strong>電話番号:</strong> {{ data.phone_number }}</p>
+    <p><strong>郵便番号:</strong> {{ data.postal_code }}</p>
+    <p><strong>住所:</strong> {{ data.address }}</p>
+    <form method="post" action="{% url 'example_confirm' %}">
+        {% csrf_token %}
+        {% for key, value in data.items %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+        <button type="submit">予約確定</button>
+    </form>
+    <!-- 修正するボタン -->
+    <form method="post" action="{% url 'example_fix' %}">
+        {% csrf_token %}
+        {% for key, value in data.items %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+        <button type="submit">修正する</button>
+    </form>
+</body>
+</html>
+
+
+
+
+

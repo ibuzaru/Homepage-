@@ -1,0 +1,217 @@
+<style>
+    /* ベースデザイン */
+    .reservation-form {
+        width: 100%;
+        max-width: 800px;
+        margin: 30px auto; /* マージンを少し増やす */
+        padding: 25px; /* パディングを増やしてフォームを広く */
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        font-family: Arial, sans-serif;
+    }
+    
+    /* フォームグループ */
+    .form-group {
+        margin-bottom: 20px; /* グループ間の余白を増やす */
+        width: 100%;
+    }
+    
+    /* ラベル */
+    .form-group label {
+        font-size: 22px; /* フォントサイズを少し大きく */
+        font-weight: bold;
+        margin-bottom: 8px; /* ラベルと入力フィールドの間の余白 */
+        display: block;
+        color: #333;
+    }
+    
+    /* 入力フィールド */
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        width: 100%;
+        padding: 12px; /* パディングを増やしてクリックしやすく */
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px; /* ボーダーを丸く */
+        box-sizing: border-box;
+        margin-top: 5px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    /* フォーカス時のデザイン */
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+        border-color: #007bff; /* フォーカス時のボーダー色 */
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.3); /* フォーカス時のシャドウ */
+        outline: none;
+    }
+
+    .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #800000;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #800000;
+}
+    
+    /* スマートフォン対応: 画面幅が768px以下の場合 */
+    @media (max-width: 768px) {
+        .reservation-form {
+            padding: 20px;
+            box-shadow: none; /* ボックスシャドウを軽減 */
+        }
+    
+        .form-group label {
+            font-size: 20px; /* フォントをさらに小さく */
+        }
+    
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            font-size: 15px; /* 入力欄のフォントも小さく */
+            padding: 10px; /* パディングを少し減らす */
+        }
+    }
+    
+    /* タブレット対応: 画面幅が992px以下の場合 */
+    @media (max-width: 992px) {
+        .reservation-form {
+            padding: 22px;
+        }
+    
+        .form-group label {
+            font-size: 22px;
+        }
+    
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            font-size: 16px;
+            padding: 12px;
+        }
+    }
+    </style>
+    
+    
+
+<form method="post" action="{% url 'example' %}" class="reservation-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>{{ form.check_in_date.label }}</label>
+        {{ form.check_in_date }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.check_out_date.label }}</label>
+        {{ form.check_out_date }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.name.label }}</label>
+        {{ form.name }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.furigana.label }}</label>
+        {{ form.furigana }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.people.label }}</label>
+        {{ form.people }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.email.label }}</label>
+        {{ form.email }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.phone_number.label }}</label>
+        {{ form.phone_number }}
+    </div>
+    <div class="form-group">
+        <label>{{ form.postal_code.label }}</label>
+        {{ form.postal_code }}
+        <button type="button" id="search-address" class="btn-secondary">住所検索</button>
+    </div>
+    <div class="form-group">
+        <label>{{ form.address.label }}</label>
+        {{ form.address }}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn-primary">予約確認へ</button>
+    </div>
+</form>
+
+
+<script>
+document.getElementById('search-address').addEventListener('click', function () {
+    const postalCodeInput = document.querySelector('input[name="postal_code"]');
+    const postalCode = postalCodeInput.value.trim();
+
+    // 郵便番号の形式を検証（ハイフンなし7桁）
+    if (!/^\d{7}$/.test(postalCode)) {
+        alert("郵便番号はハイフン無しで入力してください（例: 1234567)");
+        return;
+    }
+
+    // 郵便番号APIの呼び出し
+    fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postalCode}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data && data.results) {
+                const result = data.results[0];
+                const address = `${result.address1} ${result.address2} ${result.address3}`;
+                const addressField = document.querySelector('textarea[name="address"]') || document.querySelector('input[name="address"]');
+                if (addressField) {
+                    addressField.value = address;
+                } else {
+                    console.error("Address field not found in the form.");
+                }
+            } else if (data.message) {
+                // APIが返すエラーメッセージを表示
+                alert(`エラー: ${data.message}`);
+            } else {
+                alert("住所が見つかりませんでした。郵便番号を確認してください。");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching address:", error);
+            alert("住所検索でエラーが発生しました。");
+        });
+});
+
+
+
+</script>
+
+
+
+
