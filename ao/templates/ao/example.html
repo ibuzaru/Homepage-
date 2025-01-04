@@ -6,11 +6,10 @@ body {
 }
 
 .reservation-form {
-    width: 100%;
-    max-width: 600px;
+    width: 90%;
     margin: 0 auto;
     background-color: #fff; /* フォーム背景色 */
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px; /* 角を丸くする */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウで立体感を追加 */
 }
@@ -23,18 +22,21 @@ body {
 
 .form-group label {
     font-weight: bold;
-    margin-bottom: 5px; /* ラベルと入力フィールドの間隔 */
+    margin-bottom: 10px; /* ラベルと入力フィールドの間隔 */
     color: #333;
+    font-size: 30px;
 }
 
-.form-group input,
-.form-group select,
+.form-group input{
+    font-size: 40px;    
+}
+.form-group select{
+    font-size: 25px;
+}
 .form-group textarea {
     padding: 10px;
-    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -45,7 +47,7 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 25px;
     transition: background-color 0.3s;
 }
 
@@ -60,8 +62,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 25px;
     margin-top: 10px; /* ボタンの上にスペース */
+    width: 50%;
     transition: background-color 0.3s;
 }
 
@@ -69,15 +72,6 @@ body {
     background-color: #5a6268; /* ホバー時の背景色 */
 }
 
-@media (max-width: 600px) {
-    .reservation-form {
-        padding: 15px;
-    }
-
-    .btn-primary, .btn-secondary {
-        width: 100%;
-    }
-}
 
     </style>
     
