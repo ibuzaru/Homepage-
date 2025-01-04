@@ -4,116 +4,128 @@
     <title>予約</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
-    <style>
-        @font-face {
-            font-family: 'keifont';
-            src: url("{% static 'ao/fonts/keifont.ttf' %}") format('truetype');
-        }
+<style>
+    a { text-decoration: none; }
 
-        a { text-decoration: none; }
+    .rectatop {
+        margin-top: 20px;
+        width: 100%;
+        height: 50px;
+        background-color: #800000;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .word2, .word3, .word4{
+        font-size: 20px;
+        color: white;
+    }
 
-        .rectatop {
-            width: 100%;
-            height: 50px;
-            background-color: #800000;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-        }
-        .word2, .word3, .word4{
-            font-size: 20px;
-            color: white;
-        }
+    .word2:hover, .word3:hover, .word4:hover{
+        text-decoration: underline;
+    }
 
-        .word2:hover, .word3:hover, .word4:hover{
-            text-decoration: underline;
-        }
+    .box-container{
+        margin-top: 10px;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .box-container{
-            width: 100%;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .word5{
-            font-size: large;
-            font-weight: bold;
-        }
-        .word6{
-            font-size: medium;
-        }
+    .word5{
+        
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .word6{
+        font-size: medium;
+    }
 
 
-        .calendar-container { font-size: 30px; }
+    .calendar-container { 
+        font-size: 30px;
 
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            max-width: 400px;
-            margin: 20px auto;
-        }
+    }
 
-        .calendar-header {
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-        }
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        width: 100%;
+        margin: 20px auto;
+        justify-content: center;
+    }
 
-        .prev, .next {
-            background-color: #800000;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 30px;
-        }
+    .calendar-header {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
 
-        .current-month { font-size: 30px; color: black; }
+    .prev, .next {
+        background-color: #800000;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 30px;
+    }
 
-        .day, .weekday {
-            
-            padding: 8px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
+    .current-month { font-size: 30px; color: black; }
 
-        .weekday {
-            background-color: #f0f0f0;
-            font-weight: bold;
-        }
+    .day, .weekday {
+        
+        padding: 6px;
+        text-align: center;
+        border: 1px solid rgb(75, 73, 73);
+        border-radius: 10%;
+    }
 
-        .day {
-            background-color: #f4f4f4;
-            cursor: pointer;
-        }
+    .weekday {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
 
-        .day:hover { background-color: #e0e0e0; }
+    .day {
+        background-color: #f4f4f4;
+        cursor: pointer;
+    }
 
-        .day.disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+    .day:hover { background-color: #e0e0e0; }
 
-        .selected { background-color: #4caf50; color: white; }
-        .selected-out { background-color: #ff7043; color: white; }
+    .day.disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .selected { background-color: #4caf50; color: white; }
+    .selected-out { background-color: #ff7043; color: white; }
 
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 300px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-         }
-    </style>
+    .form_style {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid rgb(75, 73, 73);
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     }
+    
+    .reservebutton{
+        font-size: 25px;
+    }
+    .reservesubmit{
+        width: 50%;
+        font-size: 25px;
+    }
+</style>
 </head>
 <body>
     <div class="rectatop">
@@ -134,11 +146,11 @@
         </div>
         <div class="calendar" id="calendar"></div>
     </div>
-    <form method="get" action="{% url 'example' %}">
+    <form method="get" action="{% url 'example' %}" class = "form_style">
         {% csrf_token %}
-        <input type="text" id="checkin-date" name="check_in" readonly placeholder="チェックイン日" >
-        <input type="text" id="checkout-date" name="check_out" readonly placeholder="チェックアウト日" >
-        <button type="submit" id="submit-button">予約へ進む</button>
+        <input type="text" id="checkin-date" name="check_in" class="reservebutton" readonly placeholder="チェックイン日" >
+        <input type="text" id="checkout-date" name="check_out" class="reservebutton" readonly placeholder="チェックアウト日" >
+        <button type="submit" id="submit-button" class="reservesubmit">予約へ進む</button>
     </form>
     
     <script>
