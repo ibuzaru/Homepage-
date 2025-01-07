@@ -80,7 +80,7 @@ def example_confirm(request):
             form.save()
 
            
-            return render(request, 'ao/home.html', {'form': form})
+            return render(request, 'ao/success_reserve.html', {'form': form})
         else:
             # バリデーションエラーが発生した場合
             return render(request, 'ao/example.html', {'form': form, 'errors': form.errors})
