@@ -5,12 +5,37 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string  # メール本文生成
 from django.contrib import messages  # アラートメッセージ用
+from .models import ExampleModel
+from datetime import datetime, timedelta
+import json  # 追加
 
 def home(request):
     return render(request, 'ao/home.html')
 
+
 def reservation(request):
-    return render(request, 'ao/reservation.html')
+    # 予約済み日付を取得
+    reserved_dates = []
+    reservations = ExampleModel.objects.all()
+    for reservation in reservations:
+        check_in_date = reservation.check_in_date
+        check_out_date = reservation.check_out_date
+
+        if check_in_date and check_out_date:
+            # 日付を文字列のまま処理する
+            current_date = datetime.strptime(check_in_date, "%Y-%m-%d")
+            end_date = datetime.strptime(check_out_date, "%Y-%m-%d")
+            while current_date <= end_date:
+                reserved_dates.append(current_date.strftime("%Y-%m-%d"))  # ISO形式で文字列化
+                current_date += timedelta(days=1)
+    
+    context = {
+        'reserved_dates': json.dumps(reserved_dates)  # 重複は Python 側では不要なのでそのまま渡す
+    }
+    return render(request, 'ao/reservation.html', context)
+
+
+
 
 def contact(request):
     return render(request, 'ao/contact.html')
@@ -54,28 +79,7 @@ def example_confirm(request):
             # フォームデータの保存
             form.save()
 
-            # メール送信
-            email = form.cleaned_data.get('email')  # フォームからメールアドレスを取得
-            message = (
-                f"チェックイン日: {form.cleaned_data.get('check_in_date')}\n"
-                f"チェックアウト日: {form.cleaned_data.get('check_out_date')}\n"
-                f"名前: {form.cleaned_data.get('name')}\n"
-                f"ふりがな: {form.cleaned_data.get('furigana')}\n"
-                f"予約人数: {form.cleaned_data.get('people')}\n"
-                f"メールアドレス: {form.cleaned_data.get('email')}\n"
-                f"電話番号: {form.cleaned_data.get('phone_number')}\n"
-                f"郵便番号: {form.cleaned_data.get('postal_code')}\n"
-                f"住所: {form.cleaned_data.get('address')}\n"
-            )
-            send_mail(
-                subject='予約内容確認',
-                message=message,
-                from_email='your-email@gmail.com',  # 送信元メールアドレス
-                recipient_list=[email],  # フォームに入力されたメールアドレス
-                fail_silently=False,
-            )
-
-            # 成功時のレンダリング
+           
             return render(request, 'ao/home.html', {'form': form})
         else:
             # バリデーションエラーが発生した場合

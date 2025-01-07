@@ -26,22 +26,32 @@
     }
 
     .box-container{
-        margin-top: 10px;
+        margin: 20px 0 20px 0;
         width: 100%;
         height: 50px;
-        display: flex;
         flex-direction: column;
+        display: flex;
         justify-content: center;
         align-items: center;
     }
 
     .word5{
-        
         font-size: 30px;
         font-weight: bold;
     }
     .word6{
         font-size: medium;
+    }
+    .word7{
+        display: flex;
+        font-size: medium;
+        color:#4dc2f8;
+        font-weight: bold;
+    }
+    .word8{
+        font-size: medium;
+        color: #f83535;
+        font-weight: bold;
     }
 
 
@@ -55,6 +65,7 @@
         grid-template-columns: repeat(7, 1fr);
         gap: 4px;
         width: 100%;
+        max-width: 600px;
         margin: 20px auto;
         justify-content: center;
     }
@@ -90,7 +101,7 @@
     }
 
     .day {
-        background-color: #f4f4f4;
+        background-color: #4dc2f8;
         cursor: pointer;
     }
 
@@ -110,6 +121,7 @@
         flex-direction: column;
         gap: 10px;
         width: 80%;
+        max-width: 500px;
         margin: 0 auto;
         padding: 20px;
         border: 1px solid rgb(75, 73, 73);
@@ -120,10 +132,16 @@
     
     .reservebutton{
         font-size: 25px;
+        border: 1px solid rgb(75, 73, 73);
     }
     .reservesubmit{
         width: 50%;
         font-size: 25px;
+    }
+
+    .ReservedDates{
+        background-color:#f83535;
+        cursor: not-allowed;
     }
 </style>
 </head>
@@ -135,7 +153,11 @@
     </div>
     <div class="box-container">
         <div class="word5">予約カレンダー</div>
-        <div class="word6">~カレンダーの日付を押してください~</div>
+        <div class="word6"> ~カレンダーの日付を押してください~</div>
+        <div class="word7">青色：予約可能
+            <div class="word8">,  赤色：予約不可</div>
+        </div>
+
     </div>
 
     <div class="calendar-container">
@@ -180,57 +202,64 @@
     
         const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     
-        function renderCalendar() {
-            calendar.innerHTML = '';
-            const year = date.getFullYear();
-            const month = date.getMonth();
-            currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
-            weekdays.forEach(day => {
-                const weekdayElement = document.createElement('div');
-                weekdayElement.textContent = day;
-                weekdayElement.classList.add('weekday');
-                calendar.appendChild(weekdayElement);
-            });
     
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-            for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('div');
-                calendar.appendChild(emptyCell);
-            }
-    
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayElement = document.createElement('div');
-                dayElement.textContent = day;
-                dayElement.classList.add('day');
-    
-                const currentDate = new Date(year, month, day+1);
-                const today = new Date(); // 今日の日付を取得
-                
-                // 現在の日付より前の日付は無効にする
-                if (currentDate < today) {
-                    dayElement.classList.add('disabled');
-                } else {
-                    dayElement.addEventListener('click', () => {
-                        if (!checkInDate || (checkInDate && checkOutDate)) {
-                            checkInDate = currentDate;
-                            checkOutDate = null;
-                            checkinDateInput.value = checkInDate.toISOString().slice(0, 10);
-                            checkoutDateInput.value = '';
-                            document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
-                            dayElement.classList.add('selected');
-                        } else if (!checkOutDate && currentDate > checkInDate) {
-                            checkOutDate = currentDate;
-                            checkoutDateInput.value = checkOutDate.toISOString().slice(0, 10);
-                            dayElement.classList.add('selected-out');
-                        }
-                    });
-                }
-    
-                calendar.appendChild(dayElement);
-            }
+    // Djangoから渡された予約済み日付を取得
+    const reservedDates = JSON.parse('{{ reserved_dates|safe }}');
+
+    function renderCalendar() {
+        calendar.innerHTML = '';
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+        weekdays.forEach(day => {
+            const weekdayElement = document.createElement('div');
+            weekdayElement.textContent = day;
+            weekdayElement.classList.add('weekday');
+            calendar.appendChild(weekdayElement);
+        });
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month +1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+            const emptyCell = document.createElement('div');
+            calendar.appendChild(emptyCell);
         }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.textContent = day;
+            dayElement.classList.add('day');
+
+            const currentDate = new Date(year, month, day+1).toISOString().slice(0, 10);
+
+            // 予約済み日付を無効にする
+            if (reservedDates.includes(currentDate)) {
+                dayElement.classList.add('ReservedDates');
+            } else if (currentDate <= new Date().toISOString().slice(0, 10)) {
+                dayElement.classList.add('disabled');
+            } else {
+                dayElement.addEventListener('click', () => {
+                    if (!checkInDate || (checkInDate && checkOutDate)) {
+                        checkInDate = new Date(currentDate);
+                        checkOutDate = null;
+                        checkinDateInput.value = currentDate;
+                        checkoutDateInput.value = '';
+                        document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
+                        dayElement.classList.add('selected');
+                    } else if (!checkOutDate && new Date(currentDate) > checkInDate) {
+                        checkOutDate = new Date(currentDate);
+                        checkoutDateInput.value = currentDate;
+                        dayElement.classList.add('selected-out');
+                    }
+                });
+            }
+
+            calendar.appendChild(dayElement);
+        }
+    }
+
+
     
         prevMonthButton.addEventListener('click', () => {
             date.setMonth(date.getMonth() - 1);
