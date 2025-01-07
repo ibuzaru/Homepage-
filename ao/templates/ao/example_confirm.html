@@ -2,36 +2,136 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>予約確認</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .confirmation-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirmation-container p {
+            margin: 10px 0;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .confirmation-container strong {
+            color: #555;
+        }
+
+        .total-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-secondary {
+            background-color: #6c757d;
+        }
+
+        .button-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
     <h1>予約内容確認</h1>
-    <p><strong>チェックイン日:</strong> {{ data.check_in_date }}</p>
-    <p><strong>チェックアウト日:</strong> {{ data.check_out_date }}</p>
-    <p><strong>名前:</strong> {{ data.name }}</p>
-    <p><strong>ふりがな:</strong> {{ data.furigana }}</p>
-    <p><strong>予約人数:</strong> {{ data.people }}</p>
-    <p><strong>メールアドレス:</strong> {{ data.email }}</p>
-    <p><strong>電話番号:</strong> {{ data.phone_number }}</p>
-    <p><strong>郵便番号:</strong> {{ data.postal_code }}</p>
-    <p><strong>住所:</strong> {{ data.address }}</p>
-    <form method="post" action="{% url 'example_confirm' %}">
-        {% csrf_token %}
-        {% for key, value in data.items %}
-        <input type="hidden" name="{{ key }}" value="{{ value }}">
-        {% endfor %}
-        <button type="submit">予約確定</button>
-    </form>
-    <!-- 修正するボタン -->
-    <form method="post" action="{% url 'example_fix' %}">
-        {% csrf_token %}
-        {% for key, value in data.items %}
-        <input type="hidden" name="{{ key }}" value="{{ value }}">
-        {% endfor %}
-        <button type="submit">修正する</button>
-    </form>
+    <div class="confirmation-container">
+        <p><strong>チェックイン日:</strong> {{ data.check_in_date }}</p>
+        <p><strong>チェックアウト日:</strong> {{ data.check_out_date }}</p>
+        <p><strong>名前:</strong> {{ data.name }}</p>
+        <p><strong>ふりがな:</strong> {{ data.furigana }}</p>
+        <p><strong>予約人数:</strong> {{ data.people }}</p>
+        <p><strong>メールアドレス:</strong> {{ data.email }}</p>
+        <p><strong>電話番号:</strong> {{ data.phone_number }}</p>
+        <p><strong>郵便番号:</strong> {{ data.postal_code }}</p>
+        <p><strong>住所:</strong> {{ data.address }}</p>
+
+        <p class="total-amount" id="totalAmount"></p>
+
+        <button onclick="calculateTotal()">金額を再計算する</button>
+
+        <div class="button-container">
+            <!-- 予約確定ボタン -->
+            <form method="post" action="{% url 'example_confirm' %}" style="margin: 0;">
+                {% csrf_token %}
+                {% for key, value in data.items %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% endfor %}
+                <button type="submit">予約確定</button>
+            </form>
+            <!-- 修正するボタン -->
+            <form method="post" action="{% url 'example_fix' %}" style="margin: 0;">
+                {% csrf_token %}
+                {% for key, value in data.items %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% endfor %}
+                <button type="submit" class="button-secondary">修正する</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // JavaScriptで金額を計算する
+        function calculateTotal() {
+            const pricePerPerson = 5000; // 一人当たりの料金
+            const taxRate = 0.10; // 税率
+
+            // 人数を取得
+            const people = parseInt(document.getElementById('people').innerText);
+
+            // 合計金額を計算
+            const totalAmount = people * pricePerPerson * (1 + taxRate);
+
+            // 結果を表示
+            document.getElementById('totalAmount').innerText = `合計金額: ${totalAmount.toLocaleString()}円（税込）`;
+        }
+
+        // ページ読み込み時に自動で金額を計算する
+        window.onload = calculateTotal;
+    </script>
 </body>
 </html>
+
+
 
 
 

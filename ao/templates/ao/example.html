@@ -1,172 +1,175 @@
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9; /* 背景色 */
-    padding: 20px;
-}
-
-.reservation-form {
-    width: 90%;
-    margin: 0 auto;
-    background-color: #fff; /* フォーム背景色 */
-    padding: 30px;
-    border-radius: 10px; /* 角を丸くする */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウで立体感を追加 */
-}
-
-.form-group {
-    margin-bottom: 15px; /* フィールド間のスペース */
-    display: flex;
-    flex-direction: column; /* 縦並び */
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 10px; /* ラベルと入力フィールドの間隔 */
-    color: #333;
-    font-size: 30px;
-}
-
-.form-group input{
-    font-size: 40px;    
-}
-.form-group select{
-    font-size: 25px;
-}
-.form-group textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.btn-primary {
-    background-color: #007bff; /* ボタンの背景色 */
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 25px;
-    transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
-}
-
-.btn-secondary {
-    background-color: #6c757d; /* ボタンの背景色 */
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 25px;
-    margin-top: 10px; /* ボタンの上にスペース */
-    width: 50%;
-    transition: background-color 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268; /* ホバー時の背景色 */
-}
-
-
-    </style>
-    
-    
-
-<form method="post" action="{% url 'example' %}" class="reservation-form">
-    {% csrf_token %}
-    <div class="form-group">
-        <label>{{ form.check_in_date.label }}</label>
-        {{ form.check_in_date }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.check_out_date.label }}</label>
-        {{ form.check_out_date }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.name.label }}</label>
-        {{ form.name }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.furigana.label }}</label>
-        {{ form.furigana }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.people.label }}</label>
-        {{ form.people }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.email.label }}</label>
-        {{ form.email }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.phone_number.label }}</label>
-        {{ form.phone_number }}
-    </div>
-    <div class="form-group">
-        <label>{{ form.postal_code.label }}</label>
-        {{ form.postal_code }}
-        <button type="button" id="search-address" class="btn-secondary">住所検索</button>
-    </div>
-    <div class="form-group">
-        <label>{{ form.address.label }}</label>
-        {{ form.address }}
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn-primary">予約確認へ</button>
-    </div>
-</form>
-
-
-<script>
-document.getElementById('search-address').addEventListener('click', function () {
-    const postalCodeInput = document.querySelector('input[name="postal_code"]');
-    const postalCode = postalCodeInput.value.trim();
-
-    // 郵便番号の形式を検証（ハイフンなし7桁）
-    if (!/^\d{7}$/.test(postalCode)) {
-        alert("郵便番号はハイフン無しで入力してください（例: 1234567)");
-        return;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9; /* 背景色 */
+        padding: 20px;
     }
-
-    // 郵便番号APIの呼び出し
-    fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postalCode}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data && data.results) {
-                const result = data.results[0];
-                const address = `${result.address1} ${result.address2} ${result.address3}`;
-                const addressField = document.querySelector('textarea[name="address"]') || document.querySelector('input[name="address"]');
-                if (addressField) {
-                    addressField.value = address;
-                } else {
-                    console.error("Address field not found in the form.");
+    
+    .reservation-form {
+        width: 90%;
+        margin: 0 auto;
+        background-color: #fff; /* フォーム背景色 */
+        padding: 30px;
+        border-radius: 10px; /* 角を丸くする */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウで立体感を追加 */
+    }
+    
+    .form-group {
+        margin-bottom: 15px; /* フィールド間のスペース */
+        display: flex;
+        flex-direction: column; /* 縦並び */
+    }
+    
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 10px; /* ラベルと入力フィールドの間隔 */
+        color: #333;
+        font-size: 30px;
+    }
+    
+    .form-group input{
+        font-size: 40px;   
+        border-color: #333; 
+    }
+    .form-group select{
+        font-size: 40px;
+        border-color: #333;
+    }
+    .form-group textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    .btn-primary {
+        background-color: #007bff; /* ボタンの背景色 */
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 25px;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3; /* ホバー時の背景色 */
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d; /* ボタンの背景色 */
+        color: #fff;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 25px;
+        margin-top: 10px; /* ボタンの上にスペース */
+        width: 50%;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #5a6268; /* ホバー時の背景色 */
+    }
+    
+    
+        </style>
+        
+        
+    
+    <form method="post" action="{% url 'example' %}" class="reservation-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>{{ form.check_in_date.label }}</label>
+            {{ form.check_in_date }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.check_out_date.label }}</label>
+            {{ form.check_out_date }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.furigana.label }}</label>
+            {{ form.furigana }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.people.label }}</label>
+            {{ form.people }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.email.label }}</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.phone_number.label }}</label>
+            {{ form.phone_number }}
+        </div>
+        <div class="form-group">
+            <label>{{ form.postal_code.label }}</label>
+            {{ form.postal_code }}
+            <button type="button" id="search-address" class="btn-secondary">住所検索</button>
+        </div>
+        <div class="form-group">
+            <label>{{ form.address.label }}</label>
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn-primary">予約確認へ</button>
+        </div>
+    </form>
+    
+    
+    <script>
+    document.getElementById('search-address').addEventListener('click', function () {
+        const postalCodeInput = document.querySelector('input[name="postal_code"]');
+        const postalCode = postalCodeInput.value.trim();
+    
+        // 郵便番号の形式を検証（ハイフンなし7桁）
+        if (!/^\d{7}$/.test(postalCode)) {
+            alert("郵便番号はハイフン無しで入力してください（例: 1234567)");
+            return;
+        }
+    
+        // 郵便番号APIの呼び出し
+        fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postalCode}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-            } else if (data.message) {
-                // APIが返すエラーメッセージを表示
-                alert(`エラー: ${data.message}`);
-            } else {
-                alert("住所が見つかりませんでした。郵便番号を確認してください。");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching address:", error);
-            alert("住所検索でエラーが発生しました。");
-        });
-});
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.results) {
+                    const result = data.results[0];
+                    const address = `${result.address1} ${result.address2} ${result.address3}`;
+                    const addressField = document.querySelector('textarea[name="address"]') || document.querySelector('input[name="address"]');
+                    if (addressField) {
+                        addressField.value = address;
+                    } else {
+                        console.error("Address field not found in the form.");
+                    }
+                } else if (data.message) {
+                    // APIが返すエラーメッセージを表示
+                    alert(`エラー: ${data.message}`);
+                } else {
+                    alert("住所が見つかりませんでした。郵便番号を確認してください。");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching address:", error);
+                alert("住所検索でエラーが発生しました。");
+            });
+    });
+    
+    
+    
+    </script>
 
-
-
-</script>
 
 
 
