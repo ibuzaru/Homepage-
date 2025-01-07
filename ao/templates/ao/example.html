@@ -125,6 +125,8 @@
     
     
     <script>
+
+
     document.getElementById('search-address').addEventListener('click', function () {
         const postalCodeInput = document.querySelector('input[name="postal_code"]');
         const postalCode = postalCodeInput.value.trim();
@@ -165,7 +167,21 @@
                 alert("住所検索でエラーが発生しました。");
             });
     });
-    
+
+            // JavaScriptで金額を計算する
+            function calculateTotal() {
+            const pricePerPerson = 5000; // 一人当たりの料金
+            const taxRate = 0.10; // 税率
+
+            // 人数を取得
+            const people = parseInt(document.getElementById('people').innerText);
+
+            // 合計金額を計算
+            const totalAmount = people * pricePerPerson * (1 + taxRate);
+
+            // 結果を表示
+            document.getElementById('totalAmount').innerText = `合計金額: ${totalAmount.toLocaleString()}円（税込）`;
+            }
     
     
     </script>
