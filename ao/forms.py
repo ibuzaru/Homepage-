@@ -1,6 +1,9 @@
+# forms.py
 from django import forms
 from .models import ExampleModel
 import re
+from django.core.validators import MinLengthValidator
+
 
 class ExampleForm(forms.ModelForm):
 
@@ -10,6 +13,13 @@ class ExampleForm(forms.ModelForm):
             choices=PEOPLE_CHOICES,
             label="予約人数",
             widget=forms.Select(attrs={"class": "form-control"})  # 必要に応じてCSSクラスを追加
+    )
+
+    password = forms.CharField(
+        label="パスワード（6文字以上）",
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "6文字以上"}),
+        validators=[MinLengthValidator(6)],
+        required=True
     )
     class Meta:
         model = ExampleModel
@@ -27,6 +37,9 @@ class ExampleForm(forms.ModelForm):
     phone_number = forms.CharField(label="電話番号", max_length=15)
     postal_code = forms.CharField(label="郵便番号", max_length=7)
     address = forms.CharField(label="住所", max_length=50)
+
+
+
 
 
 

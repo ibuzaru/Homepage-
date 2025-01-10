@@ -1,7 +1,8 @@
 # models.py
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.utils import timezone
+from django.contrib.auth.models import User  # 追加
+
 
 
 def validate_email(value):
@@ -31,8 +32,11 @@ class ExampleModel(models.Model):
     address = models.TextField(null=True, blank=True)  # 住所用
     created_at = models.DateTimeField(null=True, blank=True,auto_now_add=True)  # 初回作成時に自動でセット
     updated_at = models.DateTimeField(null=True, blank=True,auto_now=True) 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.name
+
+
 
 
     

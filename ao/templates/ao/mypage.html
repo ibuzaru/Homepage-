@@ -1,0 +1,33 @@
+<!-- templates/ao/mypage.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ</title>
+</head>
+<body>
+    <h1>マイページ</h1>
+    <p>{{ user.username }}さん、こんにちは。</p>
+
+    <h2>あなたの予約一覧</h2>
+    <ul>
+        {% for reservation in reservations %}
+            <li>
+                <strong>予約ID:</strong> {{ reservation.id }}<br>
+                <strong>チェックイン日(13:00~):</strong> {{ reservation.check_in_date }}<br>
+                <strong>チェックアウト日(~10:00):</strong> {{ reservation.check_out_date }}<br>
+                <strong>予約人数:</strong> {{ reservation.people }}<br>
+                <strong>名前:</strong> {{ reservation.name }}<br>
+                <strong>フリガナ:</strong> {{ reservation.furigana }}<br>
+
+                <!-- 日付変更ページへ遷移 -->
+                <form method="get" action="{% url 're_reserve' reservation.id %}">
+                    <button type="submit">日付変更</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">ホームへ</a>
+</body>
+</html>

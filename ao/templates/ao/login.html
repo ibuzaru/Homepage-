@@ -1,0 +1,11 @@
+<!--login.html-->
+<h2>Login</h2>
+{% if error %}<p style="color: red;">{{ error }}</p>{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">ログイン</button>
+</form>
+
+<a href="{% url 'home' %}"><div class="word4">ホーム</div></a>    

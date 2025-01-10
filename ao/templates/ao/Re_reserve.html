@@ -1,0 +1,286 @@
+<!-- templates/ao/Re_reserve.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>予約日変更</title>
+    {% load static %}
+    <style>
+        /* ここでは reservation.html の完成版のCSSを流用しています */
+        a { text-decoration: none; }
+
+        .rectatop {
+            margin-top: 20px;
+            width: 100%;
+            height: 50px;
+            background-color: #800000;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .word2, .word3, .word4{
+            font-size: 20px;
+            color: white;
+        }
+
+        .word2:hover, .word3:hover, .word4:hover{
+            text-decoration: underline;
+        }
+
+        .box-container{
+            margin: 20px 0 20px 0;
+            width: 100%;
+            height: 50px;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .word5{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .word6{
+            font-size: medium;
+        }
+        .word7{
+            display: flex;
+            font-size: medium;
+            color:#4dc2f8;
+            font-weight: bold;
+        }
+        .word8{
+            font-size: medium;
+            color: #f83535;
+            font-weight: bold;
+        }
+
+        .calendar-container { 
+            font-size: 30px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+
+        .calendar-header {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .prev, .next {
+            background-color: #800000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        .current-month { font-size: 30px; color: black; }
+
+        .day, .weekday {
+            padding: 6px;
+            text-align: center;
+            border: 1px solid rgb(75, 73, 73);
+            border-radius: 10%;
+        }
+
+        .weekday {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .day {
+            background-color: #4dc2f8;
+            cursor: pointer;
+        }
+
+        .day:hover { background-color: #e0e0e0; }
+
+        .day.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .ReservedDates {
+            background-color: #f83535; /* 赤色 */
+            cursor: not-allowed;
+        }
+
+        .selected {
+            background-color: #4caf50; 
+            color: white;
+        }
+        .selected-out {
+            background-color: #ff7043; 
+            color: white;
+        }
+
+        .form_style {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 80%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid rgb(75, 73, 73);
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .reservebutton{
+            font-size: 25px;
+            border: 1px solid rgb(75, 73, 73);
+        }
+        .reservesubmit{
+            width: 50%;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー部分（お好みに応じて） -->
+    <div class="rectatop">
+        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
+        <!-- 予約一覧へ戻るボタンなどを入れてもOK -->
+        <a href="{% url 'mypage' %}"><div class="word4">マイページ</div></a>
+    </div>
+
+    <!-- タイトルや説明など -->
+    <div class="box-container">
+        <div class="word5">予約日変更</div>
+        <div class="word6">カレンダーの日付を押して変更してください</div>
+        <div class="word7">青色：予約可能
+            <div class="word8">,  赤色：予約不可</div>
+        </div>
+    </div>
+
+    <!-- カレンダー本体 + 日付送信用フォーム -->
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button class="prev" id="prev-month">&lt;</button>
+            <div class="current-month" id="current-month"></div>
+            <button class="next" id="next-month">&gt;</button>
+        </div>
+        <div class="calendar" id="calendar"></div>
+    </div>
+
+    <form method="post" action="{% url 'reservation_change' reservation.id %}" class="form_style">
+        {% csrf_token %}
+        <input type="text" id="checkin-date" name="new_check_in" class="reservebutton" readonly placeholder="新しいチェックイン日">
+        <input type="text" id="checkout-date" name="new_check_out" class="reservebutton" readonly placeholder="新しいチェックアウト日">
+        <button type="submit" class="reservesubmit">変更する</button>
+    </form>
+
+    <script>
+        const calendar = document.getElementById('calendar');
+        const currentMonth = document.getElementById('current-month');
+        const prevMonthButton = document.getElementById('prev-month');
+        const nextMonthButton = document.getElementById('next-month');
+
+        // ✅ 入力フィールドの取得
+        const checkinDateInput = document.getElementById('checkin-date');
+        const checkoutDateInput = document.getElementById('checkout-date');
+
+        let date = new Date();
+        let checkInDate = null;
+        let checkOutDate = null;
+
+        const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+
+        // ✅ Djangoから予約済み日付を受け取る
+        const reservedDates = JSON.parse('{{ reserved_dates|escapejs }}');
+
+        function renderCalendar() {
+            calendar.innerHTML = '';
+            const year = date.getFullYear();
+            const month = date.getMonth();
+
+            currentMonth.textContent = `${year}年 ${month + 1}月`;
+
+            // 曜日ヘッダー
+            weekdays.forEach(day => {
+                const weekdayElement = document.createElement('div');
+                weekdayElement.textContent = day;
+                weekdayElement.classList.add('weekday');
+                calendar.appendChild(weekdayElement);
+            });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // 空白セル
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                calendar.appendChild(emptyCell);
+            }
+
+            // 日付セル生成
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.textContent = day;
+                dayElement.classList.add('day');
+
+                const currentDate = new Date(year, month, day+1).toISOString().slice(0, 10);
+                const today = new Date().toISOString().slice(0, 10);
+
+                // ✅ 予約済み日付 or 過去日付の処理
+                if (reservedDates.includes(currentDate)) {
+                    dayElement.classList.add('ReservedDates');  // 予約済みは赤色
+                } else if (currentDate <= today) {
+                    dayElement.classList.add('disabled');      // 過去日付は無効
+                } else {
+                    // 未来日付のみ選択可能
+                    dayElement.addEventListener('click', () => {
+                        if (!checkInDate || (checkInDate && checkOutDate)) {
+                            checkInDate = currentDate;
+                            checkOutDate = null;
+                            checkinDateInput.value = currentDate;  // ✅ チェックイン日反映
+                            checkoutDateInput.value = '';          // チェックアウト日リセット
+                            document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
+                            dayElement.classList.add('selected');
+                        } else if (!checkOutDate && new Date(currentDate) > new Date(checkInDate)) {
+                            checkOutDate = currentDate;
+                            checkoutDateInput.value = currentDate;  // ✅ チェックアウト日反映
+                            dayElement.classList.add('selected-out');
+                        }
+                    });
+                }
+
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        // ✅ 前月/次月ボタンの動作
+        prevMonthButton.addEventListener('click', () => {
+            date.setMonth(date.getMonth() - 1);
+            renderCalendar();
+        });
+
+        nextMonthButton.addEventListener('click', () => {
+            date.setMonth(date.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // ✅ 初期表示
+        renderCalendar();
+
+
+    </script>
+    
+</body>
+</html>
+
+
+
