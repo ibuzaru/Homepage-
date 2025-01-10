@@ -153,10 +153,48 @@ def login_view(request):
             return render(request, 'ao/login.html', {'error': 'Invalid email or password'})
     return render(request, 'ao/login.html')
 
+
+
+
+
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # 入力チェック（空欄チェック）
+        if not email or not password:
+            return render(request, 'ao/login.html', {
+                'error': 'メールアドレスとパスワードを入力してください。',
+                'email': email  # 入力内容保持
+            })
+
+        # メールアドレスでユーザーを取得
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return render(request, 'ao/login.html', {
+                'error': 'メールアドレスまたはパスワードが間違っています。',
+                'email': email  # 入力内容保持
+            })
+
+        # ユーザー名で認証
+        user = authenticate(request, username=user.username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('mypage')  # ログイン成功 → マイページへ
+        else:
+            return render(request, 'ao/login.html', {
+                'error': 'メールアドレスまたはパスワードが間違っています。',
+                'email': email  # 入力内容保持
+            })
+
+    return render(request, 'ao/login.html')
+
+
 def logout_view(request):
     logout(request)
     return redirect('login')
-
 
 
 
