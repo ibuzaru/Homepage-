@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>施設・ご用意品</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #973131;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .rectatop {
+            width: 100%;
+            height: 50px;
+            background-color: #800000;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10px;
+            margin-bottom: 5px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .word2, .word3, .word4, .word5 {
+            font-size: 20px;
+            color: white;
+            padding: 0 10px;
+        }
+
+        .word2:hover, .word3:hover, .word4:hover, .word5:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            color: #800000;
+        }
+
+        .card-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #800000;
+            color: #fff;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .rectatop {
+                flex-direction: column;
+                height: auto;
+                padding: 10px 0;
+            }
+            .word2, .word3, .word4, .word5 {
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="rectatop">
+        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
+        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
+        <a href="{% url 'rooms' %}"><div class="word4">施設・ご用意品</div></a>
+        <a href="{% url 'login' %}"><div class="word5">ログイン(予約確認)</div></a>
+    </div>
+
+    <header>
+        <h1>施設・ご用意品</h1>
+    </header>
+
+    <div class="container">
+        <!-- 八角館 -->
+        <div class="card">
+            <img src="/static/ao/images/S__214065162_0.jpg" alt="八角館">
+            <div class="card-content">
+                <h3>八角館</h3>
+                <p>伝統的な建築様式を取り入れた八角館は、趣ある雰囲気の中で静かな時間を過ごせます。</p>
+            </div>
+        </div>
+
+        <!-- 清涼館 -->
+        <div class="card">
+            <img src="/static/ao/images/S__214065163_0.jpg" alt="清涼館">
+            <div class="card-content">
+                <h3>清涼館</h3>
+                <p>自然に囲まれた清涼館では、四季折々の風景と共に心身のリフレッシュを楽しめます。</p>
+            </div>
+        </div>
+
+        <!-- 体験館 -->
+        <div class="card">
+            <img src="/static/ao/images/S__214065164_0.jpg" alt="体験館">
+            <div class="card-content">
+                <h3>体験館</h3>
+                <p>多彩なアクティビティやワークショップが体験できる施設で、思い出作りに最適です。</p>
+            </div>
+        </div>
+
+        <!-- お風呂 -->
+        <div class="card">
+            <img src="/static/ao/images/S__214065165_0.jpg" alt="お風呂">
+            <div class="card-content">
+                <h3>お風呂</h3>
+                <p>心も身体も温まるお風呂で、ゆっくりと贅沢なひとときをお過ごしください。</p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h2>ご用意品</h2>
+    </header>
+
+    <div class="container">
+        <!-- お風呂セット -->
+        <div class="card">
+            <img src="/static/ao/images/S__214065166_0.jpg" alt="お風呂セット">
+            <div class="card-content">
+                <h3>お風呂セット</h3>
+                <p>タオル、シャンプー、リンスなどが揃ったお風呂セットをご用意しております。</p>
+            </div>
+        </div>
+
+        <!-- お料理セット -->
+        <div class="card">
+            <img src="/static/ao/images/S__214065167_0.jpg" alt="お料理セット">
+            <div class="card-content">
+                <h3>お料理セット</h3>
+                <p>地元の食材を使ったお料理セットで、贅沢なひとときをお楽しみください。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 施設紹介ページ. All rights reserved.</p>
+    </footer>
+</body>
+</html>

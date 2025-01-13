@@ -1,0 +1,61 @@
+<!-- templates/ao/change_reserve.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>予約変更確認</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button {
+            background-color: #800000;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #a00000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>予約変更確認</h1>
+        <p>以下の内容で予約を変更しますか？</p>
+        <p><strong>新しいチェックイン日:</strong> {{ new_check_in }}</p>
+        <p><strong>新しいチェックアウト日:</strong> {{ new_check_out }}</p>
+        
+        <form method="post" action="{% url 'confirm_reservation_change' reservation.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="new_check_in" value="{{ new_check_in }}">
+            <input type="hidden" name="new_check_out" value="{{ new_check_out }}">
+            <button type="submit" class="button">変更を確定する</button>
+        </form>
+        <a href="{% url 're_reserve' reservation.id %}" class="button">戻る</a>
+    </div>
+</body>
+</html>

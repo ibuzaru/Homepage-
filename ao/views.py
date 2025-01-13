@@ -16,6 +16,8 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'ao/home.html')
 
+def rooms(request):
+    return render(request, 'ao/rooms.html')
 
 def reservation(request):
     # 予約済み日付を取得
@@ -231,14 +233,26 @@ def re_reserve(request, reservation_id):
 
 
 
-
 def reservation_change(request, reservation_id):
+    if request.method == 'POST':
+        new_check_in = request.POST['new_check_in']
+        new_check_out = request.POST['new_check_out']
+        reservation = get_object_or_404(ExampleModel, id=reservation_id)
+        return render(request, 'ao/change_reserve.html', {
+            'reservation': reservation,
+            'new_check_in': new_check_in,
+            'new_check_out': new_check_out,
+        })
+
+def confirm_reservation_change(request, reservation_id):
     if request.method == 'POST':
         reservation = get_object_or_404(ExampleModel, id=reservation_id)
         reservation.check_in_date = request.POST['new_check_in']
         reservation.check_out_date = request.POST['new_check_out']
         reservation.save()
         return redirect('mypage')
+
+
 
 
 

@@ -4,30 +4,120 @@
 <head>
     <meta charset="UTF-8">
     <title>マイページ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .username_box {
+            justify-content: center;
+            background-color: #800000;
+            color: #fff;
+            font-size: 30px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+        }
+        .head{
+            font-size: 35px;
+            font-weight: bold;
+            color: black;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 29px;
+            background-color: #fdf3f3;
+            border: 1px solid #800000;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #800000;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #a00000;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #800000;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #a00000;
+        }
+        .word1{
+            font-size: 25px;
+        }
+    </style>
 </head>
 <body>
-    <h1>マイページ</h1>
-    <p>{{ user.username }}さん、こんにちは。</p>
+    <div class="username_box">
+        <h1>マイページ</h1>
+        <p>{{ user.username }}さん、こんにちは。</p>
+    </div>
 
-    <h2>あなたの予約一覧</h2>
-    <ul>
-        {% for reservation in reservations %}
-            <li>
-                <strong>予約ID:</strong> {{ reservation.id }}<br>
-                <strong>チェックイン日(13:00~):</strong> {{ reservation.check_in_date }}<br>
-                <strong>チェックアウト日(~10:00):</strong> {{ reservation.check_out_date }}<br>
-                <strong>予約人数:</strong> {{ reservation.people }}<br>
-                <strong>名前:</strong> {{ reservation.name }}<br>
-                <strong>フリガナ:</strong> {{ reservation.furigana }}<br>
+    
 
-                <!-- 日付変更ページへ遷移 -->
-                <form method="get" action="{% url 're_reserve' reservation.id %}">
-                    <button type="submit">日付変更</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <a href="{% url 'home' %}">ホームへ</a>
+    <div class="container">
+        <div class="head">あなたの予約一覧</div>
+        <ul>
+            {% for reservation in reservations %}
+                <li>
+                    <strong>予約ID:</strong> {{ reservation.id }}<br>
+                    <strong>チェックイン日(13:00~):</strong> {{ reservation.check_in_date }}<br>
+                    <strong>チェックアウト日(~10:00):</strong> {{ reservation.check_out_date }}<br>
+                    <strong>予約人数:</strong> {{ reservation.people }}<br>
+                    <strong>名前:</strong> {{ reservation.name }}<br>
+                    <strong>フリガナ:</strong> {{ reservation.furigana }}<br>
+                    <form method="get" action="{% url 're_reserve' reservation.id %}">
+                        <button type="submit">日付変更</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'home' %}">ホームへ</a>
+        <div class="attentions">
+            <div class="word1">※キャンセルの場合はお電話をお願いします</div>
+        </div>
+    </div>
 </body>
 </html>

@@ -2,170 +2,182 @@
 <html lang="ja">
 <head>
     <title>山荘粟生</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        {% load static %}
-            <style> 
-                @font-face {
-                    font-family: 'keifont'; /*fontの名前を定義*/
-                    src: url("{% static 'ao/fonts/keifont.ttf' %}") format('truetype');
-                }
-    
-                a{text-decoration: none;}
-    
-                .word1{
-                    font-size: 30px;
-                    font-family: 'keifont',sans-serif;/*keifontが使えない場合はsans-serifにフォールバック*/
-                    color: #692424;
-                }
-    
-                .word2,.word3,.word4,.word5{
-                        font-size: 20px;
-                        color: white; /* テキストの色を白に設定 */
-                }
-                .word2:hover,.word3:hover,.word4:hover,.word5:hover{
-                        text-decoration:  underline;
-                }
-                
-    
-                .rectatop {
-                width: 100%; /* 横幅 */
-                height: 50px; /* 縦幅 */
-                background-color:  #800000; /* 背景色をワインレッドに設定 */
-                display: flex;  /* 子要素を中央配置するためにflexboxを使用 */
-                align-items: center; /* 縦方向の中央揃え */
-                justify-content: space-evenly; /* 子要素を均等に配置 */ 
-                }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% load static %}
+    <style>
+        @font-face {
+            font-family: 'keifont';
+            src: url("{% static 'ao/fonts/keifont.ttf' %}") format('truetype');
+        }
 
-                .slider-container {
-                    position: relative;
-                    width: 100%;
-                    height: 70vh;
-                    overflow: hidden;
-                    margin-top: 10px; /* 上下に余白を追加 */
-                    
-                }
-                .slide {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    opacity: 0;
-                    transition: opacity 1s;
-                }
-                .slide img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-                .slide.active {
-                    opacity: 1;
-                    transition: opacity 1s;
-                }
-            
-                .prev, .next {
-                margin: 30px;
-                background-color: rgba(0, 0, 0, 0.5);
-                color: white;
-                border: none;
-                cursor: pointer;
-                font-size: 20px;
-                background-color: #800000;
-                
-                }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+        }
 
+        a {
+            text-decoration: none;
+        }
 
-            .box-container{
-                display: flex;
-                width: 100%;
-                height: 30px;
-                align-items: center; /* 縦方向の中央揃え */
-                justify-content: center;
-                margin-top: 3px;
-                background-color: rgba(0, 0, 14, 0.3);
+        .word1 {
+            font-size: 40px;
+            font-family: 'keifont', sans-serif;
+            color: #692424;
+            text-align: center;
+            margin-top: 20px;
+        }
 
+        .rectatop {
+            width: 100%;
+            background-color: #800000;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .rectatop a {
+            font-size: 18px;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .rectatop a:hover {
+            background-color: #a83232;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 60vh;
+            overflow: hidden;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 24px;
+            border-radius: 50%;
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .box, .box.now {
+            width: 12px;
+            height: 12px;
+            margin: 5px;
+            border-radius: 50%;
+        }
+
+        .box {
+            background-color: #ccc;
+        }
+
+        .box.now {
+            background-color: #800000;
+        }
+
+        @media (max-width: 600px) {
+            .word1 {
+                font-size: 28px;
             }
-            
 
-            .box.now{
-                width: 25px;
-                height: 25px;
-                background-color:#800000; 
-                margin: 10px;
-                border-radius: 50%; /* 丸形にする */
+            .rectatop {
+                flex-direction: column;
+                padding: 10px 0;
             }
 
-            .box{
-                width: 25px;
-                height: 25px;
-                margin: 10px;
-                background-color:#333333 ; 
-                border-radius: 50%; /* 丸形にする */
-                
-            }
-            
-
-            .button.triangle {
-                width: 22px;
-                height: 25px;
-                clip-path: polygon(0 0, 100% 50%, 0 100%);
-                background-color: #800000;
-                margin-left: 20px;
-                border: none;
-            }
-            
-            .button{
-                width: 22px;
-                height: 25px;
-                clip-path: polygon(0% 0%, 0% 100%, 35% 100%, 35% 0, 65% 0, 65% 100%, 100% 100%, 100% 0%);
-                background-color: #800000;
-                margin-left: 20px;
-                border: none;
+            .rectatop a {
+                font-size: 16px;
+                padding: 8px 15px;
             }
 
-            .button:hover{
-                cursor: pointer;
+            .slider-container {
+                height: 40vh;
             }
-            </style>
+        }
+    </style>
 </head>
 <body>
     <div class="word1">山荘粟生</div>
     <div class="rectatop">
-        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>  
-        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>  
-        <a href="{% url 'login' %}"><div class="word4">ログイン（予約確認・変更）</div></a>    
+        <a href="{% url 'home' %}">ホーム</a>
+        <a href="{% url 'resa' %}">予約</a>
+        <a href="{% url 'rooms' %}">施設・ご用意品</a>
+        <a href="{% url 'login' %}">ログイン(予約確認)</a>
     </div>
 
     <div class="slider-container">
         <div class="slide active">
-        <img src="/static/ao/images/S__214065164_0.jpg" alt="画像1">
+            <img src="/static/ao/images/S__214065164_0.jpg" alt="画像1">
         </div>
         <div class="slide">
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+            <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
         </div>
         <div class="slide">
-        <img src="/static/ao/images/S__214065159_0.jpg" alt="画像3">
+            <img src="/static/ao/images/S__214065159_0.jpg" alt="画像3">
         </div>
-
-    </div>
-    <div class="box-container">
         <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-        <div class="box"></div>
-        <div class="box now"></div>
-        <div class="box"></div>
-        <button class="button triangle" onclick="onoffslide(1)"></button>
         <button class="next" onclick="moveSlide(1)">&#10095;</button>
     </div>
 
-
+    <div class="box-container">
+        <div class="box now"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
 
     <script>
-        /* ここにJavaScriptを記述 */
         const slides = document.querySelectorAll('.slide');
         const boxs = document.querySelectorAll('.box');
-        const button = document.querySelector('.button'); // 修正ポイント: ボタンを取得
-    
-        let currentIndex = 1;
-        let isPlaying = true; // スライドショーの状態（再生中:true, 停止中:false）
-    
+        let currentIndex = 0;
+
         function moveSlide(step) {
             slides[currentIndex].classList.remove('active');
             boxs[currentIndex].classList.remove('now');
@@ -173,25 +185,8 @@
             slides[currentIndex].classList.add('active');
             boxs[currentIndex].classList.add('now');
         }
-    
-        function onoffslide() {
-            button.classList.toggle('triangle'); // 修正ポイント: クラスのトグル操作
-            if(isPlaying){
-                slideInterval = setInterval(() => {
-                    moveSlide(1);
-                }, 5000); // 5秒ごとにスライドを切り替え
-            
-                isPlaying = false; // 状態を更新
-            }else{
-                clearInterval(slideInterval);
-                isPlaying = true;
-            }
-        
-        }
-        
-        onoffslide();
+
+        setInterval(() => moveSlide(1), 5000);
     </script>
-    
-    
 </body>
 </html>
