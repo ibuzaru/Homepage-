@@ -8,6 +8,13 @@
 <style>
     a { text-decoration: none; }
 
+    body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+            margin: 0;
+            padding: 0;
+        }
+        
     .rectatop {
         margin-top: 20px;
         width: 100%;
@@ -17,6 +24,17 @@
         align-items: center;
         justify-content: space-evenly;
     }
+
+    .word1 {
+            font-size: 60px;
+            font-family: 'Playfair Display', serif;
+            color: #692424;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            letter-spacing: 3px;
+        }
+
     .word2, .word3, .word4{
         font-size: 20px;
         color: white;
@@ -147,10 +165,12 @@
 </style>
 </head>
 <body>
+    <div class="word1">山荘粟生</div>
     <div class="rectatop">
         <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
         <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
-        <a href="{% url 'login' %}"><div class="word4">ログイン（予約確認・変更）</div></a> 
+        <a href="{% url 'rooms' %}"><div class="word3">施設・ご用意品</div></a>
+        <a href="{% url 'login' %}"><div class="word3">予約確認</div></a>
     </div>
     <div class="box-container">
         <div class="word5">予約カレンダー</div>
@@ -248,11 +268,44 @@
                         checkoutDateInput.value = '';
                         document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
                         dayElement.classList.add('selected');
-                    } else if (!checkOutDate && new Date(currentDate) > checkInDate) {
-                        checkOutDate = new Date(currentDate);
-                        checkoutDateInput.value = currentDate;
-                        dayElement.classList.add('selected-out');
+                    }else if (!checkOutDate) {
+                        const selectedDate = new Date(currentDate);
+
+                        if (selectedDate < checkInDate) {
+                            // チェックイン日より前の日付が選択された場合、チェックイン日として設定し直す
+                            checkInDate = selectedDate;
+                            checkOutDate = null;
+                            checkinDateInput.value = currentDate;
+                            checkoutDateInput.value = '';
+                            document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
+                            dayElement.classList.add('selected');
+                           
+                        } else {
+                            // 予約済み日付をまたがないかチェック
+                            let isValid = true;
+                            let tempDate = new Date(checkInDate);
+                            tempDate.setDate(tempDate.getDate() + 1);
+
+                            while (tempDate <= selectedDate) {
+                                const tempDateString = tempDate.toISOString().slice(0, 10);
+                                if (reservedDates.includes(tempDateString)) {
+                                    isValid = false;
+                                    break;
+                                }
+                                tempDate.setDate(tempDate.getDate() + 1);
+                            }
+
+                            if (isValid) {
+                                checkOutDate = selectedDate;
+                                checkoutDateInput.value = currentDate;
+                                dayElement.classList.add('selected-out');
+                            } else {
+                                alert("予約済みの日付をまたぐ予約はできません。");
+                            }
+                        }
                     }
+
+
                 });
             }
 
@@ -273,6 +326,9 @@
         });
     
         renderCalendar();
+
+
+
     </script>
     
    

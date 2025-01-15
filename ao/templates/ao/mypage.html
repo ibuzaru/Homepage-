@@ -84,7 +84,7 @@
         a:hover {
             background-color: #a00000;
         }
-        .word1{
+        .word1,.word2 {
             font-size: 25px;
         }
     </style>
@@ -108,15 +108,13 @@
                     <strong>予約人数:</strong> {{ reservation.people }}<br>
                     <strong>名前:</strong> {{ reservation.name }}<br>
                     <strong>フリガナ:</strong> {{ reservation.furigana }}<br>
-                    <form method="get" action="{% url 're_reserve' reservation.id %}">
-                        <button type="submit">日付変更</button>
-                    </form>
                 </li>
             {% endfor %}
         </ul>
         <a href="{% url 'home' %}">ホームへ</a>
         <div class="attentions">
-            <div class="word1">※キャンセルの場合はお電話をお願いします</div>
+            <div class="word1">※人数、日程、キャンセルの場合は以下にお電話をお願いします</div>
+            <div class="word2">電話番号：</div>
         </div>
     </div>
 </body>

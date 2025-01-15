@@ -5,6 +5,16 @@
     <title>施設・ご用意品</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        .word1 {
+            font-size: 60px;
+            font-family: 'Playfair Display', serif;
+            color: #692424;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            letter-spacing: 3px;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9f6f2;
@@ -93,31 +103,20 @@
             margin-top: 30px;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .rectatop {
-                flex-direction: column;
-                height: auto;
-                padding: 10px 0;
-            }
-            .word2, .word3, .word4, .word5 {
-                padding: 10px 0;
-            }
-        }
+
     </style>
 </head>
 <body>
+    <div class="word1">山荘粟生</div>
     <div class="rectatop">
         <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
         <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
-        <a href="{% url 'rooms' %}"><div class="word4">施設・ご用意品</div></a>
-        <a href="{% url 'login' %}"><div class="word5">ログイン(予約確認)</div></a>
+        <a href="{% url 'rooms' %}"><div class="word3">施設・ご用意品</div></a>
+        <a href="{% url 'login' %}"><div class="word3">予約確認</div></a>
     </div>
 
     <header>
-        <h1>施設・ご用意品</h1>
+        <h2>施設</h2>
     </header>
 
     <div class="container">

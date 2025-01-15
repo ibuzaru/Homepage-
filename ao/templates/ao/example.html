@@ -189,8 +189,51 @@
             // 結果を表示
             document.getElementById('totalAmount').innerText = `合計金額: ${totalAmount.toLocaleString()}円（税込）`;
             }
-    
-    
+            
+
+        
+    // フォーム送信時のバリデーション
+    document.querySelector('.reservation-form').addEventListener('submit', function (event) {
+        const nameInput = document.querySelector('input[name="name"]');
+        const furiganaInput = document.querySelector('input[name="furigana"]');
+        const emailInput = document.querySelector('input[name="email"]');
+
+        const nameValue = nameInput.value.trim();
+        const furiganaValue = furiganaInput.value.trim();
+        const emailValue = emailInput.value.trim();
+
+        let isValid = true;
+
+        // 1. 氏名にスペースが含まれているかチェック
+        if (!/^\S+\s+\S+$/.test(nameValue)) {
+            alert("氏名は姓と名の間にスペースを入れてください（例: 山田 太郎）");
+            isValid = false;
+        }
+
+        // 2. ふりがなにスペースが含まれ、かつひらがなのみかチェック
+        if (!/^[\u3040-\u309F]+\s[\u3040-\u309F]+$/.test(furiganaValue)) {
+            alert("ふりがなはひらがなのみで、姓と名の間にスペースを入れてください（例: やまだ たろう）");
+            isValid = false;
+        }
+
+        // 3. メールアドレスのドメインチェック
+        const allowedDomains = ['gmail.com', 'yahoo.com', 'yahoo.co.jp', 'icloud.com'];
+        const emailDomain = emailValue.split('@')[1];
+
+        if (!allowedDomains.includes(emailDomain)) {
+            alert("メールアドレスは gmail、yahoo、icloud のいずれかを使用してください。");
+            emailInput.value = '';  // 無効な場合はクリア
+            isValid = false;
+        }
+
+        // バリデーションエラーがある場合は送信停止
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+
+
+
     </script>
 
 

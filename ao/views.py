@@ -46,8 +46,8 @@ def reservation(request):
 
 @login_required
 def mypage(request):
-    # ログイン中のユーザーに紐付く予約情報を取得
-    reservations = ExampleModel.objects.filter(user = request.user).order_by('-created_at')
+    # ログイン中のユーザーに紐付く予約情報を、チェックイン日が近い順に取得
+    reservations = ExampleModel.objects.filter(user=request.user).order_by('check_in_date')
     return render(request, 'ao/mypage.html', {
         'user': request.user,
         'reservations': reservations
@@ -135,26 +135,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-def login_view(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-
-        # メールアドレスを使ってユーザーを取得
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return render(request, 'ao/login.html', {'error': 'Invalid email or password'})
-
-        # ユーザー名で認証を試みる
-        user = authenticate(request, username=user.username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('mypage')  # ログイン後のリダイレクト先
-        else:
-            return render(request, 'ao/login.html', {'error': 'Invalid email or password'})
-    return render(request, 'ao/login.html')
-
 
 
 
@@ -194,63 +174,11 @@ def login_view(request):
     return render(request, 'ao/login.html')
 
 
-def logout_view(request):
-    logout(request)
-    return redirect('login')
 
 
 
 
-def re_reserve(request, reservation_id):
-    reservation = get_object_or_404(ExampleModel, id=reservation_id)
-    
-    # ✅ 予約済み日付リスト（チェックイン日～チェックアウト日を全て追加）
-    reserved_dates = []
 
-    reservations = ExampleModel.objects.exclude(id=reservation_id)
-    for res in reservations:
-        # ✅ 文字列の場合は datetime に変換
-        if isinstance(res.check_in_date, str):
-            check_in_date = datetime.strptime(res.check_in_date, "%Y-%m-%d")
-        else:
-            check_in_date = res.check_in_date
-
-        if isinstance(res.check_out_date, str):
-            check_out_date = datetime.strptime(res.check_out_date, "%Y-%m-%d")
-        else:
-            check_out_date = res.check_out_date
-
-        # ✅ チェックイン日～チェックアウト日までの全日付を取得
-        current_date = check_in_date
-        while current_date <= check_out_date:
-            reserved_dates.append(current_date.strftime("%Y-%m-%d"))  # ISO形式で渡す
-            current_date += timedelta(days=1)
-
-    return render(request, 'ao/Re_reserve.html', {
-        'reservation': reservation,
-        'reserved_dates': json.dumps(reserved_dates),  # JSONで渡す
-    })
-
-
-
-def reservation_change(request, reservation_id):
-    if request.method == 'POST':
-        new_check_in = request.POST['new_check_in']
-        new_check_out = request.POST['new_check_out']
-        reservation = get_object_or_404(ExampleModel, id=reservation_id)
-        return render(request, 'ao/change_reserve.html', {
-            'reservation': reservation,
-            'new_check_in': new_check_in,
-            'new_check_out': new_check_out,
-        })
-
-def confirm_reservation_change(request, reservation_id):
-    if request.method == 'POST':
-        reservation = get_object_or_404(ExampleModel, id=reservation_id)
-        reservation.check_in_date = request.POST['new_check_in']
-        reservation.check_out_date = request.POST['new_check_out']
-        reservation.save()
-        return redirect('mypage')
 
 
 

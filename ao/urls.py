@@ -12,9 +12,5 @@ urlpatterns = [
    path('example_fix/', views.example_fix, name='example_fix'),
    path('mypage/', views.mypage, name="mypage"),
    path('login/', views.login_view, name='login'),
-   path('logout/', views.logout_view, name='logout'),
-   path('reservation/change/<int:reservation_id>/', views.re_reserve, name='re_reserve'),
-   path('reservation_change/<int:reservation_id>/', views.reservation_change, name='reservation_change'),
-   path('confirm_reservation_change/<int:reservation_id>/', views.confirm_reservation_change, name='confirm_reservation_change'),
    path('rooms', views.rooms, name="rooms"),
 ]
