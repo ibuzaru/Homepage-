@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>施設・ご用意品</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        header {
+            background-color: #973131;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+            padding: 10px;
+            
+        }
+        
+
+        .card:hover{
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+            padding-top: 50px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 1000px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .back-button {
+            background-color: #973131;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #692424;
+        }
+
+        .gallery-image {
+            width: 40%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            margin: 15px 15px auto;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+    <header><h2>施設・ご用意品</h2></header>
+
+    <div class="container">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065161_0.jpg', '/static/ao/images/S__214065159_0.jpg', '/static/ao/images/S__214065160_0.jpg'])">
+            <img src="/static/ao/images/S__214065157_0.jpg" alt="八角館">
+            <h3>八角館</h3>
+        </div>
+
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
+            <img src="/static/ao/images/S__214065159_0.jpg" alt="清涼館">
+            <h3>清涼館</h3>
+        </div>
+    </div>
+
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div id="galleryImages"></div>
+            <button class="back-button" onclick="closeGallery()">元の画面に戻る</button>
+        </div>
+    </div>
+
+    <script>
+        function openGallery(images) {
+            const gallery = document.getElementById('galleryImages');
+            gallery.innerHTML = '';
+
+            images.forEach(img => {
+                const image = document.createElement('img');
+                image.src = img;
+                image.className = 'gallery-image';
+                gallery.appendChild(image);
+            });
+
+            document.getElementById('galleryModal').style.display = 'block';
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

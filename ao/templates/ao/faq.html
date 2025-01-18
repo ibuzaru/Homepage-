@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問・お問い合わせ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #800000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-item h3 {
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-item h3:hover {
+            background-color: #e0e0e0;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #800000;
+        }
+
+        .contact-form {
+            margin-top: 40px;
+        }
+
+        .contact-form label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .contact-form button {
+            background-color: #800000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .contact-form button:hover {
+            background-color: #a83232;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>よくある質問</h1>
+
+        <div class="faq-item">
+            <h3>Q1. チェックイン・チェックアウトの時間は？</h3>
+            <div class="faq-answer">チェックインは13:00から、チェックアウトは10:00までです。</div>
+        </div>
+
+        <div class="faq-item">
+            <h3>Q2. ペット同伴は可能ですか？</h3>
+            <div class="faq-answer">はい、可能です。</div>
+        </div>
+
+        <div class="faq-item">
+            <h3>Q3. 駐車場はありますか？</h3>
+            <div class="faq-answer">はい、無料の駐車場をご用意しております。</div>
+        </div>
+        
+        <div class="faq-item">
+            <h3>Q4. お支払方法は？</h3>
+            <div class="faq-answer">現地で、現金もしくはPayPayがお使いいただけます。</div>
+        </div>
+
+        <h1>お問い合わせ</h1>
+        <form class="contact-form">
+            <label for="name">お名前</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">お問い合わせ内容</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">送信</button>
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>

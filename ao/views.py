@@ -117,7 +117,7 @@ def example_confirm(request):
             else:
                 # 新規ユーザーを作成
                 user = User.objects.create_user(
-                    username=data['name'],   
+                    username=data['email'],   
                     email=email,
                     password=password
                 )
@@ -173,7 +173,17 @@ def login_view(request):
 
     return render(request, 'ao/login.html')
 
+def faq(request):
+    return render(request, 'ao/faq.html')
 
+def supermarket(request):
+    return render(request, 'ao/supermarket.html')
+
+def sightseeing(request):
+    return render(request, 'ao/sightseeing.html')
+
+def river_info(request):
+    return render(request, 'ao/river_info.html')
 
 
 

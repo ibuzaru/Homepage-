@@ -13,4 +13,8 @@ urlpatterns = [
    path('mypage/', views.mypage, name="mypage"),
    path('login/', views.login_view, name='login'),
    path('rooms', views.rooms, name="rooms"),
+   path('faq/', views.faq, name="faq"),
+   path('supermarket/', views.supermarket, name='supermarket'),
+   path('sightseeing/', views.sightseeing, name="sightseeing"),
+   path('river_info/', views.river_info, name="river_info"),
 ]

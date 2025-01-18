@@ -5,7 +5,18 @@
     <title>施設・ご用意品</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
         .word1 {
             font-size: 60px;
             font-family: 'Playfair Display', serif;
@@ -15,43 +26,36 @@
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
             letter-spacing: 3px;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f6f2;
-            margin: 0;
-            padding: 0;
+
+        .rectatop {
+        margin-top: 20px;
+        width: 100%;
+        height: 50px;
+        background-color: #800000;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
+        }
+
+        .word2, .word3, .word4{
+        font-size: 20px;
+        color: white;
+        }
+
+        .word2:hover, .word3:hover, .word4:hover{
+            text-decoration: underline;
+        }
+
+        .rectatop a:hover {
+            background-color: #a83232;
         }
 
         header {
             background-color: #973131;
             color: #fff;
             text-align: center;
-            padding: 20px 0;
-        }
-
-        .rectatop {
-            width: 100%;
-            height: 50px;
-            background-color: #800000;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            padding: 0 10px;
-            margin-bottom: 5px;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .word2, .word3, .word4, .word5 {
-            font-size: 20px;
-            color: white;
-            padding: 0 10px;
-        }
-
-        .word2:hover, .word3:hover, .word4:hover, .word5:hover {
-            text-decoration: underline;
+            padding: 5px 0;
         }
 
         .container {
@@ -68,7 +72,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: transform 0.2s;
         }
 
         .card:hover {
@@ -95,12 +99,61 @@
             line-height: 1.6;
         }
 
-        footer {
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+            padding-top: 50px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 1000px;
+            border-radius: 10px;
             text-align: center;
-            padding: 10px;
-            background-color: #800000;
+        }
+
+        .back-button {
+            background-color: #973131;
             color: #fff;
-            margin-top: 30px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #692424;
+        }
+
+        .gallery-image {
+            width: 45%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            margin: 15px 15px auto;
+            display: inline;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-image {
+                width: 80%;
+                display: inline-block;
+                margin: 15px;
+            }
         }
 
 
@@ -110,9 +163,9 @@
     <div class="word1">山荘粟生</div>
     <div class="rectatop">
         <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
-        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
-        <a href="{% url 'rooms' %}"><div class="word3">施設・ご用意品</div></a>
-        <a href="{% url 'login' %}"><div class="word3">予約確認</div></a>
+        <a href="{% url 'resa' %}"><div class="word2">予約</div></a>
+        <a href="{% url 'rooms' %}"><div class="word2">施設・ご用意品</div></a>
+        <a href="{% url 'login' %}"><div class="word2">予約確認</div></a>
     </div>
 
     <header>
@@ -121,7 +174,7 @@
 
     <div class="container">
         <!-- 八角館 -->
-        <div class="card">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065161_0.jpg', '/static/ao/images/S__214065159_0.jpg', '/static/ao/images/S__214065160_0.jpg'])">
             <img src="/static/ao/images/S__214065162_0.jpg" alt="八角館">
             <div class="card-content">
                 <h3>八角館</h3>
@@ -130,7 +183,7 @@
         </div>
 
         <!-- 清涼館 -->
-        <div class="card">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
             <img src="/static/ao/images/S__214065163_0.jpg" alt="清涼館">
             <div class="card-content">
                 <h3>清涼館</h3>
@@ -139,7 +192,7 @@
         </div>
 
         <!-- 体験館 -->
-        <div class="card">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
             <img src="/static/ao/images/S__214065164_0.jpg" alt="体験館">
             <div class="card-content">
                 <h3>体験館</h3>
@@ -148,7 +201,7 @@
         </div>
 
         <!-- お風呂 -->
-        <div class="card">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
             <img src="/static/ao/images/S__214065165_0.jpg" alt="お風呂">
             <div class="card-content">
                 <h3>お風呂</h3>
@@ -163,7 +216,7 @@
 
     <div class="container">
         <!-- お風呂セット -->
-        <div class="card">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
             <img src="/static/ao/images/S__214065166_0.jpg" alt="お風呂セット">
             <div class="card-content">
                 <h3>お風呂セット</h3>
@@ -172,17 +225,50 @@
         </div>
 
         <!-- お料理セット -->
-        <div class="card">
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
             <img src="/static/ao/images/S__214065167_0.jpg" alt="お料理セット">
             <div class="card-content">
                 <h3>お料理セット</h3>
                 <p>地元の食材を使ったお料理セットで、贅沢なひとときをお楽しみください。</p>
             </div>
         </div>
+        <!--　貸出物  -->
+        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
+            <img src="/static/ao/images/S__214065168_0.jpg" alt="貸出物">
+            <div class="card-content">
+                <h3>貸出物</h3>
+                <p>アユ釣り道具、自転車、浮き輪など</p>
+            </div>
+
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 施設紹介ページ. All rights reserved.</p>
-    </footer>
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div id="galleryImages"></div>
+            <button class="back-button" onclick="closeGallery()">元の画面に戻る</button>
+        </div>
+    </div>
+
+    <script>
+        function openGallery(images) {
+            const gallery = document.getElementById('galleryImages');
+            gallery.innerHTML = '';
+
+            images.forEach(img => {
+                const image = document.createElement('img');
+                image.src = img;
+                image.className = 'gallery-image';
+                gallery.appendChild(image);
+            });
+
+            document.getElementById('galleryModal').style.display = 'block';
+        }
+
+        function closeGallery() {
+            document.getElementById('galleryModal').style.display = 'none';
+        }
+    </script>
+    
 </body>
 </html>

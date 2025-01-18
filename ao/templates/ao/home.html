@@ -124,6 +124,48 @@
             background-color: #800000;
         }
 
+    
+  
+    .info-section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2列のグリッド */
+        gap: 20px; /* ボタン間のスペース */
+        width: 80%;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fdf3f3;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #800000;
+        color: white;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 15px;
+        text-decoration: none;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        height: 50px;
+    }
+
+    .info-button:hover {
+        background-color: #a83232;
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+        .info-section {
+            grid-template-columns: 1fr; /* スマホでは1列表示 */
+        }
+    }
+
 
     </style>
 </head>
@@ -154,6 +196,13 @@
         <div class="box now"></div>
         <div class="box"></div>
         <div class="box"></div>
+    </div>
+        <!-- ボタンリンクセクション -->
+    <div class="info-section">
+        <a href="{% url 'faq' %}" class="info-button">よくある質問・お問い合わせ</a>
+        <a href="{% url 'supermarket' %}" class="info-button">スーパー・お土産・温泉情報</a>
+        <a href="{% url 'sightseeing' %}" class="info-button">近くの見どころスポット</a>
+        <a href="{% url 'river_info' %}" class="info-button">川遊び、おすすめスポット</a>
     </div>
 
     <script>

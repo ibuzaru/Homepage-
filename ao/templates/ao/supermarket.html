@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店舗情報</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        .word1 {
+            font-size: 60px;
+            font-family: 'Playfair Display', serif;
+            color: #692424;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            letter-spacing: 3px;
+        }
+        .rectatop {
+        margin-top: 20px;
+        width: 100%;
+        height: 50px;
+        background-color: #800000;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        }
+
+        .word2, .word3, .word4{
+        font-size: 20px;
+        color: white;
+        }
+
+        .word2:hover, .word3:hover, .word4:hover{
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            
+        }
+        h1, h2 {
+            text-align: center;
+            color: #800000;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #ffe6e6;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #800000;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .back-button:hover{
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="word1">山荘粟生</div>
+    <div class="rectatop">
+        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
+        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
+        <a href="{% url 'rooms' %}"><div class="word3">施設・ご用意品</div></a>
+        <a href="{% url 'login' %}"><div class="word3">予約確認</div></a>
+    </div>
+
+    <div class="container">
+        <h1>店舗情報</h1>
+        
+        <div class="category">
+            <h2>スーパー</h2>
+            <ul>
+                <li>オークワ　有田川店
+                    <div class="description">地域密着型の大型スーパーで、日用品や食料品が豊富。<br>有田インターから2分、山荘粟生から23分</div>
+                </li>
+                <li>ドラッグストア　コスモス　有田川店
+                    <div class="description">お安い商品：お菓子、<br>有田ICから2分、山荘粟生から24分</div>
+                </li>
+                <li>エバーグリーン　徳田店
+                    <div class="description">新鮮な生鮮食品や日用品が揃う地元密着型スーパー。<br>有田インターから6分、山荘粟生から19分</div>
+                </li>
+                <li>マツゲン　吉備店
+                    <div class="description">豊富な品揃えが魅力の地元スーパー。<br>有田インターから5分、山荘粟生から24分</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>おすすめのごはん屋</h2>
+            <ul>
+                <li>海鮮食堂つなや　有田川店
+                    <div class="description">新鮮な海の幸を使った絶品料理が楽しめる食堂。<br>有田インターから1分、山荘粟生から25分</div>
+                </li>
+                <li>麵dining　月乃屋
+                    <div class="description">こだわりのラーメンと居心地の良い雰囲気が特徴。<br>有田インターから2分、山荘粟生から23分</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>お土産屋</h2>
+            <ul>
+                <li>ファーマーズマーケット　ありだっこ
+                    <div class="description">地元の新鮮な農産物や特産品が豊富に揃うマーケット。<br>有田インターから1分、山荘粟生から25分</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>おすすめの温泉</h2>
+            <ul>
+                <li>かなや明恵峡温泉
+                    <div class="description">自然に囲まれた露店風呂がおすすめ！<br>有田インターから25分、山荘粟生から23分</div>
+                </li>
+                <li>有田川温泉 光の湯
+                    <div class="description">サウナ有りの温泉！<br>有田インターから22分、山荘粟生から32分</div>
+                </li>
+            </ul>
+        </div>
+
+        <a href="{% url 'home' %}" class="back-button">ホームに戻る</a>
+    </div>
+</body>
+</html>
+

@@ -92,7 +92,9 @@
 <body>
     <div class="username_box">
         <h1>マイページ</h1>
-        <p>{{ user.username }}さん、こんにちは。</p>
+        {% for reservation in reservations %}
+        <p>{{ reservation.name }}さん、こんにちは。</p>
+        {% endfor %}
     </div>
 
     
