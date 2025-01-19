@@ -129,38 +129,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-DEBUG = False
+import os
 
-try:
-    # 存在する場合、ローカルの設定読み込み
-    from .settings_local import *
-except ImportError:
-    pass
+# 静的ファイルの設定
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-if not DEBUG:
-    # Heroku settings
+# Whitenoiseを使用して静的ファイルを配信
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-    # staticの設定
-    import os
-    import django_heroku
-
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-    # Static files (CSS, JavaScript, Images)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATIC_URL = '/static/'
-
-    # Extra places for collectstatic to find static files.
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
-    )
-
-    MIDDLEWARE += [
-        'whitenoise.middleware.WhiteNoiseMiddleware',
-    ]
 
     # HerokuのConfigを読み込み
-    django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
