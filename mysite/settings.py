@@ -137,9 +137,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 import os
-from decouple import config
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 # 静的ファイルの設定
 STATIC_URL = '/static/'
