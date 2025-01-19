@@ -43,8 +43,17 @@ def reservation(request):
 
 @login_required
 def mypage(request):
+    # 現在の日付を取得
+    from datetime import date
+    today = date.today()
+
     # ログイン中のユーザーに紐付く予約情報を、チェックイン日が近い順に取得
+    # 現在の日付よりチェックアウト日が前の予約を削除
+    ExampleModel.objects.filter(user=request.user, check_out_date__lt=today).delete()
+
+    # 残りの予約情報を取得
     reservations = ExampleModel.objects.filter(user=request.user).order_by('check_in_date')
+    
     return render(request, 'ao/mypage.html', {
         'user': request.user,
         'reservations': reservations
@@ -228,8 +237,36 @@ def login_view(request):
 
     return render(request, 'ao/login.html')
 
+from django.core.mail import send_mail
+from django.shortcuts import render
+from .forms import ContactForm
+from django.conf import settings
+
 def faq(request):
-    return render(request, 'ao/faq.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            # メールの内容
+            subject = f"お問い合わせ: {name}様"
+            message_body = f"お名前: {name}\nメールアドレス: {email}\n\nお問い合わせ内容:\n{message}"
+            recipient_list = [settings.ADMIN_EMAIL]
+
+            # メール送信
+            send_mail(subject, message_body, settings.EMAIL_HOST_USER, recipient_list)
+
+            return render(request, 'ao/faq.html', {
+                'form': ContactForm(),  # フォームをリセット
+                'success': True
+            })
+    else:
+        form = ContactForm()
+
+    return render(request, 'ao/faq.html', {'form': form})
+
 
 def supermarket(request):
     return render(request, 'ao/supermarket.html')

@@ -1,8 +1,13 @@
 # forms.py
 from django import forms
 from .models import ExampleModel
-import re
 from django.core.validators import MinLengthValidator
+from django import forms
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, label="お名前", widget=forms.TextInput(attrs={'placeholder': 'お名前'}))
+    email = forms.EmailField(label="メールアドレス", widget=forms.EmailInput(attrs={'placeholder': 'メールアドレス'}))
+    message = forms.CharField(label="お問い合わせ内容", widget=forms.Textarea(attrs={'placeholder': 'お問い合わせ内容'}))
 
 
 class ExampleForm(forms.ModelForm):

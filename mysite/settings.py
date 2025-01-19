@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 from .settings_local import *
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 # settings.py
 
 # デフォルトのタイムゾーンを日本時間に設定
@@ -28,7 +30,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oasl%kvhv=1ess0n$7snt@$te*w$-uq8$i=d07g$^e*8p4rdc*'
+
+
+load_dotenv()  # 環境変数をロード
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY is not set in the environment.")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -155,9 +164,7 @@ django_heroku.settings(locals())
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
-from dotenv import load_dotenv
 
-load_dotenv()  # 環境変数をロード
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')  # 環境変数から取得
 DEFAULT_CHARSET = 'utf-8'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

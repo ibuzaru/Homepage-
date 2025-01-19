@@ -92,12 +92,10 @@
 <body>
     <div class="username_box">
         <h1>マイページ</h1>
-        {% for reservation in reservations %}
-        <p>{{ reservation.name }}さん、こんにちは。</p>
-        {% endfor %}
+        {% if reservations %}
+            <p>{{ reservations.0.name }}さん、こんにちは。</p>
+        {% endif %}
     </div>
-
-    
 
     <div class="container">
         <div class="head">あなたの予約一覧</div>
@@ -121,3 +119,4 @@
     </div>
 </body>
 </html>
+
