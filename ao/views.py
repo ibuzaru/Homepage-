@@ -93,6 +93,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.template.defaultfilters import floatformat
 import logging
+from django.conf import settings
 
 def send_confirmation_email(data):
     """
@@ -198,9 +199,6 @@ def example_confirm(request):
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-
-
-
 
 
 def login_view(request):
