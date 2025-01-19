@@ -1,7 +1,6 @@
 # views.py
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from .forms import ExampleForm
-from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string  # メール本文生成
 from .models import ExampleModel
@@ -84,6 +83,7 @@ def example_fix(request):
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.template.defaultfilters import floatformat
+import logging
 
 def send_confirmation_email(data):
     """
@@ -92,7 +92,7 @@ def send_confirmation_email(data):
     :param data: メールに必要なデータを含む辞書
     """
     subject = '予約内容のご確認'
-    recipient_list = [data['email'], 'ibuzaruty@gmail.com']  # ユーザーとホストのメールアドレス
+    recipient_list = [data['email'], settings.ADMIN_EMAIL]  # 環境変数から管理者メールを取得
     context = {
         'check_in_date': data['check_in_date'],
         'check_out_date': data['check_out_date'],
@@ -106,16 +106,23 @@ def send_confirmation_email(data):
     # HTMLメールの本文
     message_html = render_to_string('ao/confirmation_email.html', context)
 
-    # EmailMessageを使用
-    email_message = EmailMessage(
-        subject=subject,
-        body=message_html,  # HTML をそのまま使用
-        from_email='ibuzaruty@gmail.com',
-        to=recipient_list,
-    )
-    email_message.content_subtype = 'html'  # HTMLとして送信
-    email_message.encoding = 'utf-8'  # UTF-8エンコーディングを指定
-    email_message.send()
+    try:
+        # EmailMessageを使用
+        email_message = EmailMessage(
+            subject=subject,
+            body=message_html,  # HTML をそのまま使用
+            from_email=settings.EMAIL_HOST_USER,  # 環境変数から取得
+            to=recipient_list,
+        )
+        email_message.content_subtype = 'html'  # HTMLとして送信
+        email_message.encoding = 'utf-8'  # UTF-8エンコーディングを指定
+        email_message.send()
+
+    except Exception as e:
+        # エラーハンドリング: ログに記録
+        logger = logging.getLogger(__name__)
+        logger.error(f"メール送信中にエラーが発生しました: {e}")
+        raise
 
 
 def example_confirm(request):
