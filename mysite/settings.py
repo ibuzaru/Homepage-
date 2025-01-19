@@ -43,6 +43,7 @@ ALLOWED_HOSTS = ['sanso-ao-glamping.herokuapp.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'ao',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -153,11 +154,13 @@ django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# settings.py
+DEFAULT_CHARSET = 'utf-8'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.example.com'  # SMTPサーバー
+EMAIL_HOST = 'smtp.gmail.com'  # 使用するSMTPサーバー
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@example.com'
-EMAIL_HOST_PASSWORD = 'your_password'
-DEFAULT_FROM_EMAIL = 'your_email@example.com'
+EMAIL_HOST_USER = 'ibuzaruty@gmail.com'  # メールアカウント
+EMAIL_HOST_PASSWORD = 'eaud lqxe cuav ydll'  # メールアカウントのパスワード
+
 

@@ -1,11 +1,9 @@
 # views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ExampleForm
-from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string  # メール本文生成
-from django.contrib import messages  # アラートメッセージ用
 from .models import ExampleModel
 from datetime import datetime, timedelta
 import json  # 追加
@@ -83,55 +81,105 @@ def example_fix(request):
         form = ExampleForm()
         return render(request, "ao/example.html", {"form": form})
 
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.template.defaultfilters import floatformat
+
+def send_confirmation_email(data):
+    """
+    ユーザーへの予約確認メールを送信するヘルパー関数。
+    
+    :param data: メールに必要なデータを含む辞書
+    """
+    subject = '予約内容のご確認'
+    recipient_list = [data['email'], 'ibuzaruty@gmail.com']  # ユーザーとホストのメールアドレス
+    context = {
+        'check_in_date': data['check_in_date'],
+        'check_out_date': data['check_out_date'],
+        'name': data['name'],
+        'furigana': data['furigana'],
+        'people': data['people'],
+        'phone_number': data['phone_number'],
+        'total_amount': floatformat(data['total_amount'], 0),  # 合計金額を追加しフォーマット
+    }
+
+    # HTMLメールの本文
+    message_html = render_to_string('ao/confirmation_email.html', context)
+
+    # EmailMessageを使用
+    email_message = EmailMessage(
+        subject=subject,
+        body=message_html,  # HTML をそのまま使用
+        from_email='ibuzaruty@gmail.com',
+        to=recipient_list,
+    )
+    email_message.content_subtype = 'html'  # HTMLとして送信
+    email_message.encoding = 'utf-8'  # UTF-8エンコーディングを指定
+    email_message.send()
+
+
 def example_confirm(request):
     if request.method == 'POST':
         form = ExampleForm(request.POST)
-        if form.is_valid():  # フォームが正しく送信されたか確認
+        if form.is_valid():
             data = form.cleaned_data
             email = data['email']
             password = data['password']
 
-            # 重複チェック（お好みで変更可）
+            # 重複チェック
             existing_entry = ExampleModel.objects.filter(
-                name=data['name'], 
+                name=data['name'],
                 email=email,
                 check_in_date=data['check_in_date'],
                 check_out_date=data['check_out_date']
             ).exists()
             if existing_entry:
                 return render(
-                    request, 
-                    'ao/example.html', 
-                    {
-                        'form': form, 
-                        'errors': {'duplicate': '同じ内容のデータが既に登録されています。'}
-                    }
+                    request,
+                    'ao/example.html',
+                    {'form': form, 'errors': {'duplicate': '同じ内容のデータが既に登録されています。'}}
                 )
-            
-            # ★User の新規作成★
-            # 既に同じメールのユーザーがいないか確認
+
+            # ユーザーの新規作成または取得
             user_qs = User.objects.filter(email=email)
             if user_qs.exists():
-                # すでにユーザーがいる場合は取得（同じメールのユーザーで上書きはしない想定）
                 user = user_qs.first()
             else:
-                # 新規ユーザーを作成
                 user = User.objects.create_user(
-                    username=data['email'],   
+                    username=data['email'],
                     email=email,
                     password=password
                 )
-            # 予約情報を保存 (User と紐付ける)
+            # 合計金額を計算してデータに追加
+            try:
+                # 人数が正の整数であることを確認
+                people = int(data['people'])
+                if people < 1:
+                    raise ValueError("Invalid number of people")
+                # 合計金額を計算
+                data['total_amount'] = float(5500 * people)
+            except (ValueError, TypeError):
+                # エラー時は適切なレスポンスを返す
+                return render(request, 'ao/example.html', {
+                    'form': form,
+                    'errors': {'total_amount': '予約人数が不正です。'}
+                })
+
+            # 予約情報を保存
             example_instance = form.save(commit=False)
             example_instance.user = user
             example_instance.save()
+
+            # メール送信関数を呼び出し
+            send_confirmation_email(data)
 
             return render(request, 'ao/success_reserve.html', {'form': form})
         else:
             return render(request, 'ao/example.html', {'form': form, 'errors': form.errors})
 
 
-from django.contrib.auth import authenticate, login, logout
+
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
