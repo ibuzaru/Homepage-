@@ -138,7 +138,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'ao'),
 ]
 
 # Whitenoiseを使用して静的ファイルを配信
