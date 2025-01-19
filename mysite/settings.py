@@ -18,9 +18,6 @@ import os
 # デフォルトのタイムゾーンを日本時間に設定
 TIME_ZONE = 'Asia/Tokyo'
 
-# もし使用するデータベースでのタイムゾーンのサポートを有効にしたい場合
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

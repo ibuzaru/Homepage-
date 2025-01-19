@@ -24,7 +24,9 @@
         align-items: center;
         justify-content: space-evenly;
     }
-
+    .rectatop a:hover {
+            background-color: #a83232;
+        }
     .word1 {
             font-size: 60px;
             font-family: 'Playfair Display', serif;
@@ -48,7 +50,11 @@
     .rectatop a:hover {
             background-color: #a83232;
         }
-
+    @media (max-width: 600px) {
+        .word2, .word3, .word4 {
+            font-size: 16px; /* スマホ向けに文字サイズを調整 */
+        }
+    }
     .box-container{
         margin: 40px 0 20px 0;
         width: 100%;
@@ -168,6 +174,22 @@
         background-color:#f83535;
         cursor: not-allowed;
     }
+    .footer {
+        background-color: #800000;
+        color: white;
+        text-align: center;
+        padding: 20px 10px;
+        margin-top: 40px;
+        box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+        .footer {
+            font-size: 12px; /* スマホではフォントを小さく */
+        }
+    }
+
 </style>
 </head>
 <body>
@@ -202,6 +224,11 @@
         <input type="text" id="checkout-date" name="check_out" class="reservebutton" readonly placeholder="チェックアウト日" >
         <button type="submit" id="submit-button" class="reservesubmit">予約へ進む</button>
     </form>
+    <footer class="footer">
+        <div class="footer-copyright">
+            &copy; 2025 山荘アオ. All Rights Reserved.
+        </div>
+    </footer>
     
     <script>
         const submitButton = document.getElementById('submit-button');

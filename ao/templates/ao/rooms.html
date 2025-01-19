@@ -155,7 +155,26 @@
                 margin: 15px;
             }
         }
+        @media (max-width: 600px) {
+        .word2, .word3, .word4 {
+            font-size: 16px; /* スマホ向けに文字サイズを調整 */
+        }
+        }
+        .footer {
+            background-color: #800000;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
 
+        @media (max-width: 600px) {
+            .footer {
+                font-size: 12px; /* スマホではフォントを小さく */
+            }
+        }
 
     </style>
 </head>
@@ -249,7 +268,12 @@
             <button class="back-button" onclick="closeGallery()">元の画面に戻る</button>
         </div>
     </div>
-
+    <footer class="footer">
+        <div class="footer-copyright">
+            &copy; 2025 山荘アオ. All Rights Reserved.
+        </div>
+    </footer>
+    
     <script>
         function openGallery(images) {
             const gallery = document.getElementById('galleryImages');
