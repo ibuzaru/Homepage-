@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>予約エラー</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* コンテナのスタイル */
+        .container {
+            background-color: #fff;
+            border: 2px solid #800000;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 見出しのスタイル */
+        h1 {
+            color: #800000;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* メッセージのスタイル */
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        /* ボタンリンクのスタイル */
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #800000;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* ボタンホバー時のスタイル */
+        a:hover {
+            background-color: #660000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>予約エラー</h1>
+        <p>{{ error_message }}</p>
+        <a href="{% url 'example' %}">予約カレンダーに戻る</a>
+    </div>
+</body>
+</html>

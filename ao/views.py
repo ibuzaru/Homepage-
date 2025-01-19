@@ -143,19 +143,17 @@ def example_confirm(request):
             email = data['email']
             password = data['password']
 
-            # 重複チェック
-            existing_entry = ExampleModel.objects.filter(
-                name=data['name'],
-                email=email,
+            # 同じ日に予約があるかチェック
+            reservation_exists = ExampleModel.objects.filter(
                 check_in_date=data['check_in_date'],
                 check_out_date=data['check_out_date']
             ).exists()
-            if existing_entry:
-                return render(
-                    request,
-                    'ao/example.html',
-                    {'form': form, 'errors': {'duplicate': '同じ内容のデータが既に登録されています。'}}
-                )
+
+            if reservation_exists:
+                # 既に予約がある場合はエラーメッセージを表示して reservation.html に移動
+                return render(request, 'ao/reserve_error.html', {
+                    'error_message': '指定された日に既に予約があります。他の日付をお試しください。'
+                })
 
             # ユーザーの新規作成または取得
             user_qs = User.objects.filter(email=email)
@@ -167,6 +165,7 @@ def example_confirm(request):
                     email=email,
                     password=password
                 )
+
             # 合計金額を計算してデータに追加
             try:
                 # 人数が正の整数であることを確認
@@ -182,17 +181,18 @@ def example_confirm(request):
                     'errors': {'total_amount': '予約人数が不正です。'}
                 })
 
+            # メール送信関数を呼び出し
+            send_confirmation_email(data)
+
             # 予約情報を保存
             example_instance = form.save(commit=False)
             example_instance.user = user
             example_instance.save()
 
-            # メール送信関数を呼び出し
-            send_confirmation_email(data)
-
             return render(request, 'ao/success_reserve.html', {'form': form})
         else:
             return render(request, 'ao/example.html', {'form': form, 'errors': form.errors})
+
 
 
 

@@ -39,7 +39,7 @@ class ExampleForm(forms.ModelForm):
     name = forms.CharField(label="名前(姓と名にはスペースを入れてください)", max_length=50)
     furigana = forms.CharField(label="ふりがな(姓と名にはスペースを入れてください)", max_length=50)
     email = forms.EmailField(label="メールアドレス(gmail,yahoo,icloudのみ有効)")
-    phone_number = forms.CharField(label="電話番号(ハイフンなしで入力して下さいで入力してください)", max_length=15)
+    phone_number = forms.CharField(label="電話番号(ハイフンなし)", max_length=15)
     postal_code = forms.CharField(label="郵便番号(ハイフンなし)", max_length=7)
     address = forms.CharField(label="住所", max_length=50)
 
