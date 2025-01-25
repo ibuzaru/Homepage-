@@ -275,6 +275,9 @@ def sightseeing(request):
 def river_info(request):
     return render(request, 'ao/river_info.html')
 
+def howtostay(request):
+    return render(request, 'ao/howtostay.html')
+
 
 
 

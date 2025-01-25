@@ -104,7 +104,7 @@
     .word7{
         display: flex;
         font-size: medium;
-        color:#4dc2f8;
+        color:#3a44d4;
         font-weight: bold;
     }
     .word8{
@@ -142,6 +142,9 @@
         border: none;
         cursor: pointer;
         font-size: 30px;
+    }
+    .prev.limit, .next.limit{
+        opacity: 0;
     }
 
     .current-month { font-size: 30px; color: black; }
@@ -218,6 +221,7 @@
         }
     }
 
+
 </style>
 </head>
 <body>
@@ -240,7 +244,7 @@
         <div class="word6">お支払いは現地で、現金もしくは、PayPayをお使い頂けます。</div>
         <div class="word6"> ~カレンダーの日付を押してください~</div>
         <div class="word7">青色：予約可能
-            <div class="word8">,  赤色：予約不可</div>
+            <div class="word8">　　赤色：予約不可</div>
         </div>
 
     </div>
@@ -285,115 +289,130 @@
         const currentMonth = document.getElementById('current-month');
         const prevMonthButton = document.getElementById('prev-month');
         const nextMonthButton = document.getElementById('next-month');
-    
+
         let date = new Date();
         let checkInDate = null;
         let checkOutDate = null;
-    
+
         const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
-    
-    
-    // Djangoから渡された予約済み日付を取得
-    const reservedDates = JSON.parse('{{ reserved_dates|safe }}');
 
-    function renderCalendar() {
-        calendar.innerHTML = '';
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
-        weekdays.forEach(day => {
-            const weekdayElement = document.createElement('div');
-            weekdayElement.textContent = day;
-            weekdayElement.classList.add('weekday');
-            calendar.appendChild(weekdayElement);
-        });
+        // Djangoから渡された予約済み日付を取得
+        const reservedDates = JSON.parse('{{ reserved_dates|safe }}');
 
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month +1, 0).getDate();
+        // 前後6か月の範囲を計算
+        const today = new Date();
+        const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+        const maxDate = new Date(today.getFullYear(), today.getMonth() + 6, 1);
 
-        for (let i = 0; i < firstDay; i++) {
-            const emptyCell = document.createElement('div');
-            calendar.appendChild(emptyCell);
-        }
+        function renderCalendar() {
+            calendar.innerHTML = '';
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+            
+            weekdays.forEach(day => {
+                const weekdayElement = document.createElement('div');
+                weekdayElement.textContent = day;
+                weekdayElement.classList.add('weekday');
+                calendar.appendChild(weekdayElement);
+            });
 
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayElement = document.createElement('div');
-            dayElement.textContent = day;
-            dayElement.classList.add('day');
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            const currentDate = new Date(year, month, day+1).toISOString().slice(0, 10);
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                calendar.appendChild(emptyCell);
+            }
 
-            // 予約済み日付を無効にする
-            if (reservedDates.includes(currentDate)) {
-                dayElement.classList.add('ReservedDates');
-            } else if (currentDate <= new Date().toISOString().slice(0, 10)) {
-                dayElement.classList.add('disabled');
-            } else {
-                dayElement.addEventListener('click', () => {
-                    if (!checkInDate || (checkInDate && checkOutDate)) {
-                        checkInDate = new Date(currentDate);
-                        checkOutDate = null;
-                        checkinDateInput.value = currentDate;
-                        checkoutDateInput.value = '';
-                        document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
-                        dayElement.classList.add('selected');
-                    }else if (!checkOutDate) {
-                        const selectedDate = new Date(currentDate);
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.textContent = day;
+                dayElement.classList.add('day');
 
-                        if (selectedDate < checkInDate) {
-                            // チェックイン日より前の日付が選択された場合、チェックイン日として設定し直す
-                            checkInDate = selectedDate;
+                const currentDate = new Date(year, month, day + 1).toISOString().slice(0, 10);
+
+                // 予約済み日付を無効にする
+                if (reservedDates.includes(currentDate)) {
+                    dayElement.classList.add('ReservedDates');
+                } else if (currentDate <= new Date().toISOString().slice(0, 10)) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    dayElement.addEventListener('click', () => {
+                        if (!checkInDate || (checkInDate && checkOutDate)) {
+                            checkInDate = new Date(currentDate);
                             checkOutDate = null;
                             checkinDateInput.value = currentDate;
                             checkoutDateInput.value = '';
                             document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
                             dayElement.classList.add('selected');
-                           
-                        } else {
-                            // 予約済み日付をまたがないかチェック
-                            let isValid = true;
-                            let tempDate = new Date(checkInDate);
-                            tempDate.setDate(tempDate.getDate() + 1);
+                        } else if (!checkOutDate) {
+                            const selectedDate = new Date(currentDate);
 
-                            while (tempDate <= selectedDate) {
-                                const tempDateString = tempDate.toISOString().slice(0, 10);
-                                if (reservedDates.includes(tempDateString)) {
-                                    isValid = false;
-                                    break;
-                                }
-                                tempDate.setDate(tempDate.getDate() + 1);
-                            }
-
-                            if (isValid) {
-                                checkOutDate = selectedDate;
-                                checkoutDateInput.value = currentDate;
-                                dayElement.classList.add('selected-out');
+                            if (selectedDate < checkInDate) {
+                                checkInDate = selectedDate;
+                                checkOutDate = null;
+                                checkinDateInput.value = currentDate;
+                                checkoutDateInput.value = '';
+                                document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
+                                dayElement.classList.add('selected');
                             } else {
-                                alert("予約済みの日付をまたぐ予約はできません。");
+                                let isValid = true;
+                                let tempDate = new Date(checkInDate);
+                                tempDate.setDate(tempDate.getDate() + 1);
+
+                                while (tempDate <= selectedDate) {
+                                    const tempDateString = tempDate.toISOString().slice(0, 10);
+                                    if (reservedDates.includes(tempDateString)) {
+                                        isValid = false;
+                                        break;
+                                    }
+                                    tempDate.setDate(tempDate.getDate() + 1);
+                                }
+
+                                if (isValid) {
+                                    checkOutDate = selectedDate;
+                                    checkoutDateInput.value = currentDate;
+                                    dayElement.classList.add('selected-out');
+                                } else {
+                                    alert("予約済みの日付をまたぐ予約はできません。");
+                                }
                             }
                         }
-                    }
+                    });
+                }
 
-
-                });
+                calendar.appendChild(dayElement);
             }
 
-            calendar.appendChild(dayElement);
+            // ボタンの表示/非表示を設定
+            if (date <= minDate) {
+                prevMonthButton.classList.add('limit');
+            } else {
+                prevMonthButton.classList.remove('limit');
+            }
+
+            if (date >= maxDate) {
+                nextMonthButton.classList.add('limit');
+            } else {
+                nextMonthButton.classList.remove('limit');
+            }
         }
-    }
 
-
-    
         prevMonthButton.addEventListener('click', () => {
-            date.setMonth(date.getMonth() - 1);
-            renderCalendar();
+            if (date > minDate) {
+                date.setMonth(date.getMonth() - 1);
+                renderCalendar();
+            }
         });
-    
+
         nextMonthButton.addEventListener('click', () => {
-            date.setMonth(date.getMonth() + 1);
-            renderCalendar();
+            if (date < maxDate) {
+                date.setMonth(date.getMonth() + 1);
+                renderCalendar();
+            }
         });
-    
+
         renderCalendar();
 
 
