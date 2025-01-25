@@ -18,14 +18,48 @@
             text-decoration: none;
         }
 
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
         .word1 {
             font-size: 60px;
             font-family: 'Playfair Display', serif;
             color: #692424;
             text-align: center;
-            margin-top: 20px;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
             letter-spacing: 3px;
+        }
+
+        .instagram-icon {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .instagram-icon img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .instagram-icon img:hover {
+            transform: scale(1.2);
+        }
+        @media (max-width: 600px) {
+            .word2, .word3, .word4 {
+                font-size: 16px;
+            }
+
+            .instagram-icon {
+                right: 5%;
+            }
         }
         .rectatop {
         margin-top: 20px;
@@ -91,7 +125,15 @@
     </style>
 </head>
 <body>
-    <div class="word1">山荘粟生</div>
+    <div class="header">
+        <div class="word1">山荘アオ</div>
+        <div class="instagram-icon">
+            <a href="https://www.instagram.com/sanso_ao" target="_blank">
+                <img src="/static/ao/images/instagram-icon.jpg" alt="Instagram">
+            </a>
+        </div>
+    </div>
+
     <div class="rectatop">
         <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
         <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
