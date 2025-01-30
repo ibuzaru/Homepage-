@@ -27,7 +27,7 @@ def reservation(request):
         if check_in_date and check_out_date:
             # 日付を文字列のまま処理する
             current_date = datetime.strptime(check_in_date, "%Y-%m-%d")
-            end_date = datetime.strptime(check_out_date, "%Y-%m-%d")
+            end_date = datetime.strptime(check_out_date, "%Y-%m-%d") - timedelta(days=1)  # チェックアウト日の前日までを予約不可にする
             while current_date <= end_date:
                 reserved_dates.append(current_date.strftime("%Y-%m-%d"))  # ISO形式で文字列化
                 current_date += timedelta(days=1)
