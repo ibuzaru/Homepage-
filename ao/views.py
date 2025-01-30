@@ -89,20 +89,29 @@ def example_fix(request):
         form = ExampleForm()
         return render(request, "ao/example.html", {"form": form})
 
+
+import logging
+from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.template.defaultfilters import floatformat
-import logging
-from django.conf import settings
 
 def send_confirmation_email(data):
     """
-    ユーザーへの予約確認メールを送信するヘルパー関数。
+    ユーザーおよび管理者（ホスト）に予約確認メールを送信するヘルパー関数。
     
     :param data: メールに必要なデータを含む辞書
     """
     subject = '予約内容のご確認'
-    recipient_list = [data['email'], settings.ADMIN_EMAIL]  # 環境変数から管理者メールを取得
+    
+    # 管理者メールアドレスの取得（環境変数が未設定ならデフォルトを設定）
+    admin_email = getattr(settings, 'ADMIN_EMAIL', 'sansoao6430366@gmail.com')
+    
+    # 送信先リスト（ユーザー＋管理者）
+    recipient_list = [data['email']]
+    if admin_email:
+        recipient_list.append(admin_email)  # 管理者にも送信
+
     context = {
         'check_in_date': data['check_in_date'],
         'check_out_date': data['check_out_date'],
@@ -110,18 +119,18 @@ def send_confirmation_email(data):
         'furigana': data['furigana'],
         'people': data['people'],
         'phone_number': data['phone_number'],
-        'total_amount': floatformat(data['total_amount'], 0),  # 合計金額を追加しフォーマット
+        'total_amount': floatformat(data['total_amount'], 0),  # 合計金額のフォーマット
     }
 
     # HTMLメールの本文
     message_html = render_to_string('ao/confirmation_email.html', context)
 
     try:
-        # EmailMessageを使用
+        # EmailMessageを使用してHTMLメールを送信
         email_message = EmailMessage(
             subject=subject,
-            body=message_html,  # HTML をそのまま使用
-            from_email=settings.EMAIL_HOST_USER,  # 環境変数から取得
+            body=message_html,
+            from_email=settings.EMAIL_HOST_USER,
             to=recipient_list,
         )
         email_message.content_subtype = 'html'  # HTMLとして送信
@@ -133,6 +142,7 @@ def send_confirmation_email(data):
         logger = logging.getLogger(__name__)
         logger.error(f"メール送信中にエラーが発生しました: {e}")
         raise
+
 
 
 def example_confirm(request):
