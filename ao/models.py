@@ -17,15 +17,13 @@ def validate_email(value):
    else:
        raise ValidationError("アドレスは有効ではありません。")
 
-MEMBERS = [
-   ('1', '1人'),('2', '2人'), ('3', '3人'), ('4', '4人'), ('5', '5人'), ('6', '6人')
-]
+
 class ExampleModel(models.Model):
     check_in_date = models.CharField(max_length=15, null=True, blank=True)
     check_out_date = models.CharField(max_length=15, null=True, blank=True)
     name = models.CharField(max_length=20, null=True, blank=True)
     furigana = models.CharField(max_length=20, null=True, blank=True)
-    people = models.CharField(max_length=3, choices=MEMBERS, null=True, blank=True,)
+    people = models.CharField(max_length=3, null=True, blank=True,)
     email = models.EmailField(validators=[validate_email], null=True, blank=True, help_text="gmail,yahoo,icloudのみ有効")
     phone_number = models.CharField(max_length=15,null=True, blank=True)
     postal_code = models.CharField(max_length=7,null=True, blank=True)  # 郵便番号用

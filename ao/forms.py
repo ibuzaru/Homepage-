@@ -13,7 +13,7 @@ class ContactForm(forms.Form):
 class ExampleForm(forms.ModelForm):
 
 
-    PEOPLE_CHOICES = [(str(i), f"{i}人") for i in range(1, 7)]  # 1～6人の選択肢
+    PEOPLE_CHOICES = [(str(i), f"{i}人") for i in range(1, 51)]  # 1～6人の選択肢
     people = forms.ChoiceField(
             choices=PEOPLE_CHOICES,
             label="予約人数",
