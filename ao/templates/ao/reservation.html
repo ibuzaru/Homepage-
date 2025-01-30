@@ -302,7 +302,7 @@
         // 前後6か月の範囲を計算
         const today = new Date();
         const minDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-        const maxDate = new Date(today.getFullYear(), today.getMonth() + 6, 1);
+        const maxDate = new Date(today.getFullYear(), 11, 1);
 
         function renderCalendar() {
             calendar.innerHTML = '';
@@ -408,7 +408,7 @@
 
         nextMonthButton.addEventListener('click', () => {
             if (date < maxDate) {
-                date.setMonth(date.getMonth() + 1);
+                date.setMonth(date.getMonth() +1);
                 renderCalendar();
             }
         });
