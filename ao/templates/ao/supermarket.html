@@ -37,9 +37,12 @@
 
         .instagram-icon {
             position: absolute;
-            right: 10%;
+            right: 8%;
             top: 50%;
             transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .instagram-icon img {
@@ -50,16 +53,30 @@
         }
 
         .instagram-icon img:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
+        }
+
+        /* スマホ用レイアウト調整 */
+        @media (max-width: 600px) {
+            .word1 {
+                font-size: 40px; /* さらに小さく */
+            }
+
+            .instagram-icon {
+                right: 5%;
+            }
+
+            .instagram-icon img {
+                width: 25px; /* スマホではより小さく */
+                height: 25px;
+            }
         }
         @media (max-width: 600px) {
             .word2, .word3, .word4 {
                 font-size: 16px;
             }
 
-            .instagram-icon {
-                right: 5%;
-            }
+            
         }
         .rectatop {
         margin-top: 20px;
@@ -122,6 +139,21 @@
         .back-button:hover{
             text-decoration: underline;
         }
+        .footer {
+            background-color: #800000;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .footer {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,6 +163,7 @@
             <a href="https://www.instagram.com/sanso_ao" target="_blank">
                 <img src="/static/ao/images/instagram-icon.jpg" alt="Instagram">
             </a>
+            <img src="/static/ao/images/denwa.png" alt="telephone" onclick="confirmCall()">
         </div>
     </div>
 
@@ -148,16 +181,16 @@
             <h2>スーパー</h2>
             <ul>
                 <li>オークワ　有田川店
-                    <div class="description">地域密着型の大型スーパーで、日用品や食料品が豊富。<br>有田インターから2分、山荘粟生から23分</div>
+                    <div class="description">地域密着型の大型スーパーで、一通りのものが揃います。<br>有田インターから2分、山荘粟生から23分</div>
                 </li>
                 <li>ドラッグストア　コスモス　有田川店
-                    <div class="description">お安い商品：お菓子、<br>有田ICから2分、山荘粟生から24分</div>
+                    <div class="description">お酒、ジュース類が安い！<br>有田ICから2分、山荘粟生から24分</div>
                 </li>
                 <li>エバーグリーン　徳田店
-                    <div class="description">新鮮な生鮮食品や日用品が揃う地元密着型スーパー。<br>有田インターから6分、山荘粟生から19分</div>
+                    <div class="description">程よい大きさのスーパーで買いやすい！魚の品数には欠けます。<br>有田インターから6分、山荘粟生から19分</div>
                 </li>
                 <li>マツゲン　吉備店
-                    <div class="description">豊富な品揃えが魅力の地元スーパー。<br>有田インターから5分、山荘粟生から24分</div>
+                    <div class="description">全体的に安い！<br>有田インターから5分、山荘粟生から24分</div>
                 </li>
             </ul>
         </div>
@@ -197,6 +230,17 @@
 
         <a href="{% url 'home' %}" class="back-button">ホームに戻る</a>
     </div>
+
+    <footer class="footer">
+        <div class="footer-copyright">
+            &copy; 2025 山荘アオ. All Rights Reserved.
+        </div>
+    </footer>
+    <script>
+        function confirmCall() {
+            window.location.href = "tel:08025219439";
+        }
+    </script>
 </body>
 </html>
 

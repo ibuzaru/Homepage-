@@ -288,6 +288,8 @@ def river_info(request):
 def howtostay(request):
     return render(request, 'ao/howtostay.html')
 
+def buppan(request):
+    return render(request, 'ao/buppan.html')
 
 
 

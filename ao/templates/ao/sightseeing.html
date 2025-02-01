@@ -2,139 +2,254 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>施設・ご用意品</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店舗情報</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-        header {
-            background-color: #973131;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f2;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 30px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+
+        a {
+            text-decoration: none;
         }
 
-        .card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s;
-            cursor: pointer;
-            padding: 10px;
-            
-        }
-        
-
-        .card:hover{
-            transform: scale(1.05);
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            overflow: auto;
-            padding-top: 50px;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 1000px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .back-button {
-            background-color: #973131;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
             margin-top: 20px;
         }
 
-        .back-button:hover {
-            background-color: #692424;
+        .word1 {
+            font-size: 60px;
+            font-family: 'Playfair Display', serif;
+            color: #692424;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            letter-spacing: 3px;
         }
 
-        .gallery-image {
-            width: 40%;
-            max-width: 800px;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            margin: 15px 15px auto;
-            display: inline;
+        .instagram-icon {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-    </style>
+
+        .instagram-icon img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .instagram-icon img:hover {
+            transform: scale(1.1);
+        }
+
+        /* スマホ用レイアウト調整 */
+        @media (max-width: 600px) {
+            .word1 {
+                font-size: 40px; /* さらに小さく */
+            }
+
+            .instagram-icon {
+                right: 5%;
+            }
+
+            .instagram-icon img {
+                width: 25px; /* スマホではより小さく */
+                height: 25px;
+            }
+        }
+        @media (max-width: 600px) {
+            .word2, .word3, .word4 {
+                font-size: 16px;
+            }
+
+            
+        }
+        .rectatop {
+        margin-top: 20px;
+        width: 100%;
+        height: 50px;
+        background-color: #800000;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        }
+
+        .word2, .word3, .word4{
+        font-size: 20px;
+        color: white;
+        }
+
+        .word2:hover, .word3:hover, .word4:hover{
+            text-decoration: underline;
+        }
+
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #800000;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .back-button:hover{
+            text-decoration: underline;
+        }
+        .footer {
+            background-color: #800000;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .footer {
+                font-size: 12px;
+            }
+        }
+
+    .tourist-section {
+        text-align: center;
+        margin: 40px 0;
+        padding: 0 20px;
+    }
+    .tourist-title {
+        font-size: 26px;
+        color: #692424;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .tourist-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .tourist-card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .tourist-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+    }
+    .tourist-card h3 {
+        margin-top: 10px;
+        color: #800000;
+    }
+    .tourist-card p {
+        font-size: 14px;
+        color: #555;
+    }
+    @media (max-width: 600px) {
+        .tourist-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .tourist-card {
+            width: 90%;
+        }
+    }
+
+</style>
+    
 </head>
 <body>
-
-    <header><h2>施設・ご用意品</h2></header>
-
-    <div class="container">
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065161_0.jpg', '/static/ao/images/S__214065159_0.jpg', '/static/ao/images/S__214065160_0.jpg'])">
-            <img src="/static/ao/images/S__214065157_0.jpg" alt="八角館">
-            <h3>八角館</h3>
-        </div>
-
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065159_0.jpg" alt="清涼館">
-            <h3>清涼館</h3>
+    <div class="header">
+        <div class="word1">山荘アオ</div>
+        <div class="instagram-icon">
+            <a href="https://www.instagram.com/sanso_ao" target="_blank">
+                <img src="/static/ao/images/instagram-icon.jpg" alt="Instagram">
+            </a>
+            <img src="/static/ao/images/denwa.png" alt="telephone" onclick="confirmCall()">
         </div>
     </div>
 
-    <div id="galleryModal" class="modal">
-        <div class="modal-content">
-            <div id="galleryImages"></div>
-            <button class="back-button" onclick="closeGallery()">元の画面に戻る</button>
-        </div>
+    <div class="rectatop">
+        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
+        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
+        <a href="{% url 'rooms' %}"><div class="word3">施設・ご用意品</div></a>
+        <a href="{% url 'login' %}"><div class="word3">予約確認</div></a>
     </div>
 
+    <div class="tourist-section">
+        <h2 class="tourist-title">観光スポット</h2>
+        <div class="tourist-container">
+            <div class="tourist-card">
+                <img src="/static/ao/images/S__214065159_0.jpg" alt="あらぎ島">
+                <h3>あらぎ島</h3>
+                <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
+            </div>
+            <div class="tourist-card">
+                <img src="/static/ao/images/S__214065160_0.jpg" alt="生石高原">
+                <h3>生石高原</h3>
+                <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p>
+            </div>
+            <div class="tourist-card">
+                <img src="/static/ao/images/S__214065161_0.jpg" alt="蔵王橋">
+                <h3>蔵王橋</h3>
+                <p>二川ダム上に架かる赤い吊り橋です。全長約160mのつり橋で、橋の上からは二川ダムの水面が見え、スリルがあります。</p>
+            </div>
+            <div class="tourist-card">
+                <img src="/static/ao/images/S__214065162_0.jpg" alt="有田川鉄道公園">
+                <h3>有田川鉄道公園</h3>
+                <p>公園内の鉄道交流館では有田川町の風景を再現したジオラマがあり、400mの線路上に往年の車両が並んでいます。</p>
+            </div>
+            <div class="tourist-card">
+                <img src="/static/ao/images/S__214065163_0.jpg" alt="則岡醤油醸造元">
+                <h3>則岡醤油醸造元</h3>
+                <p>明治40年創業の醤油醸造元の直売店。昔ながらの本醸造醤油が看板商品。</p>
+            </div>
+            <div class="tourist-card">
+                <img src="/static/ao/images/S__214065164_0.jpg" alt="有田市みかん資料館">
+                <h3>有田市みかん資料館</h3>
+                <p>有田市文化福祉センターの4階にあり、400余年の歴史と伝統を誇るみかん産業の歴史と現状を紹介しています。</p>
+            </div>
+        </div>
+    </div>
+    
+
+        <a href="{% url 'home' %}" class="back-button">ホームに戻る</a>
+    </div>
+    <footer class="footer">
+        <div class="footer-copyright">
+            &copy; 2025 山荘アオ. All Rights Reserved.
+        </div>
+    </footer>
     <script>
-        function openGallery(images) {
-            const gallery = document.getElementById('galleryImages');
-            gallery.innerHTML = '';
-
-            images.forEach(img => {
-                const image = document.createElement('img');
-                image.src = img;
-                image.className = 'gallery-image';
-                gallery.appendChild(image);
-            });
-
-            document.getElementById('galleryModal').style.display = 'block';
-        }
-
-        function closeGallery() {
-            document.getElementById('galleryModal').style.display = 'none';
+        function confirmCall() {
+            window.location.href = "tel:08025219439";
         }
     </script>
 </body>
 </html>
+

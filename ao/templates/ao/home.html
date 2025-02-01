@@ -38,9 +38,12 @@
 
         .instagram-icon {
             position: absolute;
-            right: 10%;
+            right: 8%;
             top: 50%;
             transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .instagram-icon img {
@@ -51,7 +54,23 @@
         }
 
         .instagram-icon img:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
+        }
+
+        /* スマホ用レイアウト調整 */
+        @media (max-width: 600px) {
+            .word1 {
+                font-size: 40px; /* さらに小さく */
+            }
+
+            .instagram-icon {
+                right: 5%;
+            }
+
+            .instagram-icon img {
+                width: 25px; /* スマホではより小さく */
+                height: 25px;
+            }
         }
 
         .rectatop {
@@ -82,9 +101,6 @@
                 font-size: 16px;
             }
 
-            .instagram-icon {
-                right: 5%;
-            }
         }
 
         .slider-container {
@@ -158,6 +174,95 @@
         .box.now {
             background-color: #800000;
         }
+        .price-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fffaf0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .price-title {
+            font-size: 28px;
+            color: #800000;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #800000;
+            padding-bottom: 5px;
+        }
+
+        /* 料金表デザイン */
+        .price-table {
+            width: 100%;
+            margin: 10px 0;
+            border-collapse: collapse;
+        }
+
+        .price-table th, .price-table td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .price-table th {
+            background-color: #800000;
+            color: white;
+            font-weight: bold;
+        }
+
+        .price-table tr:nth-child(even) {
+            background-color: #f9f6f2;
+        }
+
+        .option-title {
+            font-size: 22px;
+            color: #692424;
+            margin-top: 20px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .price-label {
+            text-align: left;
+        }
+
+        .price-value {
+            text-align: right;
+            color: #333;
+        }
+
+        .note {
+            font-size: 16px;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        /* スマホ対応 */
+        @media (max-width: 600px) {
+            .price-title {
+                font-size: 24px;
+            }
+
+            .price-table th, .price-table td {
+                font-size: 16px;
+                padding: 8px;
+            }
+
+            .price-item {
+                font-size: 18px;
+            }
+        }
+
 
         .info-section {
             display: grid;
@@ -254,6 +359,47 @@
         <div class="box"></div>
         <div class="box"></div>
     </div>
+
+    <div class="price-container">
+        <h2 class="price-title">料金表</h2>
+    
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>人数</th>
+                    <th>一人当たり金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>3～5人</td>
+                    <td>5,500円/人（税込）</td>
+                </tr>
+                <tr>
+                    <td>6～15人</td>
+                    <td>5,000円/人（税込）</td>
+                </tr>
+                <tr>
+                    <td>16～25人</td>
+                    <td>4,500円/人（税込）</td>
+                </tr>
+                <tr>
+                    <td>26～50人</td>
+                    <td>4,000円/人（税込）</td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <h3 class="option-title">オプション</h3>
+        <div class="price-item">
+            <span class="price-label">焼肉セット(金網×2 トング×3 炭5kg)</span>
+            <span class="price-value">3,500円</span>
+        </div>
+    
+        <p class="note">その他、設備や常備品については上部の<strong>施設・ご用意品</strong>をご覧ください。</p>
+    </div>
+    
+    
         <!-- ボタンリンクセクション -->
     <div class="info-section">
         <a href="{% url 'faq' %}" class="info-button">よくある質問・お問い合わせ</a>
@@ -261,6 +407,7 @@
         <a href="{% url 'sightseeing' %}" class="info-button">おすすめ観光場所</a>
         <a href="{% url 'river_info' %}" class="info-button">初級・中級・上級 泳ぎ場所</a>
         <a href="{% url 'howtostay' %}" class="info-button">おすすめの過ごし方</a>
+        <a href="{% url 'buppan' %}" class="info-button">物販品</a>
     </div>
     <footer class="footer">
         <div class="footer-copyright">
@@ -284,11 +431,10 @@
         setInterval(() => moveSlide(1), 5000);
 
     function confirmCall() {
-        const userConfirmed = confirm("山荘粟生に発信しますか？");
-        if (userConfirmed) {
             window.location.href = "tel:08025219439";
-        }
     }
+
+    
     </script>
 </body>
 </html>

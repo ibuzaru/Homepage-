@@ -37,9 +37,12 @@
 
         .instagram-icon {
             position: absolute;
-            right: 10%;
+            right: 8%;
             top: 50%;
             transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .instagram-icon img {
@@ -50,7 +53,23 @@
         }
 
         .instagram-icon img:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
+        }
+
+        /* スマホ用レイアウト調整 */
+        @media (max-width: 600px) {
+            .word1 {
+                font-size: 40px; /* さらに小さく */
+            }
+
+            .instagram-icon {
+                right: 5%;
+            }
+
+            .instagram-icon img {
+                width: 25px; /* スマホではより小さく */
+                height: 25px;
+            }
         }
 
         .rectatop {
@@ -80,9 +99,7 @@
             .word2, .word3, .word4 {
                 font-size: 16px; /* スマホ向けに文字サイズを調整 */
             }
-            .instagram-icon {
-                right: 5%;
-            }
+
         }
         .container {
             max-width: 900px;
@@ -180,7 +197,34 @@
                 font-size: 12px; /* スマホではフォントを小さく */
             }
         }
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #800000;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .back-button:hover{
+            text-decoration: underline;
+        }
+        .footer {
+            background-color: #800000;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
 
+        @media (max-width: 600px) {
+            .footer {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -190,6 +234,7 @@
             <a href="https://www.instagram.com/sanso_ao" target="_blank">
                 <img src="/static/ao/images/instagram-icon.jpg" alt="Instagram">
             </a>
+            <img src="/static/ao/images/denwa.png" alt="telephone" onclick="confirmCall()">
         </div>
     </div>
 
@@ -215,7 +260,7 @@
 
         <div class="faq-item">
             <h3>Q3. 駐車場はありますか？</h3>
-            <div class="faq-answer">はい、無料の駐車場をご用意しております。</div>
+            <div class="faq-answer">はい、無料の駐車場(10台)をご用意しております。</div>
         </div>
         
         <div class="faq-item">
@@ -234,7 +279,6 @@
         </div>
 
 
-
         <h1>お問い合わせ</h1>
         <div class="word3">お急ぎの場合は以下の番号にお電話ください</div>
         <div class="word3">(受付時間:9:00~18:00):</div>
@@ -247,6 +291,7 @@
         <p style="color: green;">お問い合わせが送信されました。ありがとうございます。</p>
         {% endif %}
     </div>
+    <a href="{% url 'home' %}" class="back-button">ホームに戻る</a>
     <footer class="footer">
         <div class="footer-copyright">
             &copy; 2025 山荘アオ. All Rights Reserved.
@@ -259,6 +304,10 @@
                 answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
             });
         });
+    
+        function confirmCall() {
+            window.location.href = "tel:08025219439";
+    }
     </script>
 </body>
 </html>
