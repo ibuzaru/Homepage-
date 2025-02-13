@@ -112,18 +112,26 @@
         function calculateTotal() {
             const pricePerPerson = 5500; // 一人当たりの料金（税込）
             const people = parseInt(document.getElementById('people').innerText);
+            
+            // チェックイン・チェックアウト日を取得
+            const checkInDate = new Date("{{ data.check_in_date }}");
+            const checkOutDate = new Date("{{ data.check_out_date }}");
+            
+            // 宿泊日数を計算（1泊2日の場合は1日）
+            const timeDiff = checkOutDate - checkInDate;
+            const days = timeDiff / (1000 * 60 * 60 * 24); // ミリ秒 -> 日 に変換
     
             // 合計金額を計算
-            const totalAmount = people * pricePerPerson;
+            const totalAmount = people * pricePerPerson * days;
     
             // 合計金額を表示
             document.getElementById('totalAmount').innerText = `合計金額: ${totalAmount.toLocaleString()}円（税込）`;
-    
         }
     
         // ページ読み込み時に計算を実行
         window.onload = calculateTotal;
     </script>
+    
     
 </body>
 </html>

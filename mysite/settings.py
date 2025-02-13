@@ -49,7 +49,7 @@ ALLOWED_HOSTS = ['sanso-ao-glamping.herokuapp.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'ao',
-    'django.contrib.humanize',
+    'django.contrib.humanize',  # これを追加
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

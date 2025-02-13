@@ -94,51 +94,53 @@ import logging
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.template.defaultfilters import floatformat
+from datetime import datetime
 
-def send_confirmation_email(data):
+def send_confirmation_email(data_list):
     """
     ユーザーおよび管理者（ホスト）に予約確認メールを送信するヘルパー関数。
     
-    :param data: メールに必要なデータを含む辞書
+    :param data_list: 予約データのリスト（複数の予約が含まれる可能性あり）
     """
     subject = '予約内容のご確認'
     
-    # 管理者メールアドレスの取得（環境変数が未設定ならデフォルトを設定）
     admin_email = getattr(settings, 'ADMIN_EMAIL', 'sansoao6430366@gmail.com')
-    
-    # 送信先リスト（ユーザー＋管理者）
-    recipient_list = [data['email']]
+    recipient_list = list(set([entry['email'] for entry in data_list]))
     if admin_email:
-        recipient_list.append(admin_email)  # 管理者にも送信
+        recipient_list.append(admin_email)
+
+    price_per_person = 5500  # 1人あたりの料金（税込）
+
+    for entry in data_list:
+        # check_in_date, check_out_date を `datetime.date` に変換
+        check_in_date = datetime.strptime(entry['check_in_date'], "%Y-%m-%d").date()
+        check_out_date = datetime.strptime(entry['check_out_date'], "%Y-%m-%d").date()
+
+        people = int(entry['people'])  # 念のため整数に変換
+
+        # 宿泊日数を計算（最低1日）
+        days = max(1, (check_out_date - check_in_date).days)
+
+        # 合計金額を計算
+        entry['total_amount'] = people * price_per_person * days
 
     context = {
-        'check_in_date': data['check_in_date'],
-        'check_out_date': data['check_out_date'],
-        'name': data['name'],
-        'furigana': data['furigana'],
-        'people': data['people'],
-        'phone_number': data['phone_number'],
-        'total_amount': floatformat(data['total_amount'], 0),  # 合計金額のフォーマット
+        'reservations': data_list,
     }
 
-    # HTMLメールの本文
     message_html = render_to_string('ao/confirmation_email.html', context)
 
     try:
-        # EmailMessageを使用してHTMLメールを送信
         email_message = EmailMessage(
             subject=subject,
             body=message_html,
             from_email=settings.EMAIL_HOST_USER,
             to=recipient_list,
         )
-        email_message.content_subtype = 'html'  # HTMLとして送信
-        email_message.encoding = 'utf-8'  # UTF-8エンコーディングを指定
+        email_message.content_subtype = 'html'
+        email_message.encoding = 'utf-8'
         email_message.send()
-
     except Exception as e:
-        # エラーハンドリング: ログに記録
         logger = logging.getLogger(__name__)
         logger.error(f"メール送信中にエラーが発生しました: {e}")
         raise
@@ -153,46 +155,39 @@ def example_confirm(request):
             email = data['email']
             password = data['password']
 
-            # 同じ日に予約があるかチェック
             reservation_exists = ExampleModel.objects.filter(
                 check_in_date=data['check_in_date'],
                 check_out_date=data['check_out_date']
             ).exists()
 
             if reservation_exists:
-                # 既に予約がある場合はエラーメッセージを表示して reservation.html に移動
                 return render(request, 'ao/reserve_error.html', {
                     'error_message': '指定された日に既に予約があります。他の日付をお試しください。'
                 })
 
-            # ユーザーの新規作成または取得
             user_qs = User.objects.filter(email=email)
             if user_qs.exists():
                 user = user_qs.first()
             else:
                 user = User.objects.create_user(
-                    username=data['email'],
+                    username=email,
                     email=email,
                     password=password
                 )
 
-            # 合計金額を計算してデータに追加
-            try:
-                # 人数が正の整数であることを確認
-                people = int(data['people'])
-                if people < 1:
-                    raise ValueError("Invalid number of people")
-                # 合計金額を計算
-                data['total_amount'] = float(5500 * people)
-            except (ValueError, TypeError):
-                # エラー時は適切なレスポンスを返す
-                return render(request, 'ao/example.html', {
-                    'form': form,
-                    'errors': {'total_amount': '予約人数が不正です。'}
-                })
+            # データを辞書にまとめる
+            reservation_data = {
+                'check_in_date': data['check_in_date'],
+                'check_out_date': data['check_out_date'],
+                'name': data['name'],
+                'furigana': data['furigana'],
+                'people': data['people'],
+                'phone_number': data['phone_number'],
+                'email': email,  # ユーザーのメールアドレス
+            }
 
-            # メール送信関数を呼び出し
-            send_confirmation_email(data)
+            # メール送信
+            send_confirmation_email([reservation_data])
 
             # 予約情報を保存
             example_instance = form.save(commit=False)

@@ -103,11 +103,12 @@
             {% for reservation in reservations %}
                 <li>
                     <strong>予約ID:</strong> {{ reservation.id }}<br>
-                    <strong>チェックイン日(13:00~):</strong> {{ reservation.check_in_date }}<br>
-                    <strong>チェックアウト日(~10:00):</strong> {{ reservation.check_out_date }}<br>
-                    <strong>予約人数:</strong> {{ reservation.people }}<br>
+                    <strong>チェックイン日(13:00~):</strong> <span class="check-in">{{ reservation.check_in_date }}</span><br>
+                    <strong>チェックアウト日(~10:00):</strong> <span class="check-out">{{ reservation.check_out_date }}</span><br>
+                    <strong>予約人数:</strong> <span class="people">{{ reservation.people }}</span><br>
                     <strong>名前:</strong> {{ reservation.name }}<br>
                     <strong>フリガナ:</strong> {{ reservation.furigana }}<br>
+                    <strong class="total-amount">合計金額: <span class="amount"></span>円（税込）</strong>
                 </li>
             {% endfor %}
         </ul>
@@ -117,6 +118,36 @@
             <div class="word2">電話番号：</div>
         </div>
     </div>
+
+    <script>
+        function calculateTotal() {
+            const pricePerPerson = 5500; // 一人当たりの料金（税込）
+
+            // すべての予約リストを取得
+            const reservations = document.querySelectorAll("li");
+
+            reservations.forEach(reservation => {
+                const checkInDate = new Date(reservation.querySelector(".check-in").innerText);
+                const checkOutDate = new Date(reservation.querySelector(".check-out").innerText);
+                const people = parseInt(reservation.querySelector(".people").innerText);
+
+                // 宿泊日数を計算（1泊2日の場合は1日）
+                const timeDiff = checkOutDate - checkInDate;
+                const days = timeDiff / (1000 * 60 * 60 * 24);
+
+                // 合計金額を計算
+                const totalAmount = people * pricePerPerson * days;
+
+                // 合計金額を表示
+                reservation.querySelector(".amount").innerText = totalAmount.toLocaleString();
+            });
+        }
+
+        // ページ読み込み時に計算を実行
+        window.onload = calculateTotal;
+    </script>
 </body>
+
+
 </html>
 
