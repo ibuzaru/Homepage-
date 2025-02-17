@@ -3,162 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>店舗情報</title>
+    <title>山荘アオ</title>
     <style>
-
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f6f2;
+            font-family: Arial, sans-serif;
         }
-
-
-        a {
-            text-decoration: none;
-        }
-
-        .header {
+        header {
+            position: fixed;
+            width: 100vw;
+            top: 0;
+            background: white;
+            transition: top 0.3s;
+            z-index: 1000;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            padding: 10px 40px;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             position: relative;
-            margin-top: 20px;
         }
-
-        .word1 {
-            font-size: 60px;
+        .logo {
+            font-size: 24px;
             font-family: 'Playfair Display', serif;
-            color: #692424;
-            text-align: center;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            letter-spacing: 3px;
+            font-weight: bold;
+            flex-shrink: 0;
         }
-
-        .instagram-icon {
-            position: absolute;
-            right: 8%;
-            top: 50%;
-            transform: translateY(-50%);
+        .nav-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: flex-end;
+            flex-grow: 1;
         }
-
-        .instagram-icon img {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            margin-right: 50px;
         }
-
-        .instagram-icon img:hover {
-            transform: scale(1.1);
+        .nav-links a {
+            font-family: 'Playfair Display', serif;
+            text-decoration: none;
+            color: black;
+            font-size: medium;
+            font-weight: bold;
+            padding: 8px;
+            white-space: nowrap;
         }
-
-        /* スマホ用レイアウト調整 */
-        @media (max-width: 600px) {
-            .word1 {
-                font-size: 40px; /* さらに小さく */
-            }
-
-            .instagram-icon {
-                right: 5%;
-            }
-
-            .instagram-icon img {
-                width: 25px; /* スマホではより小さく */
-                height: 25px;
-            }
+        .nav-links a:hover {
+            color: #800000;
         }
-        @media (max-width: 600px) {
-            .word2, .word3, .word4 {
-                font-size: 16px;
-            }
-
-            
+        .now-position{
+            color: #800000;
         }
-        .rectatop {
-        margin-top: 20px;
-        width: 100%;
-        height: 50px;
-        background-color: #800000;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        .reservation-container {
+            display: flex;
+            justify-content: flex-end;
+            transform: translateX(-5%);
+            margin-top: 10px;
         }
-
-        .word2, .word3, .word4{
-        font-size: 20px;
-        color: white;
-        }
-
-        .word2:hover, .word3:hover, .word4:hover{
-            text-decoration: underline;
-        }
-
-        .back-button {
-            display: block;
-            width: 150px;
-            margin: 20px auto;
-            padding: 10px;
-            text-align: center;
-            background-color: #800000;
-            color: #fff;
+        .reservation-button {
+            padding: 8px 15px;
+            background: #800000;
+            color: white;
+            text-decoration: none;
             border-radius: 5px;
         }
-        .back-button:hover{
-            text-decoration: underline;
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            width: 50%;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1001;
         }
-        .footer {
-            background-color: #800000;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-            margin-top: 40px;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            font-size: 14px;
+        .mobile-menu a {
+            text-decoration: none;
+            color: black;
+            font-family: 'Playfair Display', serif;
+            font-size: small;
+            font-weight: bold;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-toggle {
+            display: none; /* デフォルトでは非表示 */
+            position: absolute;
+            right: 20px;
+            top: 10px; /* ヘッダー内の上部に配置 */
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002; /* 他の要素より前面に */
+            transition: transform 0.3s;
         }
 
-        @media (max-width: 600px) {
-            .footer {
-                font-size: 12px;
-            }
-        }
+    @media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    .reservation-container {
+        position: fixed;
+        bottom: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+    }
+    .reservation-button {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        font-size: large;
+        text-align: center;
+    }
+    .reservation-button:hover {
+            color: #ca3d3d;
+    }
+    .menu-toggle.active {
+    transform: rotate(90deg);
+    }
+}
+
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="word1">山荘アオ</div>
-        <div class="instagram-icon">
-            <a href="https://www.instagram.com/sanso_ao" target="_blank">
-                <img src="/static/ao/images/instagram-icon.jpg" alt="Instagram">
-            </a>
-            <img src="/static/ao/images/denwa.png" alt="telephone" onclick="confirmCall()">
+    <header id="header">
+        <div class="header-top">
+            <div class="logo">山荘アオ</div>
+            <div class="nav-container">
+                <nav class="nav-links">
+                    <a href="{% url 'home' %}">ホーム</a>
+                    <a href="{% url 'rooms' %}">施設・ご用意品</a>
+                    <a href="{% url 'howtostay' %}" ><div class="now-position">ご利用ガイド</div></a>
+                    <a href="{% url 'sightseeing' %}">周辺情報</a>
+                    <a href="{% url 'supermarket' %}">アクセス</a>
+                    <a href="{% url 'login' %}">予約確認</a>
+                    <a href="{% url 'faq' %}" >お問い合わせ</a>
+                </nav>
+                
+            </div>
         </div>
-    </div>
-
-    <div class="rectatop">
-        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
-        <a href="{% url 'resa' %}"><div class="word3">予約</div></a>
-        <a href="{% url 'rooms' %}"><div class="word3">施設・ご用意品</div></a>
-        <a href="{% url 'login' %}"><div class="word3">予約確認</div></a>
-    </div>
-
-
-
-        <a href="{% url 'home' %}" class="back-button">ホームに戻る</a>
-    </div>
-    <footer class="footer">
-        <div class="footer-copyright">
-            &copy; 2025 山荘アオ. All Rights Reserved.
+        <div class="reservation-container">
+            <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
         </div>
-    </footer>
+    </header>
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="{% url 'home' %}">ホーム</a>
+        <a href="{% url 'rooms' %}">施設・ご用意品</a>
+        <a href="{% url 'howtostay' %}">ご利用ガイド</a>
+        <a href="{% url 'sightseeing' %}">周辺情報</a>
+        <a href="{% url 'supermarket' %}">アクセス</a>
+        <a href="{% url 'login' %}">予約確認</a>
+        <a href="{% url 'faq' %}" >お問い合わせ</a>
+    </nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <script>
-        function confirmCall() {
-            window.location.href = "tel:08025219439";
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScroll > lastScrollTop) {
+                document.getElementById("header").style.top = "-60px";
+            } else {
+                document.getElementById("header").style.top = "0";
+            }
+            lastScrollTop = currentScroll;
+        });
+        
+        function toggleMenu() {
+            let menu = document.getElementById("mobileMenu");
+            let toggleButton = document.querySelector(".menu-toggle");
+
+            if (menu.style.display === "none" || menu.style.display === "") {
+                menu.style.display = "flex";
+                toggleButton.innerHTML = "✖"; // バツ印に変更
+                toggleButton.classList.add("active");
+            } else {
+                menu.style.display = "none";
+                toggleButton.innerHTML = "☰"; // ハンバーガーメニューに戻す
+                toggleButton.classList.remove("active");
+            }
         }
+
     </script>
 </body>
 </html>
-
