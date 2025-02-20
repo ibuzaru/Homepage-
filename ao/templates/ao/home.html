@@ -376,6 +376,296 @@
 
 
 
+/* コンテナのデザイン */
+.point-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    padding: 40px 10px;
+    gap: 10px;
+}
+
+/* 各セクションのデザイン */
+.point-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 32%;
+    height: 60vh;
+    overflow: hidden;
+    padding: 10px;
+}
+
+
+/* 説明ボックス */
+.point-box {
+    width: 80%;
+    background-color: #ce9292;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    justify-self: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Noto Serif JP', serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+.point {
+    text-align: center;
+    width: 100%;
+    color:#800000;
+    font-size: 23px;
+    transform: translateY(30px);
+    z-index: 2;
+}
+
+.point02 {
+    text-align: center;
+    width: 100%;
+    color:#800000;
+    font-size: 23px;
+    transform: translateY(30px);
+    z-index: 2;
+}
+
+.point-box p {
+    padding: 8px 0;
+    margin: 0;
+    width: 100%;
+}
+
+/* 横棒のデザイン */
+.point-box p:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    margin: 5px auto;
+}
+
+/* 画像 */
+.point-img {
+    width: 100%;
+    height: 90%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.point-img02 {
+    width: 100%;
+    height: 90%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+@media (max-width: 900px) {
+    .point-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .point-section {
+        display: flex;
+        flex-direction: row; /* 基本は横並び */
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    /* 2番目のポイントのみ、左右反転 */
+    .point-section:nth-child(2) {
+        flex-direction: row-reverse;
+    }
+
+    .point {
+        width: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        color: #800000;
+        transform: translateX(40px) translateY(-50%);
+    }
+    .point02{
+        width: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        color: #800000;
+        transform: translateX(-40px) translateY(-50%);
+    }
+    .point-box {
+        background-color: #af6c6c;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .point-box p {
+        margin: 5px 0;
+        position: relative;
+    }
+
+    .point-box p:not(:last-child)::after {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 2px;
+        background-color: white;
+        margin: 5px auto;
+    }
+
+    .point-img {
+        width: 70%;
+        border-radius: 10px;
+    }
+
+    .point-img02 {
+        width: 70%;
+        border-radius: 10px;
+    }
+}
+
+
+
+
+
+
+.detail-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.detail-button {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #af6c6c;
+    border: 1px solid #af6c6c;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.detail-button:hover {
+    background-color: #af6c6c;
+    color: white;
+}
+
+
+
+
+
+.sightseeing-section {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70vh;
+    position: relative;
+}
+
+
+.sightseeing-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.sightseeing-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+}
+.sightseeing-comment1 {
+    font-size: 40px;
+    transform: translateX(10%);
+    margin-bottom: 10px;
+}
+.sightseeing-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    margin: auto;
+}
+.sightseeing-content {
+    width: 80%;
+    overflow: hidden;
+    position: relative;
+}
+.sightseeing-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 200%; /* 6枚分のスライダー */
+}
+.sightseeing-slider img {
+    width: calc(100% / 3);
+    flex-shrink: 0;
+}
+button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#prevBtn { left: 0; }
+#nextBtn { right: 0; }
+
+@media (max-width: 768px) {
+    .sightseeing-content {
+        width: 100%;
+        overflow-x: scroll;
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
+    }
+    .sightseeing-slider {
+        display: inline-flex;
+        width: auto;
+    }
+    .sightseeing-slider img {
+        width: 100%;
+        scroll-snap-align: start;
+    }
+    button {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 footer {
@@ -558,11 +848,76 @@ footer {
         </div>
         <div class="center-right-wrapper">
             <img src="/static/ao/images/S__214065162_0.jpg" alt="画像2" class="center-right">
-            <p class="text-left">川遊びに最適な環境と自由にできる</br>空間で楽しく過ごしてみませんか？</p>
+            <p class="text-left">川遊びに最適な環境と自由な空間</br>で楽しく過ごしてみませんか？</p>
+        </div>
+    </div>
+    
+
+
+
+
+    <div class="point-container">
+        <div class="point-section">
+            <div class="point">point01
+                <div class="point-box">
+                    <p>美しい清流</p>
+                    <p>夏には川遊び</p>
+                </div>
+            </div>
+            <img src="/static/ao/images/S__214065162_0.jpg" alt="画像1" class="point-img">
+        </div>
+    
+        <div class="point-section">
+            <div class="point02">point02
+                <div class="point-box">
+                    <p>最大50名宿泊可能</p>
+                    <p>合宿や同期と</p>
+                </div>
+            </div>
+            <img src="/static/ao/images/S__214065170_0.jpg" alt="画像2" class="point-img02">
+        </div>
+    
+        <div class="point-section">
+            <div class="point">point03
+                <div class="point-box">
+                    <p>1日1組限定</p>
+                    <p>特別な時間を</p>
+                </div>
+            </div>
+            <img src="/static/ao/images/S__214065163_0.jpg" alt="画像3" class="point-img">
         </div>
     </div>
     
     
+    <div class="detail-box">
+        <a href="{% url 'rooms' %}" class="detail-button">詳しく見る（施設・ご用意品）</a>
+    </div>
+    
+
+
+    <div class="sightseeing-section">
+        <div class="sightseeing-title">Sightseeing</div>
+        <div class="sightseeing-comment1">周辺情報</div>
+        <div class="sightseeing-container">
+            <button id="prevBtn">&#10094;</button>
+            <div class="sightseeing-content">
+                <div class="sightseeing-slider">
+                    <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
+                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+                    <img src="/static/ao/images/S__214065159_0.jpg" alt="画像3">
+                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像4">
+                    <img src="/static/ao/images/S__214065159_0.jpg" alt="画像5">
+                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像6">
+                </div>
+            </div>
+            <button id="nextBtn">&#10095;</button>
+        </div>
+    </div>
+
+    <div class="detail-box">
+        <a href="{% url 'rooms' %}" class="detail-button">詳しく見る（施設・ご用意品）</a>
+    </div>
+
 
     <footer>
         <div class="footer-container">
@@ -623,6 +978,21 @@ footer {
                 toggleButton.classList.remove("active");
             }
         }
+
+        let index = 0;
+        const slider = document.querySelector('.sightseeing-slider');
+        const totalImages = document.querySelectorAll('.sightseeing-slider img').length;
+        const visibleImages = 3;
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            index = (index + 1) % (totalImages - visibleImages + 1);
+            slider.style.transform = `translateX(-${index * 33.33}%)`;
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            index = (index - 1 + (totalImages - visibleImages + 1)) % (totalImages - visibleImages + 1);
+            slider.style.transform = `translateX(-${index * 33.33}%)`;
+        });
 
     </script>
 </body>

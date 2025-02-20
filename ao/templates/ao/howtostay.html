@@ -98,7 +98,7 @@
         text-decoration: none;
         color: black;
         font-family: 'Playfair Display', serif;
-        font-size: small;
+        font-size: medium;
         font-weight: bold;
         padding: 10px;
         border-bottom: 1px solid #ddd;
@@ -107,8 +107,8 @@
         display: none; /* デフォルトでは非表示 */
         position: absolute;
         right: 20px;
-        top: 10px; /* ヘッダー内の上部に配置 */
-        font-size: 24px;
+        top: 20px; /* ヘッダー内の上部に配置 */
+        font-size: 30px;
         cursor: pointer;
         z-index: 1002; /* 他の要素より前面に */
         transition: transform 0.3s;
@@ -119,7 +119,8 @@
         display: none;
     }
     .menu-toggle {
-        display: block;
+        display: flex;
+        gap: 15px;
     }
     .reservation-container {
         position: fixed;
@@ -130,6 +131,7 @@
         text-align: center;
     }
     .reservation-button {
+        transform: translateX(0%);
         display: inline-block;
         width: 100%;
         padding: 12px;
@@ -391,7 +393,7 @@ footer {
     <nav class="mobile-menu" id="mobileMenu">
         <a href="{% url 'home' %}">ホーム</a>
         <a href="{% url 'rooms' %}">施設・ご用意品</a>
-        <a href="{% url 'howtostay' %}">ご利用ガイド</a>
+        <a href="{% url 'howtostay' %}"><div class="now-position">ご利用ガイド</div></a>
         <a href="{% url 'sightseeing' %}">周辺情報</a>
         <a href="{% url 'supermarket' %}">アクセス</a>
         <a href="{% url 'login' %}">予約確認</a>
@@ -476,7 +478,7 @@ footer {
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             if (currentScroll > lastScrollTop) {
-                document.getElementById("header").style.top = "-60px";
+                document.getElementById("header").style.top = "-120px";
             } else {
                 document.getElementById("header").style.top = "0";
             }

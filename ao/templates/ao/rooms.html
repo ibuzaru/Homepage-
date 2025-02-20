@@ -10,6 +10,7 @@
     
     body {
     padding-top: 120px; /* ヘッダーの高さ分余白を設ける */
+    font-family: 'Playfair Display', serif;
     }
     header {
         position: fixed;
@@ -35,7 +36,6 @@
         height: 60px;
     }
     .name{
-        font-family: Arial, sans-serif;
         font-size: 20px;
         font-weight: bold;
         margin-left: 5px;
@@ -52,7 +52,6 @@
         margin-right: 50px;
     }
     .nav-links a {
-        font-family: 'Playfair Display', serif;
         text-decoration: none;
         color: black;
         font-size: medium;
@@ -100,31 +99,29 @@
         text-decoration: none;
         color: black;
         font-family: 'Playfair Display', serif;
-        font-size: small;
+        font-size: medium;
         font-weight: bold;
         padding: 10px;
         border-bottom: 1px solid #ddd;
     }
     .menu-toggle {
         display: none; /* デフォルトでは非表示 */
-        position: absolute;
-        right: 20px;
-        top: 10px; /* ヘッダー内の上部に配置 */
-        font-size: 24px;
+        right: 0px;
+        top: 20px; /* ヘッダー内の上部に配置 */
+        font-size: 30px;
         cursor: pointer;
         z-index: 1002; /* 他の要素より前面に */
         transition: transform 0.3s;
     }
 
     @media (max-width: 900px) {
-        body {
-    padding-top: 80px; /* ヘッダーの高さ分余白を設ける */
-    }
     .nav-links {
         display: none;
     }
     .menu-toggle {
-        display: block;
+        display: flex;
+        gap: 15px;
+        margin-right: 50px;
     }
     .reservation-container {
         position: fixed;
@@ -135,12 +132,12 @@
         text-align: center;
     }
     .reservation-button {
+        transform: translateX(0px);
         display: inline-block;
         width: 100%;
         padding: 12px;
         font-size: large;
         text-align: center;
-        transform: translateX(0px);
     }
     .reservation-button:hover {
         color: #ca3d3d;
@@ -442,38 +439,38 @@
 
     </style>
 </head>
-    <header id="header">
-        <div class="header-top">
-            <img src="/static/ao/images/sansoaologo.webp" alt="logo" class="logo">
-            <div class="name">山荘アオ</div>
-            <div class="nav-container">
-                <nav class="nav-links">
-                    <a href="{% url 'home' %}">ホーム</a>
-                    <a href="{% url 'rooms' %}"><div class="now-position">施設・ご用意品</div></a>
-                    <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
-                    <a href="{% url 'sightseeing' %}">周辺情報</a>
-                    <a href="{% url 'supermarket' %}">アクセス</a>
-                    <a href="{% url 'login' %}">予約確認</a>
-                    <a href="{% url 'faq' %}" >お問い合わせ</a>
-                </nav>
-                
-            </div>
+<header id="header">
+    <div class="header-top">
+        <img src="/static/ao/images/sansoaologo.webp" alt="logo" class="logo">
+        <div class="name">山荘アオ</div>
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">ホーム</a>
+                <a href="{% url 'rooms' %}"><div class="now-position">施設・ご用意品</div></a>
+                <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
+                <a href="{% url 'sightseeing' %}">周辺情報</a>
+                <a href="{% url 'supermarket' %}">アクセス</a>
+                <a href="{% url 'login' %}">予約確認</a>
+                <a href="{% url 'faq' %}" >お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         </div>
-        <div class="reservation-container">
-            <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
-        </div>
-    </header>
+    </div>
+    <div class="reservation-container">
+        <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
+    </div>
 
     <nav class="mobile-menu" id="mobileMenu">
         <a href="{% url 'home' %}">ホーム</a>
-        <a href="{% url 'rooms' %}">施設・ご用意品</a>
+        <a href="{% url 'rooms' %}"><div class="now-position">施設・ご用意品</div></a>
         <a href="{% url 'howtostay' %}">ご利用ガイド</a>
         <a href="{% url 'sightseeing' %}">周辺情報</a>
         <a href="{% url 'supermarket' %}">アクセス</a>
         <a href="{% url 'login' %}">予約確認</a>
         <a href="{% url 'faq' %}" >お問い合わせ</a>
     </nav>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+</header>
 
 
 
