@@ -149,172 +149,234 @@
 
 
 
+    .room-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* 高さを自動調整に変更 */
+    position: relative;
+    margin-bottom: 50px; /* 下部に余白を追加 */
+}
+
+.room-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 40px;
+    top: 20px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.room-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+
+.room-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+
+.room-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
+}
+
+.whole-map {
+    width: 90%;
+    height: 60vh;
+}
+
+/* 説明欄とチェックイン・チェックアウト・宿泊人数のスタイル */
+.room-details {
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* 背景色 */
+    border-radius: 10px; /* 角を丸くする */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+
+.room-description {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.room-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* 項目間の間隔 */
+}
+
+.info-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff; /* 背景色 */
+    border-radius: 8px; /* 角を丸くする */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+
+.info-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    display: block;
+    font-size: 18px;
+    color: #af6c6c; /* メインカラーに合わせる */
+    font-weight: bold;
+}
+
+
+
+
+/* Galleryセクションのスタイル */
+.gallery-section {
+    width: 90%;
+    margin: 50px auto; /* 上部と下部に余白を追加 */
+    padding: 20px;
+    background-color: #f9f9f9; /* 背景色 */
+    border-radius: 10px; /* 角を丸くする */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+
+.gallery-title {
+    font-size: 24px;
+    color: #af6c6c;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
 
 
 
 
 
-
-        .word2 {
-            background-color: #a55959;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            font-size: large;
-            font-weight: bold;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 30px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 15px;
-        }
-
-        .card-content h3 {
-            margin-top: 0;
-            color: #800000;
-        }
-
-        .card-content p {
-            color: #555;
-            line-height: 1.6;
-        }
+    
+.amenity-section {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    position: relative;
+}
 
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            overflow: auto;
-            padding-top: 50px;
-        }
+.amenity-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    top: 50px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
 
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 1000px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .back-button {
-            background-color: #973131;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-        .back-button:hover {
-            background-color: #692424;
-        }
-
-        .gallery-image {
-            width: 45%;
-            max-width: 800px;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            margin: 15px 15px auto;
-            display: inline;
-        }
-
-        @media (max-width: 600px) {
-            .gallery-image {
-                width: 80%;
-                display: inline-block;
-                margin: 15px;
-            }
-        }
-        
-        .back-button {
-            display: block;
-            width: 150px;
-            margin: 20px auto;
-            padding: 10px;
-            text-align: center;
-            background-color: #800000;
-            color: #fff;
-            border-radius: 5px;
-        }
-        .back-button:hover{
-            text-decoration: underline;
-        }
- 
+.amenity-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+.amenity-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+.amenity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+}
 
 
 
-        .product-section {
-            width: 80%;
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #fffaf0;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
 
-        .product-section h2 {
-            font-size: 24px;
-            color: #800000;
-            border-bottom: 2px solid #800000;
-            padding-bottom: 5px;
-            margin-top: 20px;
-        }
-
-        .product-section h3 {
-            font-size: 20px;
-            color: #692424;
-            margin-top: 15px;
-        }
-
-        .product-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .product-section li {
-            font-size: 18px;
-            padding: 5px 0;
-            border-bottom: 1px dotted #ccc;
-        }
+  
+.plus-section {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    position: relative;
+}
 
 
+.plus-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 40px;
+    top: 20px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.plus-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+.plus-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+.plus-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+}
 
 
  footer {
@@ -474,165 +536,65 @@
 
 
 
+<div class="room-section">
+    <div class="room-title">Room</div>
+    <div class="room-comment1">施設のご案内</div>
+    <div class="room-container">全体マップ
+        <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1" class="whole-map">
+    </div>
 
-
-
-
-    <div class="word2">施設</div>
-
-    <div class="container">
-        <!-- 八角館 -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065161_0.jpg', '/static/ao/images/S__214065159_0.jpg', '/static/ao/images/S__214065160_0.jpg'])">
-            <img src="/static/ao/images/S__214065162_0.jpg" alt="八角館">
-            <div class="card-content">
-                <h3>八角館</h3>
-                <p>和風様式の八角館は、囲炉裏鍋をお楽しみいただけます。</p>
-            </div>
+    <!-- 説明欄とチェックイン・チェックアウト・宿泊人数のセクション -->
+    <div class="room-details">
+        <div class="room-description">
+            <p>山荘アオは、4棟の建物とお風呂からなり、1日1組限定の貸し切りです。<br>ご宿泊人数は最大50名様まで、お部屋分けは男女の人数を考慮しこちらで決めさせていただきます。</p>
         </div>
-
-        <!-- 清涼館 -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065163_0.jpg" alt="清涼館">
-            <div class="card-content">
-                <h3>清涼館</h3>
-                <p>冷暖房設備の宿泊部屋です。</p>
+        <div class="room-info">
+            <div class="info-item">
+                <span class="info-label">チェックイン</span>
+                <span class="info-value">13:00〜16:00</span>
             </div>
-        </div>
-
-        <!-- 体験館 -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065164_0.jpg" alt="体験館">
-            <div class="card-content">
-                <h3>体験館</h3>
-                <p>卓球台や麻雀卓、トランプ、switchを完備しております。</p>
+            <div class="info-item">
+                <span class="info-label">チェックアウト</span>
+                <span class="info-value">〜10:00</span>
             </div>
-        </div>
-
-        <!-- お風呂 -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065165_0.jpg" alt="お風呂">
-            <div class="card-content">
-                <h3>お風呂</h3>
-                <p>心も身体も温まるお風呂で、ゆっくりと贅沢なひとときをお過ごしください。</p>
+            <div class="info-item">
+                <span class="info-label">宿泊可能人数</span>
+                <span class="info-value">最大50名</span>
             </div>
         </div>
     </div>
 
-    <div class="word2">ご用意品</div>
-
-    <div class="container">
-        <!-- 焼肉セット -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065167_0.jpg" alt="お料理セット">
-            <div class="card-content">
-                <h3>焼肉セット<br>約5人分(3500円)</br></h3>
-                <p>金網×2 トング×3 炭5kg</p> 
-            </div>
-        </div>
-        <!-- お風呂セット -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065166_0.jpg" alt="お風呂セット">
-            <div class="card-content">
-                <h3>お風呂セット(無料)</h3>
-                <p> 大・小タオル/歯ブラシ<br>各人数分</br></p>
-                <p> シャンプー/リンス/ボディーソープ<br>各2個</br></p>
-            </div>
-        </div>
-
-        <!-- 調理セット -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065167_0.jpg" alt="お料理セット">
-            <div class="card-content">
-                <h3>調理セット(無料)</h3>
-                <p>包丁×2 ピーラー×2 <br>フライパン×1 鍋×1</br>まな板×2 しゃもじ ×1<br>  油×1 お玉×1</br>菜箸×2 キッチンペーパー×2 </p> 
-            </div>
-        </div>
-
-
-        <!--　お食事セット  -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065168_0.jpg" alt="貸出物">
-            <div class="card-content">
-                <h3>お食事セット(無料)<br>約15人分</br></h3>
-                <p>紙皿(深)×50 紙皿(浅)×50 箸×50 紙コップ×100<br>大皿、スプーンなどは常設</p>
-                <p>15人以上毎にセットをご用意いたします。</p>
-                </div>
-        </div>
-        
-        <!--　貸出物  -->
-        <div class="card" onclick="openGallery(['/static/ao/images/S__214065162_0.jpg', '/static/ao/images/S__214065163_0.jpg', '/static/ao/images/S__214065164_0.jpg'])">
-            <img src="/static/ao/images/S__214065168_0.jpg" alt="貸出物">
-            <div class="card-content">
-                <h3>貸出物</h3>
-                <p>アユ釣り道具、自転車、浮き輪など</p>
-            </div>
+    <!-- Galleryセクション -->
+    <div class="gallery-section">
+        <div class="gallery-title">Gallery</div>
+        <div class="gallery-grid">
+            <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+            <img src="/static/ao/images/S__214065160_0.jpg" alt="画像3">
+            <img src="/static/ao/images/S__214065161_0.jpg" alt="画像4">
+            <img src="/static/ao/images/S__214065162_0.jpg" alt="画像5">
+            <img src="/static/ao/images/S__214065163_0.jpg" alt="画像6">
         </div>
     </div>
+</div>
 
-    <div class="word2">物販品</div>
-    <div class="product-section">
-        <h2>お酒類</h2>
-        
-        <h3>ビール</h3>
-        <ul>
-            <li>金麦 - 250円</li>
-            <li>サッポロ黒ラベル - 300円</li>
-        </ul>
-    
-        <h3>日本酒</h3>
-        <ul>
-            <li>未定</li>
-        </ul>
-    
-        <h3>梅酒</h3>
-        <ul>
-            <li>CHOYA 700ml - 1000円</li>
-            <li>まっこい 1L - 1000円</li>
-        </ul>
-    
-        <h3>カクテル</h3>
-        <ul>
-            <li>贅沢絞り - 250円</li>
-            <li>ほろ酔い - 250円</li>
-        </ul>
-    
-        <h2>ソフトドリンク</h2>
-        <ul>
-            <li>お水- 120円</li>
-            <li>お茶 - 160円</li>
-            <li>コカ・コーラ - 160円</li>
-            <li>CCレモン - 160円</li>
-        </ul>
-    
-        <h2>お菓子類</h2>
-        <ul>
-            <li>ポテトチップス - 200円</li>
-            <li>じゃがりこ - 200円</li>
-        </ul>
-    
-        <h2>カップ麺類</h2>
-        <ul>
-            <li>カップヌードル - 250円</li>
-            <li>どん兵衛 - 250円</li>
-            <li>カップ焼きそば - 250円</li>
-        </ul>
-    
-        <h2>アメニティ類</h2>
-        <ul>
-            <li>クレンジング</li>
-            <li>櫛</li>
-            <li>ヘアゴム</li>
-        </ul>
+
+<div class="amenity-section">
+    <div class="amenity-title">Amenitiy</div>
+    <div class="amenity-comment1">ご用意品</div>
+    <div class="amenity-container">
+ 
     </div>
+</div>
 
-    <div id="galleryModal" class="modal">
-        <div class="modal-content">
-            <div id="galleryImages"></div>
-            <button class="back-button" onclick="closeGallery()">元の画面に戻る</button>
-        </div>
+
+
+<div class="plus-section">
+    <div class="plus-title">Plus</div>
+    <div class="plus-comment1">有料オプション</div>
+    <div class="plus-container">
+ 
     </div>
-    
-
+</div>
 
 
 

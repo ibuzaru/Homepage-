@@ -243,6 +243,90 @@
 
 
 
+        .news-section {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    position: relative;
+}
+
+
+.news-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 40px;
+    top: 20px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.news-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+.news-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+.news-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+}
+        .product-section {
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fffaf0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-section h2 {
+            font-size: 24px;
+            color: #800000;
+            border-bottom: 2px solid #800000;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+
+        .product-section h3 {
+            font-size: 20px;
+            color: #692424;
+            margin-top: 15px;
+        }
+
+        .product-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-section li {
+            font-size: 18px;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+
+
 
 
 footer {
@@ -401,6 +485,7 @@ footer {
     </nav>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
+    
     <div class="price-container">
         <h2 class="price-title">料金表</h2>
     
@@ -440,6 +525,72 @@ footer {
         <p class="note">その他、設備や常備品については上部の<strong>施設・ご用意品</strong>をご覧ください。</p>
     </div>
 
+
+
+    <div class="news-section">
+        <div class="news-title">Amenitiy</div>
+        <div class="news-comment1">物販品</div>
+        <div class="news-container">
+            <div class="product-section">
+                <h2>お酒類</h2>
+                
+                <h3>ビール</h3>
+                <ul>
+                    <li>金麦 - 250円</li>
+                    <li>サッポロ黒ラベル - 300円</li>
+                </ul>
+            
+                <h3>日本酒</h3>
+                <ul>
+                    <li>未定</li>
+                </ul>
+            
+                <h3>梅酒</h3>
+                <ul>
+                    <li>CHOYA 700ml - 1000円</li>
+                    <li>まっこい 1L - 1000円</li>
+                </ul>
+            
+                <h3>カクテル</h3>
+                <ul>
+                    <li>贅沢絞り - 250円</li>
+                    <li>ほろ酔い - 250円</li>
+                </ul>
+            
+                <h2>ソフトドリンク</h2>
+                <ul>
+                    <li>お水- 120円</li>
+                    <li>お茶 - 160円</li>
+                    <li>コカ・コーラ - 160円</li>
+                    <li>CCレモン - 160円</li>
+                </ul>
+            
+                <h2>お菓子類</h2>
+                <ul>
+                    <li>ポテトチップス - 200円</li>
+                    <li>じゃがりこ - 200円</li>
+                </ul>
+            
+                <h2>カップ麺類</h2>
+                <ul>
+                    <li>カップヌードル - 250円</li>
+                    <li>どん兵衛 - 250円</li>
+                    <li>カップ焼きそば - 250円</li>
+                </ul>
+            
+                <h2>アメニティ類</h2>
+                <ul>
+                    <li>クレンジング</li>
+                    <li>櫛</li>
+                    <li>ヘアゴム</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  
+
+
+    
     <footer>
         <div class="footer-container">
             <div class="footer-section footer-left">
