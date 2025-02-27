@@ -1,106 +1,167 @@
-<!DOCTYPE html>
+
+
+    <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>施設・ご用意品</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山荘アオ</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f6f2;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .header {
+    
+    body {
+    padding-top: 120px; /* ヘッダーの高さ分余白を設ける */
+    font-family: 'Playfair Display', serif;
+    }
+    header {
+        position: fixed;
+        width: 100vw;
+        top: 0;
+        background: white;
+        transition: top 0.3s;
+        z-index: 1000;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        padding: 10px 40px;
+        
+    }
+    .header-top {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         position: relative;
-        margin-top: 20px;
+        transform: translateX(-20px);
     }
-
-    .word1 {
-        font-size: 60px;
-        font-family: 'Playfair Display', serif;
-        color: #692424;
-        text-align: center;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        letter-spacing: 3px;
+    .logo {
+        width: 60px;
+        height: 60px;
     }
-
-    .instagram-icon {
-            position: absolute;
-            right: 8%;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .instagram-icon img {
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .instagram-icon img:hover {
-            transform: scale(1.1);
-        }
-
-        /* スマホ用レイアウト調整 */
-        @media (max-width: 600px) {
-            .word1 {
-                font-size: 40px; /* さらに小さく */
-            }
-
-            .instagram-icon {
-                right: 5%;
-            }
-
-            .instagram-icon img {
-                width: 25px; /* スマホではより小さく */
-                height: 25px;
-            }
-        }
-
-
-        .rectatop {
-        margin-top: 20px;
-        width: 100%;
-        height: 50px;
-        background-color: #800000;
+    .name{
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: 5px;
+    }
+    .nav-container {
         display: flex;
         align-items: center;
-        justify-content: space-evenly;
-        margin-bottom: 10px;
-        }
-
-        .word2, .word3, .word4{
-        font-size: 20px;
+        justify-content: flex-end;
+        flex-grow: 1;
+    }
+    .nav-links {
+        display: flex;
+        gap: 15px;
+        margin-right: 50px;
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: black;
+        font-size: medium;
+        font-weight: bold;
+        padding: 8px;
+        white-space: nowrap;
+    }
+    .nav-links a:hover {
+        color: #800000;
+    }
+    .now-position{
+        color: #61c4eb;
+    }
+    .reservation-container {
+        display: flex;
+        justify-content: flex-end;
+        transform: translateX(-5%);
+        margin-top: 10px;
+    }
+    .reservation-button {
+        padding: 8px 15px;
+        background: #800000;
         color: white;
-        }
+        text-decoration: none;
+        border-radius: 5px;
+        transform: translateX(-20px);
+    }
+    .reservation-button:hover {
+        color: #800000;
+    }
 
-        .word2:hover, .word3:hover, .word4:hover{
-            text-decoration: underline;
-        }
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        left: 50%;
+        width: 50%;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        z-index: 1001;
+    }
+    .mobile-menu a {
+        text-decoration: none;
+        color: black;
+        font-family: 'Playfair Display', serif;
+        font-size: medium;
+        font-weight: bold;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .menu-toggle {
+        display: none; /* デフォルトでは非表示 */
+        right: 0px;
+        top: 20px; /* ヘッダー内の上部に配置 */
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 1002; /* 他の要素より前面に */
+        transition: transform 0.3s;
+    }
 
-        .rectatop a:hover {
-            background-color: #a83232;
-        }
+    @media (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+    .menu-toggle {
+        display: flex;
+        gap: 15px;
+        margin-right: 50px;
+    }
+    .reservation-container {
+        position: fixed;
+        bottom: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+    }
+    .reservation-button {
+        transform: translateX(0px);
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        font-size: large;
+        text-align: center;
+    }
+    .reservation-button:hover {
+        color: #ca3d3d;
+    }
+    .menu-toggle.active {
+        transform: rotate(90deg);
+    }
+    }
 
-        header {
-            background-color: #973131;
+
+
+
+
+
+
+
+
+        .word2 {
+            background-color: #a55959;
             color: #fff;
             text-align: center;
-            padding: 5px 0;
+            padding: 20px 0;
+            font-size: large;
+            font-weight: bold;
         }
 
         .container {
@@ -200,26 +261,7 @@
                 margin: 15px;
             }
         }
-        @media (max-width: 600px) {
-        .word2, .word3, .word4 {
-            font-size: 16px; /* スマホ向けに文字サイズを調整 */
-        }
-        }
-        .footer {
-            background-color: #800000;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-            margin-top: 40px;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            font-size: 14px;
-        }
-
-        @media (max-width: 600px) {
-            .footer {
-                font-size: 12px; /* スマホではフォントを小さく */
-            }
-        }
+        
         .back-button {
             display: block;
             width: 150px;
@@ -233,43 +275,210 @@
         .back-button:hover{
             text-decoration: underline;
         }
-        .footer {
-            background-color: #800000;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-            margin-top: 40px;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-            font-size: 14px;
+ 
+
+
+
+        .product-section {
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fffaf0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 600px) {
-            .footer {
-                font-size: 12px;
-            }
+        .product-section h2 {
+            font-size: 24px;
+            color: #800000;
+            border-bottom: 2px solid #800000;
+            padding-bottom: 5px;
+            margin-top: 20px;
         }
+
+        .product-section h3 {
+            font-size: 20px;
+            color: #692424;
+            margin-top: 15px;
+        }
+
+        .product-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-section li {
+            font-size: 18px;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+
+
+
+ footer {
+    margin-top: 30px;
+    color: white;
+    padding: 0px 0 50px; /* 下部の余白を確保 */
+    font-size: 14px;
+    position: relative;
+    background: #af6c6c;
+}
+
+.footer-container {
+   
+    background: #af6c6c;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 40px;
+    
+}
+
+.footer-section {
+    flex: 1;
+    transform: translateY(20%);
+    text-align: center;
+    
+}
+
+.footer-name {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+}
+
+.footer-logo{
+    width: 100px;
+    height: 100px;
+}
+.footer-center p {
+    margin: 5px 0;
+}
+.footer-right{
+    text-decoration: underline;
+}
+/* リンク部分を3行2列のグリッドに */
+.footer-nav {
+    display: grid;
+    grid-template-columns: repeat(2, auto); /* 2列 */
+    grid-gap: 10px; /* 余白調整 */
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.footer-nav a:hover {
+    color: #ca3d3d;
+}
+
+.footer-bottom {
+    position: absolute;
+    bottom: -50px; /* フッターコンテナの下に配置 */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+}
+
+.instagram-icon {
+    transform: translateY(30px);
+}
+
+.instagram-icon img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.instagram-icon img:hover {
+    transform: scale(1.1);
+}
+
+
+/* スマホ対応 */
+@media (max-width: 900px) {
+    .word1 {
+        font-size: 40px; /* さらに小さく */
+    }
+    footer{
+        margin-bottom: 50px;
+    }
+    .instagram-icon {
+        right: 5%;
+        transform: translateY(-5%);
+    }
+
+    .instagram-icon img {
+        width: 30px; /* スマホではより小さく */
+        height: 30px;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    .footer-nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+}
+
+
     </style>
 </head>
-<body>
-    <div class="header">
-        <div class="word1">山荘アオ</div>
-        <div class="instagram-icon">
-            <a href="https://www.instagram.com/sanso_ao" target="_blank">
-                <img src="/static/ao/images/instagram-icon.jpg" alt="Instagram">
-            </a>
-            <img src="/static/ao/images/denwa.png" alt="telephone" onclick="confirmCall()">
+<header id="header">
+    <div class="header-top">
+        <img src="/static/ao/images/sansoaologo.webp" alt="logo" class="logo">
+        <div class="name">山荘アオ</div>
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">ホーム</a>
+                <a href="{% url 'rooms' %}"><div class="now-position">施設・ご用意品</div></a>
+                <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
+                <a href="{% url 'sightseeing' %}">周辺情報</a>
+                <a href="{% url 'supermarket' %}">アクセス</a>
+                <a href="{% url 'login' %}">予約確認</a>
+                <a href="{% url 'faq' %}" >お問い合わせ</a>
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         </div>
     </div>
-    <div class="rectatop">
-        <a href="{% url 'home' %}"><div class="word2">ホーム</div></a>
-        <a href="{% url 'resa' %}"><div class="word2">予約</div></a>
-        <a href="{% url 'rooms' %}"><div class="word2">施設・ご用意品</div></a>
-        <a href="{% url 'login' %}"><div class="word2">予約確認</div></a>
+    <div class="reservation-container">
+        <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
     </div>
 
-    <header>
-        <h2>施設</h2>
-    </header>
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="{% url 'home' %}">ホーム</a>
+        <a href="{% url 'rooms' %}"><div class="now-position">施設・ご用意品</div></a>
+        <a href="{% url 'howtostay' %}">ご利用ガイド</a>
+        <a href="{% url 'sightseeing' %}">周辺情報</a>
+        <a href="{% url 'supermarket' %}">アクセス</a>
+        <a href="{% url 'login' %}">予約確認</a>
+        <a href="{% url 'faq' %}" >お問い合わせ</a>
+    </nav>
+
+</header>
+
+
+
+
+
+
+
+    <div class="word2">施設</div>
 
     <div class="container">
         <!-- 八角館 -->
@@ -309,9 +518,7 @@
         </div>
     </div>
 
-    <header>
-        <h2>ご用意品</h2>
-    </header>
+    <div class="word2">ご用意品</div>
 
     <div class="container">
         <!-- 焼肉セット -->
@@ -360,20 +567,63 @@
                 <p>アユ釣り道具、自転車、浮き輪など</p>
             </div>
         </div>
-
-        <!--　物販品  -->
-        <a href="{% url 'buppan' %}" class="card">
-            <div class="card">
-                <img src="/static/ao/images/S__214065168_0.jpg" alt="物販品">
-                <div class="card-content">
-                    <h3>物販品</h3>
-                    <p>クリックしてください。</p>
-                </div>
-            </div>
-        </a>
     </div>
 
-
+    <div class="word2">物販品</div>
+    <div class="product-section">
+        <h2>お酒類</h2>
+        
+        <h3>ビール</h3>
+        <ul>
+            <li>金麦 - 250円</li>
+            <li>サッポロ黒ラベル - 300円</li>
+        </ul>
+    
+        <h3>日本酒</h3>
+        <ul>
+            <li>未定</li>
+        </ul>
+    
+        <h3>梅酒</h3>
+        <ul>
+            <li>CHOYA 700ml - 1000円</li>
+            <li>まっこい 1L - 1000円</li>
+        </ul>
+    
+        <h3>カクテル</h3>
+        <ul>
+            <li>贅沢絞り - 250円</li>
+            <li>ほろ酔い - 250円</li>
+        </ul>
+    
+        <h2>ソフトドリンク</h2>
+        <ul>
+            <li>お水- 120円</li>
+            <li>お茶 - 160円</li>
+            <li>コカ・コーラ - 160円</li>
+            <li>CCレモン - 160円</li>
+        </ul>
+    
+        <h2>お菓子類</h2>
+        <ul>
+            <li>ポテトチップス - 200円</li>
+            <li>じゃがりこ - 200円</li>
+        </ul>
+    
+        <h2>カップ麺類</h2>
+        <ul>
+            <li>カップヌードル - 250円</li>
+            <li>どん兵衛 - 250円</li>
+            <li>カップ焼きそば - 250円</li>
+        </ul>
+    
+        <h2>アメニティ類</h2>
+        <ul>
+            <li>クレンジング</li>
+            <li>櫛</li>
+            <li>ヘアゴム</li>
+        </ul>
+    </div>
 
     <div id="galleryModal" class="modal">
         <div class="modal-content">
@@ -382,14 +632,46 @@
         </div>
     </div>
     
-    <a href="{% url 'home' %}" class="back-button">ホームに戻る</a>
 
-    <footer class="footer">
-        <div class="footer-copyright">
-            &copy; 2025 山荘アオ. All Rights Reserved.
+
+
+
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section footer-left">
+                <img src="/static/ao/images/sansoaologo.webp" alt="logo" class="footer-logo">
+                <div class="footer-name">山荘アオ</div>
+            </div>
+            <div class="footer-section footer-center">
+                <p>〒643-0366</p>
+                <p>和歌山県有田郡有田川町粟生</p>
+                <p>TEL: 080-2521-9439</p>
+                <div class="instagram-icon">
+                    <a href="https://www.instagram.com/sanso_ao" target="_blank">
+                        <img src="/static/ao/images/social-instagram-icon-1024x1024-qshv5qmi.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section footer-right">
+                <nav class="footer-nav">
+                    <a href="{% url 'home' %}">ホーム</a>
+                    <a href="{% url 'rooms' %}">施設・ご用意品</a>
+                    <a href="{% url 'howtostay' %}">ご利用ガイド</a>
+                    <a href="{% url 'sightseeing' %}">周辺情報</a>
+                    <a href="{% url 'supermarket' %}">アクセス</a>
+                    <a href="{% url 'faq' %}">お問い合わせ</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 山荘アオ. All rights reserved.</p>
+            </div>
         </div>
     </footer>
     
+    
+
+
     <script>
         function openGallery(images) {
             const gallery = document.getElementById('galleryImages');
@@ -409,9 +691,33 @@
             document.getElementById('galleryModal').style.display = 'none';
         }
 
-        function confirmCall() {
-            window.location.href = "tel:08025219439";
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScroll > lastScrollTop) {
+                document.getElementById("header").style.top = "-120px";
+            } else {
+                document.getElementById("header").style.top = "0";
+            }
+            lastScrollTop = currentScroll;
+        });
+        
+        function toggleMenu() {
+            let menu = document.getElementById("mobileMenu");
+            let toggleButton = document.querySelector(".menu-toggle");
+
+            if (menu.style.display === "none" || menu.style.display === "") {
+                menu.style.display = "flex";
+                toggleButton.innerHTML = "✖"; // バツ印に変更
+                toggleButton.classList.add("active");
+            } else {
+                menu.style.display = "none";
+                toggleButton.innerHTML = "☰"; // ハンバーガーメニューに戻す
+                toggleButton.classList.remove("active");
+            }
         }
+
+    
     </script>
     
 </body>
