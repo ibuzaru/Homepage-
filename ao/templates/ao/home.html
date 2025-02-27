@@ -250,55 +250,7 @@
     transform: rotate(90deg); /* 90度回転 */
 }
 
-        .instagram-icon img:hover {
-            transform: scale(1.1);
-        }
 
-        /* スマホ用レイアウト調整 */
-        @media (max-width: 600px) {
-            .word1 {
-                font-size: 40px; /* さらに小さく */
-            }
-
-            .instagram-icon {
-                right: 5%;
-            }
-
-            .instagram-icon img {
-                width: 25px; /* スマホではより小さく */
-                height: 25px;
-            }
-        }
-
-        .rectatop {
-            margin-top: 20px;
-            width: 100%;
-            height: 50px;
-            background-color: #800000;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-        }
-
-        .word2, .word3, .word4 {
-            font-size: 20px;
-            color: white;
-        }
-
-        .word2:hover, .word3:hover, .word4:hover {
-            text-decoration: underline;
-        }
-
-        .rectatop a:hover {
-            background-color: #a83232;
-        }
-
-        @media (max-width: 600px) {
-            .word2, .word3, .word4 {
-                font-size: 16px;
-            }
-
-        }
 
         .slider-container {
             position: relative;
@@ -318,6 +270,131 @@
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
+/* 画像スタイル */
+.center-left,
+.center-right {
+    width: 55%;
+    height: 40vh;
+    max-height: 100%;
+    object-fit: cover;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* 影をつけて立体感を出す */
+}
+
+/* テキストスタイル */
+.text-left, .text-right {
+    width: 40%;
+    font-size: 1.4rem; /* フォントサイズを少し大きく */
+    line-height: 1.6;
+    padding: 10px;
+    text-align: center;
+    color: #af6c6c; /* 文字色を白に */
+    border-radius: 10px;
+    word-break: keep-all; /* 日本語の単語で適切に改行 */
+    
+}
+
+/* 左右の余白を調整 */
+.text-left {
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 8px;
+    text-align: right;
+}
+
+.text-right {
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 8px;
+    text-align: left;
+}
+
+/* スマホ対応 */
+@media (max-width: 900px) {
+    .center-img-container {
+        margin-top: 30px;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .center-left-wrapper,
+    .center-right-wrapper {
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+    }
+
+    .center-left, .center-right {
+        width: 100%;
+        height: 35vh;
+        border-radius: 10px;
+    }
+
+    .text-left, .text-right {
+        width: 90%;
+        margin: 10px 0;
+        text-align: center;
+        font-size: 1.3rem; /* スマホでは少し小さめに */
+        padding: 15px;
+    }
+}
+
+
+
+
+/* コンテナのデザイン */
+.point-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    padding: 40px 2px;
+    gap: 10px;
+}
+
+/* 各セクションのデザイン */
+.point-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    height: 60vh;
+    padding: 10px;
+}
+
+
+/* 説明ボックス */
+.point-box {
+    width: 90%;
+    background-color: #ce9292;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    justify-self: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Noto Serif JP', serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+.point {
+    text-align: center;
+    width: 100%;
+    color:#800000;
+    font-size: 23px;
+    transform: translateY(30px);
+    z-index: 2;
+}
+
+.point02 {
+    text-align: center;
+    width: 100%;
+    color:#800000;
+    font-size: 23px;
+    transform: translateY(30px);
+    z-index: 2;
+}
 
 .point-box p {
     padding: 8px 0;
@@ -421,7 +498,76 @@
     }
 }
 
+@media (max-width: 600px) {
+    .point-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 
+    .point-section {
+        display: flex;
+        flex-direction: row; /* 基本は横並び */
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    /* 2番目のポイントのみ、左右反転 */
+    .point-section:nth-child(2) {
+        flex-direction: row-reverse;
+    }
+
+    .point {
+        width: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        color: #800000;
+        transform: translateX(10px) translateY(-30%);
+    }
+    .point02{
+        width: 50%;
+        font-size: 20px;
+        font-weight: bold;
+        color: #800000;
+        transform: translateX(-20px) translateY(-20%);
+    }
+    .point-box {
+        background-color: #af6c6c;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .point-box p {
+        margin: 5px 0;
+        position: relative;
+    }
+
+    .point-box p:not(:last-child)::after {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 2px;
+        background-color: white;
+        margin: 5px auto;
+    }
+
+    .point-img {
+        width: 70%;
+        border-radius: 10px;
+    }
+
+    .point-img02 {
+        width: 70%;
+        border-radius: 10px;
+    }
+}
 
 
 
@@ -452,6 +598,8 @@
 
 
 
+
+
 .sightseeing-section {
     margin-top: 60px;
     display: flex;
@@ -459,7 +607,6 @@
     width: 100%;
     height: 70vh;
     position: relative;
-    background-color: aquamarine;
 }
 
 
@@ -473,7 +620,6 @@
     left: 0px;
     top: 60px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
-    background-color: #ddd;
 }
 
 .sightseeing-title::after {
@@ -482,15 +628,14 @@
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
-    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
 }
 .sightseeing-comment1 {
     font-size: 40px;
     width: 90%;
     transform: translateX(10%);
-    background-color: #61c4eb;
 }
 .sightseeing-container {
     display: flex;
@@ -499,26 +644,35 @@
     position: relative;
     width: 90%;
     height: 60vh;
-    overflow: hidden;
-    left: 5%;
-    background-color: #af6c6c;
+    left: 6%;
 }
 
 .sightseeing-content {
     display: flex;
-    transition: transform 0.3s ease-in-out;
-    width: 90%;
+    overflow: hidden;
+    width: 95%;
     height: 100%;
-    background-color: #ddd;
+    justify-content: center;
 }
 
 .sightseeing-content figure {
-    flex: 0 0 30%; /* 3つ表示 */
-    text-align: center;
-    margin: 5px;
-    padding: 0px;
-    height: 90%;
+    display: none; /* 初期状態では非表示 */
+    flex-direction: column;
+    margin: 4% auto;
+    width: 30%;
+    height: 80%;
 }
+
+.sightseeing-content figure.active {
+    display: flex; /* activeクラスの要素だけ表示 */
+}
+
+.sightseeing-content figcaption {
+    margin-top: 5px;
+    font-size: 18px;
+    color: #333;
+}
+
 
 .sightseeing-content img {
     width: 100%;
@@ -530,21 +684,56 @@ button {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
     font-size: 24px;
     position: absolute;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     z-index: 10;
 }
 
 #prevBtn {
-    left: 10px;
+    left: 1px;
 }
 
 #nextBtn {
-    right: 10px;
+    right: 1px;
+}
+
+
+@media (max-width: 900px) {
+    /* ボタン非表示 */
+    #prevBtn, #nextBtn {
+        display: none;
+    }
+
+    /* 画像スライダーを全幅に */
+    .sightseeing-content {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
+    }
+
+    .sightseeing-content figure {
+        transform: translateX(250%);
+        display: inline-block;
+        flex: 0 0 55%; /* 縮小を防ぐ */
+        margin: 10px;
+        scroll-snap-align: start;
+    }
+    .sightseeing-content figure.active {
+        display: inline-block;
+    }
+
+    .sightseeing-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像を適切にトリミング */
+    border-radius: 10px;
+    }
+
 }
 
 
@@ -552,6 +741,165 @@ button {
 
 
 
+.news-section {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50vh;
+    position: relative;
+}
+
+
+.news-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 40px;
+    top: 20px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.news-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+.news-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+.news-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+}
+.news-box {
+    width: 90%;
+    border: 1px solid black; /* 黒い枠線を追加 */
+    padding: 10px; /* 内側に余白を作る（オプション） */
+    border: 0.5px solid #af6c6c;
+}
+
+.news-subject{
+    color: #af6c6c;
+    font-weight: bold;
+    font-size: 20px;
+}
+@media (max-width: 900px) {
+    .news-box{
+        border-radius: 10px;
+    }
+}
+
+
+
+
+
+.access-section {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.access-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    transform: rotate(90deg) translateY(70%);
+}
+
+.access-title::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 150px;
+    margin-left: 110px;
+    transform: rotate(90deg);
+    background-color: #af6c6c;
+}
+
+.access-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+
+.access-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+}
+
+.access-box {
+    width: 90%;
+    height: 50vh;
+    border: 1px solid #af6c6c;
+}
+
+/* 施設情報 */
+.access-box1 {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+/* 交通手段セクション */
+.access-transport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 30px;
+}
+
+.access-transport-box {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 0.5px solid #af6c6c;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.access-transport-box h3 {
+    font-size: 24px;
+    color: #af6c6c;
+    margin-bottom: 10px;
+}
+
+.access-word1 {
+    font-size: 18px;
+    line-height: 1.6;
+}
 
 
 
@@ -569,7 +917,6 @@ footer {
 }
 
 .footer-container {
-   
     background: #af6c6c;
     display: flex;
     justify-content: space-between;
@@ -794,11 +1141,11 @@ footer {
             <div class="sightseeing-content">
                 <figure>
                     <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
-                    <figcaption>説明文1</figcaption>
+                    <figcaption>あらぎ島</br>(車で約25分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
-                    <figcaption>説明文2</figcaption>
+                    <figcaption>生石高原</br>(車で約24分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065160_0.jpg" alt="画像3">
@@ -826,6 +1173,61 @@ footer {
         <a href="{% url 'rooms' %}" class="detail-button">詳しく見る（施設・ご用意品）</a>
     </div>
 
+
+    <div class="news-section">
+        <div class="news-title">News</div>
+        <div class="news-comment1">最新情報</div>
+        <div class="news-container">
+            <div class="news-box">
+                <p class="news-subject">リニューアルオープンしました！</p>
+                <p class="news-content">この度2025年7月より、リニューアルオープンしました。</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="access-section">
+        <div class="access-title">Access</div>
+        <div class="access-comment1">アクセス</div>
+        
+        <div class="access-container">
+            <div class="access-box">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.825054878269!2d135.34615324086562!3d34.04835847327037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60073ef129f626d7%3A0x1f57798126b5848d!2z5bGx6I2Y44Ki44Kq!5e0!3m2!1sja!2sjp!4v1740485266349!5m2!1sja!2sjp" 
+                    width="100%" height="100%" style="border: 0px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    
+        <div class="access-box1">
+            <h3>山荘アオ</h3>
+            <p class="access-word1">〒643-0366<br>和歌山県有田郡有田川町粟生<br>TEL: 080-2521-9439</p>
+        </div>
+    
+        <div class="access-transport">
+            <div class="access-transport-box">
+                <h3>公共交通機関でお越しの方</h3>
+                <p class="access-word1">
+                    JR紀勢本線「藤並駅」下車<br>
+                    → タクシーで約25分<br>
+                    ※公共交通機関の本数が少ないため、事前にご確認ください。
+                </p>
+            </div>
+    
+            <div class="access-transport-box">
+                <h3>お車でお越しの方</h3>
+                <p class="access-word1">
+                    阪和自動車道「有田IC」より約30分<br>
+                    カーナビで「山荘アオ」を検索するか、Googleマップをご利用ください。
+                </p>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <div class="detail-box">
+        <a href="{% url 'supermarket' %}" class="detail-button">詳しく見る（アクセス）</a>
+    </div>
 
     <footer>
         <div class="footer-container">
@@ -888,35 +1290,37 @@ footer {
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-    const container = document.querySelector(".sightseeing-content");
-    const figures = document.querySelectorAll(".sightseeing-content figure");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+        const figures = document.querySelectorAll(".sightseeing-content figure");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        let currentIndex = 0; // 現在のスライド開始位置
 
-    let currentIndex = 0;
-    const visibleFigures = 3;
-    const totalFigures = figures.length;
-    const maxIndex = Math.ceil(totalFigures / visibleFigures) - 1;
-
-    function updateSlide() {
-        const translateX = -currentIndex * 100;
-        container.style.transform = `translateX(${translateX}%)`;
-    }
-
-    prevBtn.addEventListener("click", function () {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateSlide();
+        // 初期表示 (最初の3つにactiveクラスを付与)
+        function updateActiveImages() {
+            figures.forEach((fig, index) => {
+                fig.classList.toggle("active", index >= currentIndex && index < currentIndex + 3);
+            });
         }
+
+        updateActiveImages(); // 初回適用
+
+        // 次へボタンの処理
+        nextBtn.addEventListener("click", function () {
+            if (currentIndex + 3 < figures.length) {
+                currentIndex++;
+                updateActiveImages();
+            }
+        });
+
+        // 前へボタンの処理
+        prevBtn.addEventListener("click", function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateActiveImages();
+            }
+        });
     });
 
-    nextBtn.addEventListener("click", function () {
-        if (currentIndex < maxIndex) {
-            currentIndex++;
-            updateSlide();
-        }
-    });
-});
 
     </script>
 </body>
