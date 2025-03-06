@@ -16,7 +16,6 @@ urlpatterns = [
    path('faq/', views.faq, name="faq"),
    path('supermarket/', views.supermarket, name='supermarket'),
    path('sightseeing/', views.sightseeing, name="sightseeing"),
-   path('river_info/', views.river_info, name="river_info"),
    path('howtostay/', views.howtostay, name="howtostay"),
-   path('buppan/', views.buppan, name="buppan"),
+   path('kiyaku/', views.kiyaku, name="kiyaku"),
 ]

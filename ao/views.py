@@ -277,14 +277,11 @@ def supermarket(request):
 def sightseeing(request):
     return render(request, 'ao/sightseeing.html')
 
-def river_info(request):
-    return render(request, 'ao/river_info.html')
-
 def howtostay(request):
     return render(request, 'ao/howtostay.html')
 
-def buppan(request):
-    return render(request, 'ao/buppan.html')
+def kiyaku(request):
+    return render(request, 'ao/kiyaku.html')
 
 
 
