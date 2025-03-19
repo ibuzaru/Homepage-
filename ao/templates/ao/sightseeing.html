@@ -151,60 +151,231 @@
 
 
 
+.description-box{
+    width: 100%;
+    height: 50vh;
+    margin-bottom: 100px;
+}
+.description-box img{
+    max-width: 1000px;
+    margin-left: 5%;
+    width: 95%;
+    height: 50vh;
+    object-fit:fill;
+}
+.description-comment-box{
+    position: absolute;
+    width: 500px;
+    right: 5%;
+    background-color: white;
+    height: auto;  
+    transform: translateY(-100%);
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
+}
+.description-tytle{
+    padding-top: 15px;
+    justify-self: center;
+    color: #800000;
+    font-size: large;
+    font-weight: bold;
+    width: 90%;
+}
+.description-time{
+    justify-self: center;
+    font-size: medium;
+    width: 90%;
+    text-align: right;
+    padding-bottom: 15px;
+    border-bottom: 0.3px solid black;
+}
+.description-comment-box p{
+    width: 90%;
+    justify-self: center;
+}
 
-        .tourist-section {
-        text-align: center;
-        margin: 40px 0;
-        padding: 0 20px;
+
+.description-box-left{
+    width: 100%;
+    height: 50vh;
+    margin-bottom: 100px;
+}
+.description-box-left img{
+    position: absolute;
+    right: 5%;
+    max-width: 1000px;
+    width: 95%;
+    height: 50vh;
+    object-fit:fill;
+}
+.description-comment-box-left{
+    position: absolute;
+    left: 5%;
+    background-color: white;
+    width: 500px;
+    height: auto;
+    margin-top: 50vh;
+    transform: translateY(-100%);
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
+    
+}
+.description-comment-box-left p{
+    width: 90%;
+    justify-self: center;
+}
+@media (max-width: 900px) {
+    .description-comment-box,.description-comment-box-left{
+    transform: translateY(0);
+    width: 300px;
+}
+.description-box,.description-box-left{
+    margin-bottom: 30vh;
+}
+}
+
+
+
+
+
+
+.sightseeing-section {
+
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70vh;
+    position: relative;
+}
+
+
+.sightseeing-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.sightseeing-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+.sightseeing-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+}
+.sightseeing-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90%;
+    height: 70vh;
+    left: 6%;
+}
+
+.sightseeing-content {
+    display: flex;
+    overflow: hidden;
+    width: 95%;
+    height: 100%;
+    justify-content: center;
+}
+
+.sightseeing-content figure {
+    display: none; /* 初期状態では非表示 */
+    flex-direction: column;
+    margin: 2% auto;
+    width: 30%;
+    height: 80%;
+}
+
+.sightseeing-content figure.active {
+    display: flex; /* activeクラスの要素だけ表示 */
+}
+
+.sightseeing-content figcaption {
+    margin-top: 5px;
+    font-size: 18px;
+    color: #333;
+}
+
+
+.sightseeing-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像を適切にトリミング */
+}
+
+button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+#prevBtn {
+    left: 1px;
+}
+
+#nextBtn {
+    right: 1px;
+}
+
+
+@media (max-width: 900px) {
+    /* ボタン非表示 */
+    #prevBtn, #nextBtn {
+        display: none;
     }
-    .tourist-title {
-        font-size: 26px;
-        color: #692424;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-    .tourist-container {
+
+    /* 画像スライダーを全幅に */
+    .sightseeing-content {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-snap-type: x mandatory;
     }
-    .tourist-card {
-        background: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 300px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+
+    .sightseeing-content figure {
+        transform: translateX(250%);
+        display: inline-block;
+        flex: 0 0 55%; /* 縮小を防ぐ */
+        margin: 10px;
+        scroll-snap-align: start;
     }
-    .tourist-card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 10px 10px 0 0;
+    .sightseeing-content figure.active {
+        display: inline-block;
     }
-    .tourist-card h3 {
-        margin-top: 10px;
-        color: #800000;
+
+    .sightseeing-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像を適切にトリミング */
+    border-radius: 10px;
     }
-    .tourist-card p {
-        font-size: 14px;
-        color: #555;
-    }
-    @media (max-width: 600px) {
-        .tourist-container {
-            flex-direction: column;
-            align-items: center;
-        }
-        .tourist-card {
-            width: 90%;
-        }
-    }
+}
+
+   
 
 
 
@@ -367,44 +538,127 @@ footer {
     </nav>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-
-
-
-    <div class="tourist-section">
-        <h2 class="tourist-title">観光スポット</h2>
-        <div class="tourist-container">
-            <div class="tourist-card">
-                <img src="/static/ao/images/S__214065159_0.jpg" alt="あらぎ島">
-                <h3>あらぎ島</h3>
-                <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
-            </div>
-            <div class="tourist-card">
-                <img src="/static/ao/images/S__214065160_0.jpg" alt="生石高原">
-                <h3>生石高原</h3>
-                <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p>
-            </div>
-            <div class="tourist-card">
-                <img src="/static/ao/images/S__214065161_0.jpg" alt="蔵王橋">
-                <h3>蔵王橋</h3>
-                <p>二川ダム上に架かる赤い吊り橋です。全長約160mのつり橋で、橋の上からは二川ダムの水面が見え、スリルがあります。</p>
-            </div>
-            <div class="tourist-card">
-                <img src="/static/ao/images/S__214065162_0.jpg" alt="有田川鉄道公園">
-                <h3>有田川鉄道公園</h3>
-                <p>公園内の鉄道交流館では有田川町の風景を再現したジオラマがあり、400mの線路上に往年の車両が並んでいます。</p>
-            </div>
-            <div class="tourist-card">
-                <img src="/static/ao/images/S__214065163_0.jpg" alt="則岡醤油醸造元">
-                <h3>則岡醤油醸造元</h3>
-                <p>明治40年創業の醤油醸造元の直売店。昔ながらの本醸造醤油が看板商品。</p>
-            </div>
-            <div class="tourist-card">
-                <img src="/static/ao/images/S__214065164_0.jpg" alt="有田市みかん資料館">
-                <h3>有田市みかん資料館   粟生の寺、神社も</h3>
-                <p>有田市文化福祉センターの4階にあり、400余年の歴史と伝統を誇るみかん産業の歴史と現状を紹介しています。</p>
-            </div>
+    <div class="description-box">
+        <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
+        <div class="description-comment-box">
+            <div class="description-tytle">あらぎ島</div>
+            <div class="description-time">車で約２５分</div>
+            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
         </div>
     </div>
+
+    <div class="description-box-left">
+        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像1">
+        <div class="description-comment-box-left">
+            <div class="description-tytle">生石高原</div>
+            <div class="description-time">車で約２４分</div>
+            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
+        </div>
+    </div>
+
+    <div class="description-box">
+        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像1">
+        <div class="description-comment-box">
+            <div class="description-tytle">あらぎ島</div>
+            <div class="description-time">車で約２５分</div>
+            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
+        </div>
+    </div>
+
+    <div class="description-box-left">
+        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像1">
+        <div class="description-comment-box-left">
+            <div class="description-tytle">生石高原</div>
+            <div class="description-time">車で約２４分</div>
+            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
+        </div>
+    </div>
+
+    <div class="description-box">
+        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像1">
+        <div class="description-comment-box">
+            <div class="description-tytle">あらぎ島</div>
+            <div class="description-time">車で約２５分</div>
+            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
+        </div>
+    </div>
+
+    <div class="description-box-left">
+        <img src="/static/ao/images/S__214065164_0.jpg" alt="画像1">
+        <div class="description-comment-box-left">
+            <div class="description-tytle">生石高原</div>
+            <div class="description-time">車で約２４分</div>
+            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
+        </div>
+    </div>
+
+
+
+    <div class="sightseeing-section">
+        <div class="sightseeing-title">Sightseeing</div>
+        <div class="sightseeing-comment1">周辺情報</div>
+        <div class="sightseeing-container">
+            <button id="prevBtn">&#10094;</button>
+            <div class="sightseeing-content">
+                <figure>
+                    <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
+                    <figcaption>吉祥寺薬師堂</br>(徒歩約１５分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+                    <figcaption>岩倉神社</br>(徒歩１０分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+                    <figcaption>巌（いわお）</br>(徒歩１０分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
+                    <figcaption>あらぎ島</br>(車で約２５分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+                    <figcaption>生石高原（おいし）</br>(車で約２４分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065160_0.jpg" alt="画像3">
+                    <figcaption>蔵王橋（ざおうはし）</br>(車で約１６分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065161_0.jpg" alt="画像4">
+                    <figcaption>有田川鉄道公園</br>(車で約２２分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065162_0.jpg" alt="画像5">
+                    <figcaption>則岡醤油醸造元</br>(車で約３４分)</figcaption>
+                </figure>
+                <figure>
+                    <img src="/static/ao/images/S__214065163_0.jpg" alt="画像6">
+                    <figcaption>有田市みかん資料館</br>(車で約４０分)</figcaption>
+                </figure>
+            </div>
+            <button id="nextBtn">&#10095;</button>
+        </div>
+    </div>
+
+
+    <h3>あらぎ島</h3>
+    <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
+
+    <h3>生石高原</h3>
+    <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p>
+
+    <h3>蔵王橋</h3>
+    <p>二川ダム上に架かる赤い吊り橋です。全長約160mのつり橋で、橋の上からは二川ダムの水面が見え、スリルがあります。</p>
+
+    <h3>有田川鉄道公園</h3>
+    <p>公園内の鉄道交流館では有田川町の風景を再現したジオラマがあり、400mの線路上に往年の車両が並んでいます。</p>
+
+    <h3>則岡醤油醸造元</h3>
+    <p>明治40年創業の醤油醸造元の直売店。昔ながらの本醸造醤油が看板商品。</p>
+
+    <h3>有田市みかん資料館   粟生の寺、神社も</h3>
+    <p>有田市文化福祉センターの4階にあり、400余年の歴史と伝統を誇るみかん産業の歴史と現状を紹介しています。</p>
 
 
 
@@ -461,7 +715,7 @@ footer {
                 </li>
             </ul>
         </div>
-
+    </div>
 
     <footer>
         <div class="footer-container">
@@ -523,6 +777,38 @@ footer {
             }
         }
 
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const figures = document.querySelectorAll(".sightseeing-content figure");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        let currentIndex = 0; // 現在のスライド開始位置
+
+        // 初期表示 (最初の3つにactiveクラスを付与)
+        function updateActiveImages() {
+            figures.forEach((fig, index) => {
+                fig.classList.toggle("active", index >= currentIndex && index < currentIndex + 3);
+            });
+        }
+
+        updateActiveImages(); // 初回適用
+
+        // 次へボタンの処理
+        nextBtn.addEventListener("click", function () {
+            if (currentIndex + 3 < figures.length) {
+                currentIndex++;
+                updateActiveImages();
+            }
+        });
+
+        // 前へボタンの処理
+        prevBtn.addEventListener("click", function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateActiveImages();
+            }
+        });
+    });
     </script>
 </body>
 </html>
