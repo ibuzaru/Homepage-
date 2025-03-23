@@ -759,7 +759,6 @@
                 <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
                 <a href="{% url 'sightseeing' %}">周辺情報</a>
                 <a href="{% url 'supermarket' %}">アクセス</a>
-                <a href="{% url 'login' %}">予約確認</a>
                 <a href="{% url 'faq' %}" >お問い合わせ</a>
             </nav>
             <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -775,7 +774,6 @@
         <a href="{% url 'howtostay' %}">ご利用ガイド</a>
         <a href="{% url 'sightseeing' %}">周辺情報</a>
         <a href="{% url 'supermarket' %}">アクセス</a>
-        <a href="{% url 'login' %}">予約確認</a>
         <a href="{% url 'faq' %}" >お問い合わせ</a>
     </nav>
 
@@ -914,11 +912,11 @@
             </div>
             <div class="equipment-item">
                 <span class="equipment-name">お食事セット<br>（20人/セット）</span>
-                <span class="equipment-detail">紙皿（大・小）×各５０、紙コップ×１００、割りばし×５０、ティッシュペーパー×２<br>スプーン×５０、フォーク×５０、大皿×２、食器用タオル×３<br>※スプーン、フォーク、大皿は洗ってお返しください。</span>
+                <span class="equipment-detail">紙皿（大・小）×各５０、紙コップ×１００、割りばし×５０<br>ティッシュペーパー×２、スプーン×５０、フォーク×５０<br>大皿×２、食器用タオル×３<br>※スプーン、フォーク、大皿は洗ってお返しください。</span>
             </div>
             <div class="equipment-item">
                 <span class="equipment-name">その他</span>
-                <span class="equipment-detail">冷蔵庫×４、レンジ×１、テレビ×３？、蚊取り線香<br>扇風機×３、ヒーター×３、卓球台×１
+                <span class="equipment-detail">冷蔵庫×４、レンジ×１、テレビ×３、蚊取り線香<br>扇風機×３、ヒーター×３、卓球台×１
                 </span>
             </div>
         </div>
@@ -939,20 +937,17 @@
     <div class="plus-container">
         <div class="equipment-list">
             <div class="equipment-item">
-                <span class="equipment-name">焼肉セット（約５人分）<br>４０００円/セット<br></span>
-                <span class="equipment-detail">炭５Kg、焼肉網×２、トング×３、着火剤×</span>
+                <span class="equipment-name">焼肉セット（約５人分）<br>３５００円/セット<br></span>
+                <span class="equipment-detail">炭５Kg、焼肉網×２、トング×３、着火剤×２</span>
             </div>
             <div class="equipment-item">
-                <span class="equipment-name">ゲームセット<br>２０００円<br>※きれいに返却で<br>全額お返しします。</span>
-                <span class="equipment-detail">卓球台×１、Uno×１、トランプ×１、麻雀セット×１<br>ゴキブリポーカー×１、人生ゲーム×１、将棋×１、オセロ×１</span>
+                <span class="equipment-name">ゲーム・漫画セット<br>２０００円<br>※元のように返却いただければ<br>全額お返しします。</span>
+                <span class="equipment-detail">卓球台×１、Uno×１、トランプ×１、麻雀セット×１<br>ゴキブリポーカー×１、人生ゲーム×１、将棋×１、オセロ×１
+                    <br></br>Hunter×Hunter、ヒロアカ、ワンパンマン、ニセコイ<br>アカメが斬る、結界師、暗殺教室</span>
             </div>
             <div class="equipment-item">
-                <span class="equipment-name">漫画（読み放題）<br>２０００円<br>※きれいに返却で<br>全額お返しします。</span>
-                <span class="equipment-detail">Hunter×Hunter、ヒロアカ、ワンパンマン、ニセコイ<br>アカメが斬る、結界師、暗殺教室</span>
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">その他<br>２０００円<br>※きれいに返却で<br>全額お返しします。</span>
-                <span class="equipment-detail">浮き輪、カヌー、サーフボード<br>自転車、虫取り網</span>
+                <span class="equipment-name">その他<br>２０００円<br>※元のように返却で<br>全額お返しします。</span>
+                <span class="equipment-detail">浮き輪、カヌー、サーフボード、虫取り網</span>
             </div>
         </div>
     </div>
@@ -963,32 +958,7 @@
     <div class="news-title">Products</div>
     <div class="news-comment1">物販品</div>
     <div class="news-container">
-        <div class="product-section">
-            <h2>お酒類</h2>
-            
-            <h3>ビール</h3>
-            <ul>
-                <li>金麦 <span>250円</span></li>
-                <li>サッポロ黒ラベル <span>300円</span></li>
-            </ul>
-        
-            <h3>日本酒</h3>
-            <ul>
-                <li>未定 <span>-</span></li>
-            </ul>
-        
-            <h3>梅酒</h3>
-            <ul>
-                <li>CHOYA 700ml <span>1000円</span></li>
-                <li>まっこい 1L <span>1000円</span></li>
-            </ul>
-        
-            <h3>カクテル</h3>
-            <ul>
-                <li>贅沢絞り <span>250円</span></li>
-                <li>ほろ酔い <span>250円</span></li>
-            </ul>
-        
+        <div class="product-section">        
             <h2>ソフトドリンク</h2>
             <ul>
                 <li>お水 <span>120円</span></li>
@@ -1008,13 +978,6 @@
                 <li>カップヌードル <span>250円</span></li>
                 <li>どん兵衛 <span>250円</span></li>
                 <li>カップ焼きそば <span>250円</span></li>
-            </ul>
-        
-            <h2>アメニティ類</h2>
-            <ul>
-                <li>クレンジング <span>-</span></li>
-                <li>櫛 <span>-</span></li>
-                <li>ヘアゴム <span>-</span></li>
             </ul>
         </div>
     </div>
