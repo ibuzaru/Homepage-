@@ -70,59 +70,106 @@ def example_fix(request):
         return render(request, "ao/example.html", {"form": form})
 
 
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.conf import settings
+from .models import ExampleModel
+from datetime import datetime
 
 def example_confirm(request):
     if request.method == 'POST':
         data = request.POST.dict()
         
-        # 合計金額計算ロジック（必要に応じて）
-        # ...
+        # 合計金額計算
+        total_amount, price_per_person = calculate_prices(data)
         
-        # お客様へのメール送信
-        send_customer_email(data)
+        # データベースに保存
+        reservation = save_reservation(data, total_amount, price_per_person)
         
-        # 自分（管理者）へのメール送信
-        send_admin_email(data)
+        # メール送信（データと計算結果を渡す）
+        send_customer_email(data, total_amount, price_per_person)
+        send_admin_email(data, total_amount, reservation.id)
         
-        # 成功ページへリダイレクト
         return redirect('success_reserve')
     
     return render(request, 'ao/example_confirm.html', {'data': data})
 
+def calculate_prices(data):
+    base_price = 20000
+    extra_price_per_person = 2000
+    yakiniku_price = 2500
+
+    men = int(data.get('men', 0))
+    women = int(data.get('women', 0))
+    yakiniku_sets = int(data.get('yakiniku', 0))
+    
+    # 宿泊日数計算
+    check_in = datetime.strptime(data['check_in_date'], '%Y-%m-%d')
+    check_out = datetime.strptime(data['check_out_date'], '%Y-%m-%d')
+    days = (check_out - check_in).days
+    
+    people_total = men + women
+    total_amount = (base_price + extra_price_per_person * people_total) * days
+    total_amount += yakiniku_price * yakiniku_sets
+    
+    # deposit priceは加算しない（削除）
+    price_per_person = total_amount // people_total if people_total > 0 else 0
+    
+    return total_amount, price_per_person
+
+def save_reservation(data, total_amount, price_per_person):
+    return ExampleModel.objects.create(
+        check_in_date=data['check_in_date'],
+        check_out_date=data['check_out_date'],
+        name=data['name'],
+        furigana=data['furigana'],
+        men=data.get('men'),
+        women=data.get('women'),
+        email=data['email'],
+        phone_number=data['phone_number'],
+        postal_code=data['postal_code'],
+        address=data['address'],
+        yakiniku=data.get('yakiniku', 0),
+        games=data.get('games') == 'on',
+        others=data.get('others') == 'on',
+        messages=data.get('messages', ''),
+        # 合計金額などの追加情報はmessagesフィールドに保存
+        # または新規フィールドを追加推奨
+    )
+
+def send_customer_email(data, total_amount, price_per_person):
+    subject = '【予約完了】ご予約ありがとうございます'
+    message = render_to_string('ao/customer_email.txt', {
+        'data': data,
+        'total_amount': f"{total_amount:,}",
+        'pricePerPerson': f"{price_per_person:,}"
+    })
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [data['email']],
+        fail_silently=False
+    )
+
+def send_admin_email(data, total_amount, reservation_id):
+    subject = f'【新規予約】予約ID: {reservation_id}'
+    message = render_to_string('ao/admin_email.txt', {
+        'data': data,
+        'total_amount': f"{total_amount:,}",
+        'reservation_id': reservation_id
+    })
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [settings.ADMIN_EMAIL],
+        fail_silently=False
+    )
 def success_reserve(request):
     return render(request, 'ao/success_reserve.html')
 
-def send_customer_email(data):
-    subject = '【予約完了】ご予約ありがとうございます'
-    message = render_to_string('ao/customer_email.txt', {'data': data})
-    from_email = settings.DEFAULT_FROM_EMAIL
-    recipient_list = [data.get('email')]
-    
-    send_mail(
-        subject,
-        message,
-        from_email,
-        recipient_list,
-        fail_silently=False,
-    )
-
-def send_admin_email(data):
-    subject = '【新規予約】新しい予約が入りました'
-    message = render_to_string('ao/admin_email.txt', {'data': data})
-    from_email = settings.DEFAULT_FROM_EMAIL
-    recipient_list = [settings.ADMIN_EMAIL]  # settings.pyで設定
-    
-    send_mail(
-        subject,
-        message,
-        from_email,
-        recipient_list,
-        fail_silently=False,
-    )
 
 
 

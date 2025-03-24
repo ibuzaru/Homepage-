@@ -8,8 +8,8 @@
 チェックアウト日: {{ data.check_out_date }}
 男性人数: {{ data.men }}名
 女性人数: {{ data.women }}名
-合計金額: {{ total_amount }}円（税込）
-一人当たり金額: {{ pricePerPerson }}円（税込）
+合計金額: {{ total_amount }}円（税込）(デポジット料金を除く)
+一人当たり金額: {{ pricePerPerson }}円（税込）(デポジット料金を除く)
 
 ■お客様情報
 名前: {{ data.name }}
@@ -17,6 +17,11 @@
 メールアドレス: {{ data.email }}
 電話番号: {{ data.phone_number }}
 住所: {{ data.postal_code }} {{ data.address }}
+
+■追加オプション
+{% if data.yakiniku %}焼肉セット: {{ data.yakiniku }}セット{% endif %}
+{% if data.games %}ゲーム・漫画セット(デポジット2000円){% endif %}
+{% if data.others %}その他（カヌー）(デポジット2000円)など{% endif %}
 
 ご不明な点がございましたら、お気軽にお問い合わせください。
 

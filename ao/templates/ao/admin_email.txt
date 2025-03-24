@@ -5,7 +5,7 @@
 チェックアウト日: {{ data.check_out_date }}
 男性人数: {{ data.men }}名
 女性人数: {{ data.women }}名
-合計金額: {{ total_amount }}円（税込）
+合計金額: {{ total_amount }}円（税込）(デポジット料金を除く)
 
 ■お客様情報
 名前: {{ data.name }}
