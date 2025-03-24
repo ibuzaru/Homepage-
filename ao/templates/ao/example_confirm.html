@@ -6,87 +6,125 @@
     <title>予約確認</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Arial', 'Hiragino Sans', 'Meiryo', sans-serif;
+            background-color: #fff8f8;
             margin: 0;
             padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
             color: #333;
-        }
-
-        .confirmation-container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .confirmation-container p {
-            margin: 10px 0;
-            font-size: 18px;
             line-height: 1.6;
         }
-
-        .confirmation-container strong {
-            color: #555;
+    
+        h1 {
+            text-align: center;
+            color: #800000;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #800000;
+            margin-bottom: 30px;
         }
-
-        .total-amount {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007bff;
-            margin-top: 20px;
+    
+        div {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
         }
-
+    
+        p {
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0c0c0;
+        }
+    
+        p:last-child {
+            border-bottom: none;
+        }
+    
+        ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+    
+        li {
+            margin-bottom: 8px;
+            color: #800000;
+        }
+    
         .button-container {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 30px;
         }
-
+    
         button {
-            background-color: #007bff;
+            background-color: #800000;
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
-
+    
         button:hover {
-            background-color: #0056b3;
+            background-color: #a00000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(128, 0, 0, 0.2);
         }
-
+    
         .button-secondary {
-            background-color: #6c757d;
+            background-color: #555;
         }
-
+    
         .button-secondary:hover {
-            background-color: #5a6268;
+            background-color: #777;
+            box-shadow: 0 4px 8px rgba(85, 85, 85, 0.2);
+        }
+    
+        #totalAmount, #pricePerPerson {
+            font-weight: bold;
+            color: #800000;
+            font-size: 1.1em;
+        }
+    
+        span[id$="date"] {
+            font-weight: bold;
+            color: #800000;
         }
     </style>
 </head>
 <body>
     <h1>予約内容確認</h1>
-    <div class="confirmation-container">
-        <p><strong>チェックイン日(13:00~):</strong> {{ data.check_in_date }}</p>
-        <p><strong>チェックアウト日(~10:00):</strong> {{ data.check_out_date }}</p>
-        <p><strong>名前:</strong> {{ data.name }}</p>
-        <p><strong>ふりがな:</strong> {{ data.furigana }}</p>
-        <p><strong>予約人数:</strong> <span id="people">{{ data.people }}</span></p>
-        <p><strong>メールアドレス:</strong> {{ data.email }}</p>
-        <p><strong>電話番号:</strong> {{ data.phone_number }}</p>
-        <p><strong>郵便番号:</strong> {{ data.postal_code }}</p>
-        <p><strong>住所:</strong> {{ data.address }}</p>
-        <p class="total-amount" >5500円/人（税込）「現地で、現金もしくはPayPayでお支払い下さい」</p>
-        <p class="total-amount" id="totalAmount"></p>
+
+    <div>
+        <p>チェックイン日: <span id="check_in_date">{{ data.check_in_date }}</span></p>
+        <p>チェックアウト日: <span id="check_out_date">{{ data.check_out_date }}</span></p>
+        <p>名前: {{ data.name }}</p>
+        <p>ふりがな: {{ data.furigana }}</p>
+        <p>男性人数: <span id="men">{{ data.men }}</span></p>
+        <p>女性人数: <span id="women">{{ data.women }}</span></p>
+        <p>メール: {{ data.email }}</p>
+        <p>電話番号: {{ data.phone_number }}</p>
+        <p>郵便番号: {{ data.postal_code }}</p>
+        <p>住所: {{ data.address }}</p>
+    
+        <p>追加オプション</p>
+        <ul>
+            {% if data.yakiniku %}
+            <li>焼肉セット: <span id="yakiniku">{{ data.yakiniku }}</span>セット</li>
+            {% endif %}
+            {% if data.games %}<li>ゲーム・漫画セット</li>{% endif %}
+            {% if data.others %}<li>その他（カヌー）など</li>{% endif %}
+        </ul>
+
+        <p></p>
+        <p>ご要望: {{ data.messages }}</p>
+        <p>合計金額: <span id="totalAmount">{{ total_amount|floatformat:"0" }}</span>円（税込）</p>
+        <p>一人当たり金額: <span id="pricePerPerson">{{ pricePerPerson|floatformat:"0" }}</span>円（税込）</p>
 
         <div class="button-container">
             <!-- 予約確定ボタン -->
@@ -106,33 +144,39 @@
                 <button type="submit" class="button-secondary">修正する</button>
             </form>
         </div>
-    </div>
     
     <script>
-        function calculateTotal() {
-            const pricePerPerson = 5500; // 一人当たりの料金（税込）
-            const people = parseInt(document.getElementById('people').innerText);
-            
-            // チェックイン・チェックアウト日を取得
-            const checkInDate = new Date("{{ data.check_in_date }}");
-            const checkOutDate = new Date("{{ data.check_out_date }}");
-            
-            // 宿泊日数を計算（1泊2日の場合は1日）
-            const timeDiff = checkOutDate - checkInDate;
-            const days = timeDiff / (1000 * 60 * 60 * 24); // ミリ秒 -> 日 に変換
-    
-            // 合計金額を計算
-            const totalAmount = people * pricePerPerson * days;
-    
-            // 合計金額を表示
-            document.getElementById('totalAmount').innerText = `合計金額: ${totalAmount.toLocaleString()}円（税込）`;
-        }
-    
-        // ページ読み込み時に計算を実行
-        window.onload = calculateTotal;
+    function calculateTotal() {
+        const basePrice = 20000;               // 基本料金
+        const extraPricePerPerson = 2000;      // 追加料金/人
+        const yakinikuPrice = 2500;           // 焼肉セット料金
+        const depositPrice = 2000;             // デポジット料金
+
+        // 宿泊人数と焼肉セット数を取得
+        const men = parseInt(document.getElementById('men').textContent) || 0;
+        const women = parseInt(document.getElementById('women').textContent) || 0;
+        const yakinikuSets = parseInt(document.getElementById('yakiniku')?.textContent) || 0;
+
+        // 宿泊日数計算
+        const checkInDate = new Date(document.getElementById('check_in_date').textContent);
+        const checkOutDate = new Date(document.getElementById('check_out_date').textContent);
+        const timeDiff = checkOutDate - checkInDate;
+        const days = Math.max(1, timeDiff / (1000 * 60 * 60 * 24));  // 1泊2日は1日として計算
+
+        // 合計金額計算
+        const peopleTotal = men + women;
+        const totalAmount = (basePrice + extraPricePerPerson * peopleTotal) * days 
+                          + yakinikuPrice * yakinikuSets ;
+        const pricePerPerson = totalAmount/peopleTotal;
+
+        // 合計金額を表示
+        document.getElementById('totalAmount').textContent = `${Math.round(totalAmount).toLocaleString()}`;
+        document.getElementById('pricePerPerson').textContent = `${Math.round(pricePerPerson).toLocaleString()}`;
+    }
+
+    // ページ読み込み時に計算を実行
+    window.addEventListener('DOMContentLoaded', calculateTotal);
     </script>
-    
-    
 </body>
 </html>
 

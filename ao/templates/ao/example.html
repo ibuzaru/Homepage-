@@ -112,11 +112,15 @@
         background-color: #494b4d;
         text-decoration: underline;
     }
+    .disable{
+        pointer-events: none;  /* クリック無効 */
+        opacity: 0.3;          /* 半透明で無効感を演出 */
+    }
 </style>
 
 <form method="post" action="{% url 'example' %}" class="reservation-form">
     {% csrf_token %}
-    <p>予約情報入力</p>
+    <p>予約情報入力(必須)</p>
     <div class="form-group">
         <label>{{ form.check_in_date.label }}</label>
         {{ form.check_in_date }}
@@ -168,23 +172,25 @@
         {{ form.address }}
     </div>
 
-    <p>追加オプション</p>
+    <p>追加オプション(任意)</p>
     <div class="form-check">
-        <label>{{ form.yakiniku.label }}</label>
-        {{ form.yakiniku }}
+        　　<label>{{ form.yakiniku.label }}</label>
+        {{ form.yakiniku }}セット
     </div>
 
     <div class="form-check">
-        <label>{{ form.games.label }}</label>
         {{ form.games }}
+        <label>{{ form.games.label }}</label>
+        
     </div>
 
     <div class="form-check">
-        <label>{{ form.others.label }}</label>
         {{ form.others }}
+        <label>{{ form.others.label }}</label>
+        
     </div>
 
-    <p>ご要望</p>
+    <p>ご要望(任意)</p>
     <div class="form-hope">
         {{form.messages}}
         <div class="char-count">
@@ -244,73 +250,56 @@
                 alert("住所検索でエラーが発生しました。");
             });
     });
+    
 
-              
 
         
-    document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector('.reservation-form');
+     // フォーム送信時のバリデーション
+     document.querySelector('.reservation-form').addEventListener('submit', function (event) {
+    const nameInput = document.querySelector('input[name="name"]');
+    const furiganaInput = document.querySelector('input[name="furigana"]');
+    const phoneInput = document.querySelector('input[name="phone_number"]');
+    const menInput = document.querySelector('select[name="men"]');
+    const womenInput = document.querySelector('select[name="women"]');
 
-    form.addEventListener('submit', function (event) {
-        const nameInput = document.querySelector('input[name="name"]');
-        const furiganaInput = document.querySelector('input[name="furigana"]');
-        const phoneInput = document.querySelector('input[name="phone_number"]');
-        const emailInput = document.querySelector('input[name="email"]');
-        const menInput = document.querySelector('input[name="men"]');
-        const womenInput = document.querySelector('input[name="women"]');
+    const nameValue = nameInput.value.trim();
+    const furiganaValue = furiganaInput.value.trim();
+    const phoneValue = phoneInput.value.trim();
+    const menValue = parseInt(menInput.value) || 0;
+    const womenValue = parseInt(womenInput.value) || 0;
 
-        const nameValue = nameInput.value.trim();
-        const furiganaValue = furiganaInput.value.trim();
-        const phoneValue = phoneInput.value.trim();
-        const emailValue = emailInput.value.trim();
-        const menCount = parseInt(menInput.value) || 0;
-        const womenCount = parseInt(womenInput.value) || 0;
+    let isValid = true;
 
-        let isValid = true;
+    // 1. 氏名は漢字のみ、姓と名の間にスペースが必要
+    if (!/^[\u4E00-\u9FFF]+\s[\u4E00-\u9FFF]+$/.test(nameValue)) {
+        alert("氏名は漢字のみで、姓と名の間にスペースを入れてください（例: 山田 太郎）");
+        isValid = false;
+    }
 
-        // 1. 氏名は漢字のみ、姓と名の間に全角スペースが必要
-        if (!/^[\u4E00-\u9FFF]+\u3000[\u4E00-\u9FFF]+$/.test(nameValue)) {
-            alert("氏名は漢字のみで、姓と名の間に全角スペースを入れてください（例: 山田　太郎）");
-            isValid = false;
-        }
+    // 2. ふりがなはひらがなのみ、姓と名の間にスペースが必要
+    if (!/^[\u3040-\u309F]+\s[\u3040-\u309F]+$/.test(furiganaValue)) {
+        alert("ふりがなはひらがなのみで、姓と名の間にスペースを入れてください（例: やまだ たろう）");
+        isValid = false;
+    }
 
-        // 2. ふりがなはひらがなのみ、姓と名の間に全角スペースが必要
-        if (!/^[\u3040-\u309F]+\u3000[\u3040-\u309F]+$/.test(furiganaValue)) {
-            alert("ふりがなはひらがなのみで、姓と名の間に全角スペースを入れてください（例: やまだ　たろう）");
-            isValid = false;
-        }
-
-        // 3. 電話番号はハイフンなし、11文字
-        if (!/^\d{11}$/.test(phoneValue)) {
-            alert("電話番号はハイフンなしの11桁で入力してください（例: 09012345678）");
-            isValid = false;
-        }
-
-        // 4. メールアドレスのドメインチェック
-        const allowedDomains = ['gmail.com', 'yahoo.com', 'yahoo.co.jp', 'icloud.com'];
-        const emailDomain = emailValue.split('@')[1];
-
-        if (!allowedDomains.includes(emailDomain)) {
-            alert("メールアドレスは gmail、yahoo、icloud のいずれかを使用してください。");
-            emailInput.value = '';  // 無効な場合はクリア
-            isValid = false;
-        }
-
-        // 5. 男性＋女性の合計人数チェック（50人まで）
-        const totalPeople = menCount + womenCount;
-
-        if (totalPeople > 50) {
-            alert(`合計人数が50人を超えています！（現在：${totalPeople}人）`);
-            isValid = false;
-        }
-
-        // バリデーションエラーがある場合は送信停止
-        if (!isValid) {
-            event.preventDefault();
-        }
-    });
+    // 3. 電話番号はハイフンなし、11文字
+    if (!/^\d{11}$/.test(phoneValue)) {
+        alert("電話番号はハイフンなしの11桁で入力してください（例: 09012345678）");
+        isValid = false;
+    }
+    
+    // 4. 合計人数が50人を超えないかチェック
+    const totalPeople = menValue + womenValue;
+    if (totalPeople > 50) {
+        alert("合計人数は50人までとなります。現在の合計: " + totalPeople + "人");
+        isValid = false;
+    }
+    
+    // バリデーションエラーがある場合は送信停止
+    if (!isValid) {
+        event.preventDefault();
+    }
 });
-
 
     const textarea = document.getElementById("id_messages");
     const charCount = document.getElementById("char-count");

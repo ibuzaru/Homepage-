@@ -442,7 +442,7 @@ footer {
             <div class="name">山荘アオ</div>
             <div class="nav-container">
                 <nav class="nav-links">
-                    <a href="{% url 'home' %}"><div class="now-position">ホーム</div></a>
+                    <a href="{% url 'home' %}">ホーム</a>
                     <a href="{% url 'rooms' %}">施設・ご用意品</a>
                     <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
                     <a href="{% url 'sightseeing' %}">周辺情報</a>
@@ -453,11 +453,11 @@ footer {
             </div>
         </div>
         <div class="reservation-container">
-            <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
+            <a href="{% url 'resa' %}" class="reservation-button"><div class="now-position">ご予約・空席状況</div></a>
         </div>
 
         <nav class="mobile-menu" id="mobileMenu">
-            <a href="{% url 'home' %}"><div class="now-position">ホーム</div></a>
+            <a href="{% url 'home' %}">ホーム</a>
             <a href="{% url 'rooms' %}">施設・ご用意品</a>
             <a href="{% url 'howtostay' %}">ご利用ガイド</a>
             <a href="{% url 'sightseeing' %}">周辺情報</a>

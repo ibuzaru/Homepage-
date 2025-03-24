@@ -1,0 +1,27 @@
+{{ data.name }} 様
+
+この度はご予約いただきありがとうございます。
+以下の内容で予約を承りました。
+
+■予約内容
+チェックイン日: {{ data.check_in_date }}
+チェックアウト日: {{ data.check_out_date }}
+男性人数: {{ data.men }}名
+女性人数: {{ data.women }}名
+合計金額: {{ total_amount }}円（税込）
+一人当たり金額: {{ pricePerPerson }}円（税込）
+
+■お客様情報
+名前: {{ data.name }}
+ふりがな: {{ data.furigana }}
+メールアドレス: {{ data.email }}
+電話番号: {{ data.phone_number }}
+住所: {{ data.postal_code }} {{ data.address }}
+
+ご不明な点がございましたら、お気軽にお問い合わせください。
+
+================================
+山荘アオ
+電話: 080-2521-9439
+メール: sansoao6430366@gmail.com
+================================

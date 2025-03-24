@@ -364,12 +364,12 @@ footer {
             <div class="name">山荘アオ</div>
             <div class="nav-container">
                 <nav class="nav-links">
-                    <a href="{% url 'home' %}"><div class="now-position">ホーム</div></a>
+                    <a href="{% url 'home' %}">ホーム</a>
                     <a href="{% url 'rooms' %}">施設・ご用意品</a>
                     <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
                     <a href="{% url 'sightseeing' %}">周辺情報</a>
                     <a href="{% url 'supermarket' %}">アクセス</a>
-                    <a href="{% url 'faq' %}" >お問い合わせ</a>
+                    <a href="{% url 'faq' %}" ><div class="now-position">お問い合わせ</div></a>
                 </nav>
                 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             </div>
@@ -379,12 +379,12 @@ footer {
         </div>
 
         <nav class="mobile-menu" id="mobileMenu">
-            <a href="{% url 'home' %}"><div class="now-position">ホーム</div></a>
+            <a href="{% url 'home' %}">ホーム</a>
             <a href="{% url 'rooms' %}">施設・ご用意品</a>
             <a href="{% url 'howtostay' %}">ご利用ガイド</a>
             <a href="{% url 'sightseeing' %}">周辺情報</a>
             <a href="{% url 'supermarket' %}">アクセス</a>
-            <a href="{% url 'faq' %}" >お問い合わせ</a>
+            <a href="{% url 'faq' %}" ><div class="now-position">お問い合わせ</div></a>
         </nav>
 
     </header>
@@ -396,12 +396,14 @@ footer {
 
         <div class="faq-item">
             <h3>Q1. チェックイン・チェックアウトの時間は？</h3>
-            <div class="faq-answer">チェックインは13:00から、チェックアウトは10:00までです。</div>
+            <div class="faq-answer">チェックインは13:00から、チェックアウトは10:30までです。<br>※10:00に各お部屋の確認に伺いますのでご協力をお願い致します。</div>
         </div>
 
         <div class="faq-item">
             <h3>Q2. ペット同伴は可能ですか？</h3>
-            <div class="faq-answer">はい、可能です。</div>
+            <div class="faq-answer">はい、ペット同伴は可能でございます。
+                <br>※他のお客様に快適に過ごして頂くため、ペットの室内への同伴はご遠慮頂いております。
+            </div>
         </div>
 
         <div class="faq-item">
@@ -411,23 +413,26 @@ footer {
         
         <div class="faq-item">
             <h3>Q4. お支払方法は？</h3>
-            <div class="faq-answer">現地で、現金もしくはPayPayがお使いいただけます。</div>
+            <div class="faq-answer">現地で現金でのお支払いをお願い致します。<br>※物販品にはPayPayがお使いいただけます。</div>
         </div>
 
         <div class="faq-item">
             <h3>Q5. 予約の変更、キャンセル方法は？</h3>
-            <div class="faq-answer">お手数ですが、電話にてお願い致します。電話番号: (受付時間:9:00~18:00)</div>
+            <div class="faq-answer">お手数ですが電話にてお願い致します。<br>電話番号:080-2521-9439 (受付時間:9:00~18:00)</div>
         </div>
 
         <div class="faq-item">
             <h3>Q6.キャンセル規定は？</h3>
-            <div class="faq-answer">※予約の変更やキャンセルには、料金は発生いたしません。</div>
+            <div class="faq-answer">
+                三日前まではキャンセル無料、三日以降はご宿泊料金の半分をいただきます。
+                <br>※台風やその他のやむを得ない状況につきましてはキャンセル料を頂戴せず承らせていただきます。
+            </div>
         </div>
 
 
         <h1>お問い合わせ</h1>
         <div class="word3">お急ぎの場合は以下の番号にお電話ください</div>
-        <div class="word3">(受付時間:9:00~18:00):</div>
+        <div class="word3">(受付時間:9:00~18:00):080-2521-9439</div>
         <form class="contact-form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -475,7 +480,7 @@ footer {
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             if (currentScroll > lastScrollTop) {
-                document.getElementById("header").style.top = "-120px";
+                document.getElementById("header").style.top = "-130px";
             } else {
                 document.getElementById("header").style.top = "0";
             }

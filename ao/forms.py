@@ -11,7 +11,7 @@ class ContactForm(forms.Form):
 
 class ExampleForm(forms.ModelForm):
     # 人数選択肢
-    PEOPLE_CHOICES = [(str(i), f"{i}人") for i in range(0, 51)]
+    PEOPLE_CHOICES = [(str(i), f"{i}") for i in range(0, 51)]
     
     men = forms.ChoiceField(
         choices=PEOPLE_CHOICES,
@@ -28,7 +28,7 @@ class ExampleForm(forms.ModelForm):
     )
 
     yakiniku = forms.IntegerField(
-        label="焼肉セット(5人分/1セット)：3500円",
+        label="焼肉セット(5人分)：2500円/セット",
         min_value=0,
         max_value=10,
         initial=0,
@@ -67,11 +67,11 @@ class ExampleForm(forms.ModelForm):
     # フィールドごとのラベルとウィジェット
     check_in_date = forms.CharField(
         label="チェックイン日(13:00~)", max_length=15,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'チェックイン日'})
+        widget=forms.TextInput(attrs={'class': 'disable', 'placeholder': 'チェックイン日'})
     )
     check_out_date = forms.CharField(
         label="チェックアウト日(~10:00)", max_length=15,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'チェックアウト日'})
+        widget=forms.TextInput(attrs={'class': 'disable', 'placeholder': 'チェックアウト日'})
     )
     name = forms.CharField(
         label="名前", max_length=50,

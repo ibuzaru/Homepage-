@@ -1,51 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservation Confirmation</title>
+    <title>予約完了</title>
     <style>
-        a{text-decoration: none;}
-
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
+            font-family: 'Arial', 'Hiragino Sans', 'Meiryo', sans-serif;
+            background-color: #fff8f8;
+            margin: 0;
             padding: 20px;
-            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            text-align: center;
         }
-        .message-container {
-            border: 2px solid #800000;
+        .success-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 0, 0.1);
             max-width: 600px;
             margin: 50px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
         h1 {
+            color: #800000;
+            margin-bottom: 30px;
+        }
+        .success-icon {
+            font-size: 60px;
             color: #4CAF50;
+            margin-bottom: 20px;
         }
         p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #555;
+            margin: 20px 0;
+            font-size: 18px;
         }
-        .word1{
-            width: 30%;
+        .home-button {
             background-color: #800000;
-            color: white;
-            justify-self: center;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 30px;
+            text-decoration: none;
+            display: inline-block;
         }
-        .word1:hover{
-            text-decoration: underline;
+        .home-button:hover {
+            background-color: #a00000;
         }
     </style>
 </head>
 <body>
-    <div class="message-container">
-        <h1>予約が完了しました。</h1>
-        <p>登録されたメールアドレスに予約確認を送信しました。</p>
-        <a href="{% url 'home' %}"><div class="word1">ホーム</div></a>  
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1>予約が完了しました</h1>
+        <p>ご予約ありがとうございます。</p>
+        <p>予約確認メールを送信しましたので、ご確認ください。</p>
+        <p>メールが届かない場合は、迷惑メールフォルダもご確認いただくか、お手数ですがお問い合わせください。</p>
+        <a href="{% url 'home' %}" class="home-button">ホームに戻る</a>
     </div>
 </body>
 </html>
