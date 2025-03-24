@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='examplemodel',
             name='email',
-            field=models.EmailField(blank=True, help_text='gmail,yahoo,icloudのみ有効', max_length=254, null=True, validators=[ao.models.validate_email]),
+            field=models.EmailField(blank=True, help_text='gmail,yahoo,icloudのみ有効', max_length=254, null=True),
         ),
         migrations.AlterField(
             model_name='examplemodel',

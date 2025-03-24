@@ -1,5 +1,5 @@
 # views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import ExampleForm
 from django.conf import settings
 from django.template.loader import render_to_string  # メール本文生成
@@ -7,8 +7,6 @@ from .models import ExampleModel
 from datetime import datetime, timedelta
 import json  # 追加
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, 'ao/home.html')
@@ -40,24 +38,6 @@ def reservation(request):
 
 
 
-
-@login_required
-def mypage(request):
-    # 現在の日付を取得
-    from datetime import date
-    today = date.today()
-
-    # ログイン中のユーザーに紐付く予約情報を、チェックイン日が近い順に取得
-    # 現在の日付よりチェックアウト日が前の予約を削除
-    ExampleModel.objects.filter(user=request.user, check_out_date__lt=today).delete()
-
-    # 残りの予約情報を取得
-    reservations = ExampleModel.objects.filter(user=request.user).order_by('check_in_date')
-    
-    return render(request, 'ao/mypage.html', {
-        'user': request.user,
-        'reservations': reservations
-    })
 
 
 def example(request):
@@ -206,39 +186,6 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 
-def login_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        # 入力チェック（空欄チェック）
-        if not email or not password:
-            return render(request, 'ao/login.html', {
-                'error': 'メールアドレスとパスワードを入力してください。',
-                'email': email  # 入力内容保持
-            })
-
-        # メールアドレスでユーザーを取得
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return render(request, 'ao/login.html', {
-                'error': 'メールアドレスまたはパスワードが間違っています。',
-                'email': email  # 入力内容保持
-            })
-
-        # ユーザー名で認証
-        user = authenticate(request, username=user.username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('mypage')  # ログイン成功 → マイページへ
-        else:
-            return render(request, 'ao/login.html', {
-                'error': 'メールアドレスまたはパスワードが間違っています。',
-                'email': email  # 入力内容保持
-            })
-
-    return render(request, 'ao/login.html')
 
 from django.core.mail import send_mail
 from django.shortcuts import render

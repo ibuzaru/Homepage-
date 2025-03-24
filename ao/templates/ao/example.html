@@ -1,50 +1,86 @@
-
 <style>
+    p{
+        color: #800000;
+        text-align: center;
+        font-size: 30px;
+    }
     body {
         font-family: Arial, sans-serif;
-        background-color: #f9f9f9; /* 背景色 */
+        background-color: #f9f9f9;
         padding: 20px;
     }
     
     .reservation-form {
         width: 90%;
         margin: 0 auto;
-        background-color: #fff; /* フォーム背景色 */
+        background-color: #fff;
         padding: 30px;
-        border-radius: 10px; /* 角を丸くする */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* シャドウで立体感を追加 */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
     .form-group {
-        margin-bottom: 25px; /* フィールド間のスペース */
+        margin-bottom: 25px;
         display: flex;
-        flex-direction: column; /* 縦並び */
+        flex-direction: column;
     }
     
     .form-group label {
         font-weight: bold;
-        margin-bottom: 10px; /* ラベルと入力フィールドの間隔 */
+        margin-bottom: 10px;
         color: #333;
         font-size: 25px;
     }
     
-    .form-group input{
-        font-size: 30px;   
-        border-color: #333; 
-    }
-    .form-group select{
+    .form-group input, .form-group select, .form-group textarea {
         font-size: 30px;
         border-color: #333;
     }
-    .form-group textarea {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
+
+    .form-check {
+        margin-bottom: 20px;
     }
-    
+
+    /* チェックボックスのラベルとサイズ拡大 */
+    .form-check label {
+        font-size: 26px;     /* ラベルを大きく */
+    }
+
+    .form-check input[type="checkbox"] {
+        margin-left: 30px;
+        width: 30px;         /* チェックボックスの幅を拡大 */
+        height: 30px;        /* 高さを拡大 */
+    }
+    .form-check input[type="number"] {
+        margin-left: 50px;
+        font-size: 20px;
+        width: 100px;         /* チェックボックスの幅を拡大 */
+        height: 30px;        /* 高さを拡大 */
+    }
+
+    .form-hope textarea{
+        width: 100%;
+        height: 200px;               /* 高さ */
+        font-size: 20px;             /* フォントサイズ */
+        border: 1px solid #333;      /* 枠線 */
+        margin-bottom: 20px;         /* 下余白 */
+        white-space: normal;         /* 自動改行 */
+        word-wrap: break-word;       /* 単語内でも改行 */
+        resize: none;                /* サイズ変更禁止 */
+        padding: 10px;               /* 内側余白 */
+    }
+    .char-count {
+        font-size: 16px;
+        color: #555;
+    }
+    .warning {
+        color: red;
+        font-weight: bold;
+    }
+
+
     .btn-primary {
-        background-color: #007bff; /* ボタンの背景色 */
+        background-color: #007bff;
         color: #fff;
         padding: 10px 15px;
         border: none;
@@ -55,19 +91,19 @@
     }
     
     .btn-primary:hover {
-        background-color: #0056b3; /* ホバー時の背景色 */
+        background-color: #0056b3;
         text-decoration: underline;
     }
     
     .btn-secondary {
-        background-color: #6c757d; /* ボタンの背景色 */
+        background-color: #6c757d;
         color: #fff;
         padding: 8px 12px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         font-size: 25px;
-        margin-top: 10px; /* ボタンの上にスペース */
+        margin-top: 10px;
         width: 50%;
         transition: background-color 0.3s;
     }
@@ -76,59 +112,93 @@
         background-color: #494b4d;
         text-decoration: underline;
     }
-    
-    
-    </style>
-        
-        
-    
-    <form method="post" action="{% url 'example' %}" class="reservation-form">
-        {% csrf_token %}
-        <div class="form-group">
-            <label>{{ form.check_in_date.label }}</label>
-            {{ form.check_in_date }}
+</style>
+
+<form method="post" action="{% url 'example' %}" class="reservation-form">
+    {% csrf_token %}
+    <p>予約情報入力</p>
+    <div class="form-group">
+        <label>{{ form.check_in_date.label }}</label>
+        {{ form.check_in_date }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.check_out_date.label }}</label>
+        {{ form.check_out_date }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.name.label }}</label>
+        {{ form.name }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.furigana.label }}</label>
+        {{ form.furigana }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.men.label }}</label>
+        {{ form.men }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.women.label }}</label>
+        {{ form.women }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.email.label }}</label>
+        {{ form.email }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.phone_number.label }}</label>
+        {{ form.phone_number }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.postal_code.label }}</label>
+        {{ form.postal_code }}
+        <button type="button" id="search-address" class="btn-secondary">住所検索</button>
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.address.label }}</label>
+        {{ form.address }}
+    </div>
+
+    <p>追加オプション</p>
+    <div class="form-check">
+        <label>{{ form.yakiniku.label }}</label>
+        {{ form.yakiniku }}
+    </div>
+
+    <div class="form-check">
+        <label>{{ form.games.label }}</label>
+        {{ form.games }}
+    </div>
+
+    <div class="form-check">
+        <label>{{ form.others.label }}</label>
+        {{ form.others }}
+    </div>
+
+    <p>ご要望</p>
+    <div class="form-hope">
+        {{form.messages}}
+        <div class="char-count">
+            <span id="char-count">0</span>/300 文字
         </div>
-        <div class="form-group">
-            <label>{{ form.check_out_date.label }}</label>
-            {{ form.check_out_date }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.name.label }}</label>
-            {{ form.name }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.furigana.label }}</label>
-            {{ form.furigana }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.people.label }}</label>
-            {{ form.people }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.email.label }}</label>
-            {{ form.email }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.password.label }}</label>
-            {{ form.password }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.phone_number.label }}</label>
-            {{ form.phone_number }}
-        </div>
-        <div class="form-group">
-            <label>{{ form.postal_code.label }}</label>
-            {{ form.postal_code }}
-            <button type="button" id="search-address" class="btn-secondary">住所検索</button>
-        </div>
-        <div class="form-group">
-            <label>{{ form.address.label }}</label>
-            {{ form.address }}
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn-primary">予約確認へ</button>
-        </div>
-    </form>
+        <div id="warning" class="warning" style="display: none;">300文字まで入力可能です！</div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn-primary">予約確認へ</button>
+    </div>
+</form>
+
+
     
     
     <script>
@@ -175,70 +245,90 @@
             });
     });
 
-            // JavaScriptで金額を計算する
-            function calculateTotal() {
-            const pricePerPerson = 5000; // 一人当たりの料金
-            const taxRate = 0.10; // 税率
-
-            // 人数を取得
-            const people = parseInt(document.getElementById('people').innerText);
-
-            // 合計金額を計算
-            const totalAmount = people * pricePerPerson * (1 + taxRate);
-
-            // 結果を表示
-            document.getElementById('totalAmount').innerText = `合計金額: ${totalAmount.toLocaleString()}円（税込）`;
-            }
-            
+              
 
         
-    // フォーム送信時のバリデーション
-    document.querySelector('.reservation-form').addEventListener('submit', function (event) {
-    const nameInput = document.querySelector('input[name="name"]');
-    const furiganaInput = document.querySelector('input[name="furigana"]');
-    const phoneInput = document.querySelector('input[name="phone_number"]');
-    const emailInput = document.querySelector('input[name="email"]');
+    document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector('.reservation-form');
 
-    const nameValue = nameInput.value.trim();
-    const furiganaValue = furiganaInput.value.trim();
-    const phoneValue = phoneInput.value.trim();
-    const emailValue = emailInput.value.trim();
+    form.addEventListener('submit', function (event) {
+        const nameInput = document.querySelector('input[name="name"]');
+        const furiganaInput = document.querySelector('input[name="furigana"]');
+        const phoneInput = document.querySelector('input[name="phone_number"]');
+        const emailInput = document.querySelector('input[name="email"]');
+        const menInput = document.querySelector('input[name="men"]');
+        const womenInput = document.querySelector('input[name="women"]');
 
-    let isValid = true;
+        const nameValue = nameInput.value.trim();
+        const furiganaValue = furiganaInput.value.trim();
+        const phoneValue = phoneInput.value.trim();
+        const emailValue = emailInput.value.trim();
+        const menCount = parseInt(menInput.value) || 0;
+        const womenCount = parseInt(womenInput.value) || 0;
 
-    // 1. 氏名は漢字のみ、姓と名の間に全角スペースが必要
-    if (!/^[\u4E00-\u9FFF]+\u3000[\u4E00-\u9FFF]+$/.test(nameValue)) {
-        alert("氏名は漢字のみで、姓と名の間に全角スペースを入れてください（例: 山田　太郎）");
-        isValid = false;
-    }
+        let isValid = true;
 
-    // 2. ふりがなはひらがなのみ、姓と名の間に全角スペースが必要
-    if (!/^[\u3040-\u309F]+\u3000[\u3040-\u309F]+$/.test(furiganaValue)) {
-        alert("ふりがなはひらがなのみで、姓と名の間に全角スペースを入れてください（例: やまだ　たろう）");
-        isValid = false;
-    }
+        // 1. 氏名は漢字のみ、姓と名の間に全角スペースが必要
+        if (!/^[\u4E00-\u9FFF]+\u3000[\u4E00-\u9FFF]+$/.test(nameValue)) {
+            alert("氏名は漢字のみで、姓と名の間に全角スペースを入れてください（例: 山田　太郎）");
+            isValid = false;
+        }
 
-    // 3. 電話番号はハイフンなし、11文字
-    if (!/^\d{11}$/.test(phoneValue)) {
-        alert("電話番号はハイフンなしの11桁で入力してください（例: 09012345678）");
-        isValid = false;
-    }
-    // 4. メールアドレスのドメインチェック
-    const allowedDomains = ['gmail.com', 'yahoo.com', 'yahoo.co.jp', 'icloud.com'];
-    const emailDomain = emailValue.split('@')[1];
+        // 2. ふりがなはひらがなのみ、姓と名の間に全角スペースが必要
+        if (!/^[\u3040-\u309F]+\u3000[\u3040-\u309F]+$/.test(furiganaValue)) {
+            alert("ふりがなはひらがなのみで、姓と名の間に全角スペースを入れてください（例: やまだ　たろう）");
+            isValid = false;
+        }
 
-    if (!allowedDomains.includes(emailDomain)) {
-        alert("メールアドレスは gmail、yahoo、icloud のいずれかを使用してください。");
-        emailInput.value = '';  // 無効な場合はクリア
-        isValid = false;
-    }
-    // バリデーションエラーがある場合は送信停止
-    if (!isValid) {
-        event.preventDefault();
-    }
+        // 3. 電話番号はハイフンなし、11文字
+        if (!/^\d{11}$/.test(phoneValue)) {
+            alert("電話番号はハイフンなしの11桁で入力してください（例: 09012345678）");
+            isValid = false;
+        }
+
+        // 4. メールアドレスのドメインチェック
+        const allowedDomains = ['gmail.com', 'yahoo.com', 'yahoo.co.jp', 'icloud.com'];
+        const emailDomain = emailValue.split('@')[1];
+
+        if (!allowedDomains.includes(emailDomain)) {
+            alert("メールアドレスは gmail、yahoo、icloud のいずれかを使用してください。");
+            emailInput.value = '';  // 無効な場合はクリア
+            isValid = false;
+        }
+
+        // 5. 男性＋女性の合計人数チェック（50人まで）
+        const totalPeople = menCount + womenCount;
+
+        if (totalPeople > 50) {
+            alert(`合計人数が50人を超えています！（現在：${totalPeople}人）`);
+            isValid = false;
+        }
+
+        // バリデーションエラーがある場合は送信停止
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
 });
 
 
+    const textarea = document.getElementById("id_messages");
+    const charCount = document.getElementById("char-count");
+    const warning = document.getElementById("warning");
+
+    textarea.addEventListener("input", () => {
+        const length = textarea.value.length;
+
+        // 文字数カウント表示
+        charCount.textContent = length;
+
+        // 300文字を超えた場合は警告表示
+        if (length >= 300) {
+            warning.style.display = "block";
+        } else {
+            warning.style.display = "none";
+        }
+    });
 
 
     </script>

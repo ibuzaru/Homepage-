@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from django.contrib.auth import views as auth_views
+
 
 from . import views
 
@@ -10,8 +10,6 @@ urlpatterns = [
    path('example/', views.example, name='example'),
    path('example_confirm/', views.example_confirm, name='example_confirm'),
    path('example_fix/', views.example_fix, name='example_fix'),
-   path('mypage/', views.mypage, name="mypage"),
-   path('login/', views.login_view, name='login'),
    path('rooms', views.rooms, name="rooms"),
    path('faq/', views.faq, name="faq"),
    path('access/', views.supermarket, name='supermarket'),

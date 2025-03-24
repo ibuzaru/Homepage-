@@ -1,8 +1,7 @@
 # forms.py
 from django import forms
 from .models import ExampleModel
-from django.core.validators import MinLengthValidator
-from django import forms
+
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, label="お名前", widget=forms.TextInput(attrs={'placeholder': 'お名前'}))
@@ -11,37 +10,94 @@ class ContactForm(forms.Form):
 
 
 class ExampleForm(forms.ModelForm):
-
-
-    PEOPLE_CHOICES = [(str(i), f"{i}人") for i in range(4, 51)]  # 3～50人の選択肢
-    people = forms.ChoiceField(
-            choices=PEOPLE_CHOICES,
-            label="予約人数",
-            widget=forms.Select(attrs={"class": "form-control"})  # 必要に応じてCSSクラスを追加
+    # 人数選択肢
+    PEOPLE_CHOICES = [(str(i), f"{i}人") for i in range(0, 51)]
+    
+    men = forms.ChoiceField(
+        choices=PEOPLE_CHOICES,
+        label="男性人数",
+        initial=0,
+        widget=forms.Select(attrs={"class": "form-control"})
     )
 
-    password = forms.CharField(
-        label="パスワード（6文字以上）",
-        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "6文字以上"}),
-        validators=[MinLengthValidator(6)],
-        required=True
+    women = forms.ChoiceField(
+        choices=PEOPLE_CHOICES,
+        label="女性人数",
+        initial=0,
+        widget=forms.Select(attrs={"class": "form-control"})
     )
+
+    yakiniku = forms.IntegerField(
+        label="焼肉セット(5人分/1セット)：3500円",
+        min_value=0,
+        max_value=10,
+        initial=0,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '数量'})
+    )
+
+    games = forms.BooleanField(
+        label="ゲーム・漫画セット<デポジット2000円>",
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
+    )
+
+    others = forms.BooleanField(
+        label="その他（カヌーなど）<デポジット2000円>",
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
+    )
+
+    # 🔥 messagesフィールドを追加
+    messages = forms.CharField(
+        label="ご要望",
+        max_length=300,
+        required=False,
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': '300文字まで'})
+    )
+
     class Meta:
         model = ExampleModel
         fields = [
-            "check_in_date","check_out_date",
-            "name", "furigana", "people", "email",
-            "phone_number", "postal_code", "address"
+            "check_in_date", "check_out_date",
+            "name", "furigana", "men", "women",
+            "email", "phone_number", "postal_code",
+            "address", "yakiniku", "games", "others", "messages"
         ]
-    # フィールドごとに日本語のラベルを設定
-    check_in_date = forms.CharField( label="チェックイン日(13:00~)"  , max_length=15  )
-    check_out_date = forms.CharField( label="チェックアウト日(~10:00)", max_length=15  )
-    name = forms.CharField(label="名前(例：山田　太郎)", max_length=50)
-    furigana = forms.CharField(label="ふりがな(例：やまだ　たろう)", max_length=50)
-    email = forms.EmailField(label="メールアドレス(gmail,yahoo,icloudのみ有効)")
-    phone_number = forms.CharField(label="電話番号(例：12345678910)", max_length=15)
-    postal_code = forms.CharField(label="郵便番号(例：6430366)", max_length=7)
-    address = forms.CharField(label="住所", max_length=50)
+
+    # フィールドごとのラベルとウィジェット
+    check_in_date = forms.CharField(
+        label="チェックイン日(13:00~)", max_length=15,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'チェックイン日'})
+    )
+    check_out_date = forms.CharField(
+        label="チェックアウト日(~10:00)", max_length=15,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'チェックアウト日'})
+    )
+    name = forms.CharField(
+        label="名前", max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '(例：山田 太郎)'})
+    )
+    furigana = forms.CharField(
+        label="ふりがな", max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '(例：やまだ たろう)'})
+    )
+    email = forms.EmailField(
+        label="メールアドレス",
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': '@gmail.comなど'})
+    )
+    phone_number = forms.CharField(
+        label="携帯電話番号", max_length=15,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '(例：12345678910)'})
+    )
+    postal_code = forms.CharField(
+        label="郵便番号", max_length=7,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '(例：6430366)'})
+    )
+    address = forms.CharField(
+        label="住所", max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
 
 
 

@@ -1,22 +1,39 @@
 # models.py
 from django.db import models
 
-
-
 class ExampleModel(models.Model):
-    check_in_date = models.CharField(max_length=15, null=True, blank=False)
-    check_out_date = models.CharField(max_length=15, null=True, blank=False)
-    name = models.CharField(max_length=20, null=True, blank=False)
-    furigana = models.CharField(max_length=20, null=True, blank=False)
-    people = models.CharField(max_length=3, null=True, blank=False)
-    email = models.EmailField(null=True, blank=False)
-    phone_number = models.CharField(max_length=15,null=True, blank=False)
-    postal_code = models.CharField(max_length=7,null=True, blank=False)  # 郵便番号用
-    address = models.TextField(null=True, blank=False)  # 住所用
-    games = models.BooleanField(null=True,blank=True)
-    others = models.BooleanField(null=True,blank=True)
-    created_at = models.DateTimeField(null=True, blank=True,auto_now_add=True)  # 初回作成時に自動でセット
-    updated_at = models.DateTimeField(null=True, blank=True,auto_now=True) 
+    # 日付フィールド
+    check_in_date = models.CharField(max_length=15, blank=True,null=True, verbose_name="チェックイン日")
+    check_out_date = models.CharField(max_length=15, blank=True,null=True, verbose_name="チェックアウト日")
+    
+    # 名前フィールド
+    name = models.CharField(max_length=20, blank=True,null=True, verbose_name="名前")
+    furigana = models.CharField(max_length=20, blank=True,null=True, verbose_name="ふりがな")
+
+    # 人数フィールド（デフォルト値0）
+    men = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="男性")
+    women = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="女性")
+
+    # 連絡先
+    email = models.EmailField(max_length=254, blank=True,null=True, verbose_name="メールアドレス")
+    phone_number = models.CharField(max_length=15, blank=True,null=True, verbose_name="電話番号")
+    postal_code = models.CharField(max_length=7, blank=True,null=True)  # 郵便番号は7桁に修正
+    address = models.TextField(blank=True,null=True, verbose_name="住所")
+
+    # オプション
+    yakiniku = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="焼肉セット数量")
+    games = models.BooleanField(null=True, verbose_name="ゲーム・漫画セット")
+    others = models.BooleanField(null=True, verbose_name="その他")
+
+    # 日時フィールド
+    created_at = models.DateTimeField(null=True,auto_now_add=True)
+    updated_at = models.DateTimeField(null=True,auto_now=True)
+
+    messages =models.TextField(blank=True,null=True, verbose_name="要望")
+    def __str__(self):
+        return f"{self.name} ({self.check_in_date} - {self.check_out_date})"
+
+
    
 
 
