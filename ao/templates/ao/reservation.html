@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
 <style>
-    body {
+       body {
     padding-top: 100px; /* ヘッダーの高さ分余白を設ける */
     font-family: 'Playfair Display', serif;
     }
-
-
     header {
         position: fixed;
         width: 100vw;
@@ -36,6 +34,7 @@
         height: 60px;
     }
     .name{
+        font-family: 'Playfair Display', serif;
         font-size: 20px;
         font-weight: bold;
         margin-left: 5px;
@@ -73,13 +72,12 @@
         margin-top: 10px;
     }
     .reservation-button {
+        transform: translateX(-20px);
         padding: 8px 15px;
         background: #800000;
         color: white;
         text-decoration: none;
         border-radius: 5px;
-        bottom: 0px;
-        transform: translateX(-20px);
     }
     .reservation-button:hover {
         color: #800000;
@@ -95,7 +93,7 @@
         background: white;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         padding: 10px;
-        z-index: 1001;
+        z-index: 1100;
     }
     .mobile-menu a {
         text-decoration: none;
@@ -108,10 +106,9 @@
     }
     .menu-toggle {
         display: none; /* デフォルトでは非表示 */
-        position: absolute;
-        right: 20px;
-        top: 10px; /* ヘッダー内の上部に配置 */
-        font-size: 24px;
+        right: 30px;
+        top: 20px; /* ヘッダー内の上部に配置 */
+        font-size: 30px;
         cursor: pointer;
         z-index: 1002; /* 他の要素より前面に */
         transition: transform 0.3s;
@@ -122,7 +119,9 @@
         display: none;
     }
     .menu-toggle {
-        display: block;
+        display: flex;
+        gap: 15px;
+        margin-right: 50px;
     }
     .reservation-container {
         position: fixed;
@@ -133,21 +132,18 @@
         text-align: center;
     }
     .reservation-button {
+        transform: translateX(0px);
         display: inline-block;
         width: 100%;
         padding: 12px;
         font-size: large;
         text-align: center;
-        transform: translateX(0px);
     }
     .reservation-button:hover {
         color: #ca3d3d;
     }
     .menu-toggle.active {
         transform: rotate(90deg);
-    }
-    body {
-    padding-top: 50px; /* ヘッダーの高さ分余白を設ける */
     }
     }
 
@@ -446,37 +442,35 @@ footer {
             <div class="name">山荘アオ</div>
             <div class="nav-container">
                 <nav class="nav-links">
-                    <a href="{% url 'home' %}">ホーム</a>
+                    <a href="{% url 'home' %}"><div class="now-position">ホーム</div></a>
                     <a href="{% url 'rooms' %}">施設・ご用意品</a>
                     <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
                     <a href="{% url 'sightseeing' %}">周辺情報</a>
                     <a href="{% url 'supermarket' %}">アクセス</a>
-                    <a href="{% url 'login' %}">予約確認</a>
                     <a href="{% url 'faq' %}" >お問い合わせ</a>
                 </nav>
-                
+                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             </div>
         </div>
         <div class="reservation-container">
-            <a href="{% url 'resa' %}" class="reservation-button"><div class="now-position">ご予約・空席状況</div></a>
+            <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
         </div>
-    </header>
 
-    <nav class="mobile-menu" id="mobileMenu">
-        <a href="{% url 'home' %}">ホーム</a>
-        <a href="{% url 'rooms' %}">施設・ご用意品</a>
-        <a href="{% url 'howtostay' %}">ご利用ガイド</a>
-        <a href="{% url 'sightseeing' %}">周辺情報</a>
-        <a href="{% url 'supermarket' %}">アクセス</a>
-        <a href="{% url 'login' %}">予約確認</a>
-        <a href="{% url 'faq' %}" >お問い合わせ</a>
-    </nav>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav class="mobile-menu" id="mobileMenu">
+            <a href="{% url 'home' %}"><div class="now-position">ホーム</div></a>
+            <a href="{% url 'rooms' %}">施設・ご用意品</a>
+            <a href="{% url 'howtostay' %}">ご利用ガイド</a>
+            <a href="{% url 'sightseeing' %}">周辺情報</a>
+            <a href="{% url 'supermarket' %}">アクセス</a>
+            <a href="{% url 'faq' %}" >お問い合わせ</a>
+        </nav>
+
+    </header>
 
 
 
     <div class="info-container">
-        <p class="info-text">お支払いは<strong>現地</strong>で、<strong>現金</strong> もしくは <strong>PayPay</strong> をお使い頂けます。</p>
+        <p class="info-text">お支払いは<strong>現地</strong>で、<strong>現金</strong>で<br>お支払いください。<br>物販品は <strong>PayPay</strong> をお使い頂けます。</p>
         <h2 class="info-title">予約カレンダー</h2>
         <p class="info-text">カレンダーの日付を押して予約してください。</p>
     

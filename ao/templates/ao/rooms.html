@@ -113,7 +113,6 @@
         font-size: 30px;
         cursor: pointer;
         z-index: 1002; /* 他の要素より前面に */
-        transition: transform 0.3s;
     }
 
     @media (max-width: 900px) {
@@ -280,10 +279,9 @@
     transform:translateY(50%);
 }
 .room1-container{
-    
     display: flex;
+    justify-self: center;
     justify-content: space-evenly;
-    justify-content: center;
     width: 95%;
     height: 80vh;
     max-width: 1300px;
@@ -291,7 +289,7 @@
 .room1-box1{
     display: flex;
     align-items: center;
-    width: 80% ;
+    width: 85% ;
     height: 70vh;
 }
 
@@ -506,7 +504,7 @@
     position: relative;
     width: 90%;
     height: auto;
-    left: 4%;
+    left: 6%;
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -591,7 +589,7 @@
     left: 6%;
 }
 .product-section {
-    width: 90%;
+    width: 85%;
     max-width: 1200px;
     padding: 20px;
     background-color: #fffaf0;
@@ -808,7 +806,7 @@
         </div>
         <div class="info-item">
             <span class="info-label">チェックアウト</span>
-            <span class="info-value">〜10:00</span>
+            <span class="info-value">〜10:30</span>
         </div>
         <div class="info-item">
             <span class="info-label">宿泊可能人数</span>
@@ -1048,7 +1046,7 @@
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             if (currentScroll > lastScrollTop) {
-                document.getElementById("header").style.top = "-120px";
+                document.getElementById("header").style.top = "-140px";
             } else {
                 document.getElementById("header").style.top = "0";
             }

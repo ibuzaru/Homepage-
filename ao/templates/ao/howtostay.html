@@ -147,6 +147,9 @@
     }
 
 
+
+
+
 .room-section {
     margin-top: 20px;
     display: flex;
@@ -198,10 +201,55 @@
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
-.whole-map {
-    width: 90%;
-    height: 70vh;
+.info-box {
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
 }
+
+.info-title {
+    font-size: 28px;
+    color: #d9534f;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.info-text {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+.info-text strong{
+    color: #800000;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.info-image {
+    max-width: 100%;
+    width: 45%;
+    height: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 900px) {
+    .info-box {
+    border-radius: 8px;
+}
+}
+
+
+
+
 
 /* 説明欄とチェックイン・チェックアウト・宿泊人数のスタイル */
 .room-details {
@@ -542,8 +590,15 @@ footer {
     <div class="room-section">
         <div class="room-title">Guide</div>
         <div class="room-comment1">ご利用ガイド</div>
-        <div class="room-container">全体マップ
-            <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1" class="whole-map">
+        <div class="room-container">
+            <div class="info-box">
+                <h2 class="info-title">⚠️ 重要事項のご案内</h2>
+                <p class="info-text">お布団の<strong>シーツ設置・片付けは</strong><br>以下の画像のように<strong>お客様ご自身で</strong>行っていただきます。<br>チェックイン時にスタッフが説明しますので<br>ご協力お願いいたします。</p>
+                <div class="image-container">
+                    <img src="/static/ao/images/S__214065161_0.jpg" alt="シーツ設置の説明" class="info-image">
+                    <img src="/static/ao/images/S__214065163_0.jpg" alt="片付けの説明"  class="info-image">
+                </div>
+            </div>        
         </div>
     </div>
   
@@ -556,7 +611,7 @@ footer {
         <div class="amenity-title">reservation</div>
         <div class="amenity-comment1">ご予約方法</div>
         <div class="amenity-comment2">
-            <strong>※公式HPのみからご予約が可能です。</strong>
+            <strong>※本サイトのみからご予約が可能です。</strong>
         </div>
         <div class="amenity-container">
             <div class="equipment-list">
