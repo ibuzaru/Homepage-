@@ -368,7 +368,6 @@ footer {
                     <a href="{% url 'howtostay' %}" >ご利用ガイド</a>
                     <a href="{% url 'sightseeing' %}">周辺情報</a>
                     <a href="{% url 'supermarket' %}">アクセス</a>
-                    <a href="{% url 'login' %}">予約確認</a>
                     <a href="{% url 'faq' %}" ><div class="now-position">お問い合わせ</div></a>
                 </nav>
                 
@@ -385,7 +384,6 @@ footer {
         <a href="{% url 'howtostay' %}">ご利用ガイド</a>
         <a href="{% url 'sightseeing' %}">周辺情報</a>
         <a href="{% url 'supermarket' %}">アクセス</a>
-        <a href="{% url 'login' %}">予約確認</a>
         <a href="{% url 'faq' %}" ><div class="now-position">お問い合わせ</div></a>
     </nav>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -435,7 +433,7 @@ footer {
             <button type="submit">送信</button>
         </form>
         {% if success %}
-        <p style="color: green;">お問い合わせが送信されました。ありがとうございます。</p>
+        <p style="color: green;">内容が送信されました。ありがとうございます。</p>
         {% endif %}
     </div>
     <footer>

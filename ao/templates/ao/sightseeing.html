@@ -34,6 +34,7 @@
         height: 60px;
     }
     .name{
+        font-family: 'Playfair Display', serif;
         font-size: 20px;
         font-weight: bold;
         margin-left: 5px;
@@ -92,7 +93,7 @@
         background: white;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         padding: 10px;
-        z-index: 1001;
+        z-index: 1100;
     }
     .mobile-menu a {
         text-decoration: none;
@@ -105,7 +106,6 @@
     }
     .menu-toggle {
         display: none; /* デフォルトでは非表示 */
-        position: absolute;
         right: 30px;
         top: 20px; /* ヘッダー内の上部に配置 */
         font-size: 30px;
@@ -121,6 +121,7 @@
     .menu-toggle {
         display: flex;
         gap: 15px;
+        margin-right: 50px;
     }
     .reservation-container {
         position: fixed;
@@ -131,7 +132,7 @@
         text-align: center;
     }
     .reservation-button {
-        transform: translateX(0%);
+        transform: translateX(0px);
         display: inline-block;
         width: 100%;
         padding: 12px;
@@ -150,88 +151,73 @@
 
 
 
-.description-box{
+.room-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 50vh;
-    margin-bottom: 100px;
-}
-.description-box img{
-    max-width: 1000px;
-    margin-left: 5%;
-    width: 95%;
-    height: 50vh;
-    object-fit:fill;
-}
-.description-comment-box{
-    position: absolute;
-    width: 500px;
-    right: 5%;
-    background-color: white;
-    height: auto;  
-    transform: translateY(-100%);
-    border: 1px solid #ddd;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
-}
-.description-tytle{
-    padding-top: 15px;
-    justify-self: center;
-    color: #800000;
-    font-size: large;
-    font-weight: bold;
-    width: 90%;
-}
-.description-time{
-    justify-self: center;
-    font-size: medium;
-    width: 90%;
-    text-align: right;
-    padding-bottom: 15px;
-    border-bottom: 0.3px solid black;
-}
-.description-comment-box p{
-    width: 90%;
-    justify-self: center;
+    height: 40vh; /* 高さを自動調整に変更 */
+    position: relative;
+    margin-bottom: 100px; /* 下部に余白を追加 */
 }
 
+.room-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 5px;
+    top: 60px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
 
-.description-box-left{
-    width: 100%;
-    height: 50vh;
-    margin-bottom: 100px;
+.room-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
 }
-.description-box-left img{
-    position: absolute;
-    right: 5%;
-    max-width: 1000px;
-    width: 95%;
-    height: 50vh;
-    object-fit:fill;
+
+.room-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
 }
-.description-comment-box-left{
-    position: absolute;
-    left: 5%;
-    background-color: white;
-    width: 500px;
+
+.room-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
     height: auto;
-    margin-top: 50vh;
-    transform: translateY(-100%);
-    border: 1px solid #ddd;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
-    
+    left: 6%;
+    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
-.description-comment-box-left p{
-    width: 90%;
-    justify-self: center;
+.room-container a{
+    width: 50%;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #af6c6c;
+    padding: 10px;
+    border-bottom:1px solid #af6c6c;
 }
-@media (max-width: 900px) {
-    .description-comment-box,.description-comment-box-left{
-    transform: translateY(0);
-    width: 300px;
-}
-.description-box,.description-box-left{
-    margin-bottom: 30vh;
-}
-}
+
+
+
+
+
+
 
 
 
@@ -239,8 +225,7 @@
 
 
 .sightseeing-section {
-
-    margin-bottom: 100px;
+    margin-top: 20vh;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -374,7 +359,362 @@ button {
     }
 }
 
+.description-box{
+    margin-top: 50px;
+    width: 100%;
+    height: 50vh;
+    margin-bottom: 100px;
+}
+.description-box img{
+    max-width: 1000px;
+    margin-left: 5%;
+    width: 95%;
+    height: 50vh;
+    object-fit:fill;
+}
+.description-comment-box{
+    position: absolute;
+    width: 500px;
+    right: 5%;
+    background-color: white;
+    height: auto;  
+    transform: translateY(-100%);
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
+}
+.description-tytle{
+    padding-top: 15px;
+    justify-self: center;
+    color: #800000;
+    font-size: large;
+    font-weight: bold;
+    width: 90%;
+}
+.description-time{
+    justify-self: center;
+    font-size: medium;
+    width: 90%;
+    text-align: right;
+    padding-bottom: 15px;
+    border-bottom: 0.3px solid black;
+}
+
+.description-comment-box p{
+    width: 90%;
+    justify-self: center;
+}
+.description-box-left{
+    width: 100%;
+    height: 50vh;
+    margin-bottom: 100px;
+}
+.description-box-left img{
+    position: absolute;
+    right: 5%;
+    max-width: 1000px;
+    width: 95%;
+    height: 50vh;
+    object-fit:fill;
+}
+.description-comment-box-left{
+    position: absolute;
+    left: 5%;
+    background-color: white;
+    width: 500px;
+    height: auto;
+    margin-top: 50vh;
+    transform: translateY(-100%);
+    border: 1px solid #ddd;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
+    
+}
+.description-comment-box-left p{
+    width: 90%;
+    justify-self: center;
+}
+@media (max-width: 900px) {
+    .description-box img{
+    margin-left: 0;
+    width: 100%;
+}
+.description-box-left img{
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+    .description-comment-box,.description-comment-box-left{
+    transform: translateY(-10%);
+    width: 70%;
+}
+.description-box,.description-box-left{
+    margin-bottom: 30vh;
+}
+}
    
+
+
+
+.supermarket-section {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* 高さを自動調整に変更 */
+    position: relative;
+    margin-bottom: 100px; /* 下部に余白を追加 */
+}
+
+.supermarket-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: -5px;
+    top: 70px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.supermarket-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+
+.supermarket-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+
+.supermarket-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
+}
+
+
+
+
+.food-section {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* 高さを自動調整に変更 */
+    position: relative;
+    margin-bottom: 100px; /* 下部に余白を追加 */
+}
+
+.food-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    top: 60px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.food-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+
+.food-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+
+.food-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
+}
+
+
+
+
+.souvenir-section {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* 高さを自動調整に変更 */
+    position: relative;
+    margin-bottom: 100px; /* 下部に余白を追加 */
+}
+
+.souvenir-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 15px;
+    top: 45px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.souvenir-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+
+.souvenir-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+
+.souvenir-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
+}
+
+
+
+
+
+.onsen-section {
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* 高さを自動調整に変更 */
+    position: relative;
+    margin-bottom: 100px; /* 下部に余白を追加 */
+}
+
+.onsen-title {
+    color: #af6c6c;
+    font-size: 24px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+}
+
+.onsen-title::after {
+    margin-top: 10px;
+    content: "";
+    display: block;
+    width: 1px; /* 線の太さ */
+    height: 150px; /* 縦方向の長さ */
+    margin-left: 110px; /* 文字と線の間の余白 */
+    transform: rotate(90deg); /* 90度回転 */
+    background-color: #af6c6c;
+}
+
+.onsen-comment1 {
+    font-size: 40px;
+    width: 90%;
+    transform: translateX(10%);
+    margin-bottom: 50px;
+}
+
+.onsen-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
+    height: auto;
+    left: 6%;
+    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
+}
+
+
+
+
+.description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: black;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+.equipment-list {
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.equipment-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #af6c6c;
+    padding: 50px 0px 50px 0px;
+}
+
+.equipment-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+    white-space: nowrap; /* 改行を防ぐ */
+    margin-right: 30px;
+}
+
+
+.equipment-detail {
+    font-size: 14px;
+    color: #666;
+}
+
+
 
 
 
@@ -517,83 +857,39 @@ footer {
                     <a href="{% url 'supermarket' %}">アクセス</a>
                     <a href="{% url 'faq' %}" >お問い合わせ</a>
                 </nav>
-                
+                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             </div>
         </div>
         <div class="reservation-container">
             <a href="{% url 'resa' %}" class="reservation-button">ご予約・空席状況</a>
         </div>
+
+        <nav class="mobile-menu" id="mobileMenu">
+            <a href="{% url 'home' %}">ホーム</a>
+            <a href="{% url 'rooms' %}">施設・ご用意品</a>
+            <a href="{% url 'howtostay' %}">ご利用ガイド</a>
+            <a href="{% url 'sightseeing' %}"><div class="now-position">周辺情報</div></a>
+            <a href="{% url 'supermarket' %}">アクセス</a>
+            <a href="{% url 'faq' %}" >お問い合わせ</a>
+        </nav>
     </header>
 
-    <nav class="mobile-menu" id="mobileMenu">
-        <a href="{% url 'home' %}">ホーム</a>
-        <a href="{% url 'rooms' %}">施設・ご用意品</a>
-        <a href="{% url 'howtostay' %}">ご利用ガイド</a>
-        <a href="{% url 'sightseeing' %}"><div class="now-position">周辺情報</div></a>
-        <a href="{% url 'supermarket' %}">アクセス</a>
-        <a href="{% url 'faq' %}" >お問い合わせ</a>
-    </nav>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-    <div class="description-box">
-        <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
-        <div class="description-comment-box">
-            <div class="description-tytle">あらぎ島</div>
-            <div class="description-time">車で約２５分</div>
-            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
+    <div class="room-section">
+        <div class="room-title">Information</div>
+        <div class="room-comment1">周辺情報＜目次＞</div>
+        <div class="room-container">
+            <a href="#sightseeing">観光地</a>
+            <a href="#supermarket">スーパー</a>
+            <a href="#food">ごはん屋</a>
+            <a href="#souvenir">お土産屋</a>
+            <a href="#onsen">温泉</a>
         </div>
     </div>
-
-    <div class="description-box-left">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像1">
-        <div class="description-comment-box-left">
-            <div class="description-tytle">生石高原</div>
-            <div class="description-time">車で約２４分</div>
-            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
-        </div>
-    </div>
-
-    <div class="description-box">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像1">
-        <div class="description-comment-box">
-            <div class="description-tytle">あらぎ島</div>
-            <div class="description-time">車で約２５分</div>
-            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
-        </div>
-    </div>
-
-    <div class="description-box-left">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像1">
-        <div class="description-comment-box-left">
-            <div class="description-tytle">生石高原</div>
-            <div class="description-time">車で約２４分</div>
-            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
-        </div>
-    </div>
-
-    <div class="description-box">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像1">
-        <div class="description-comment-box">
-            <div class="description-tytle">あらぎ島</div>
-            <div class="description-time">車で約２５分</div>
-            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
-        </div>
-    </div>
-
-    <div class="description-box-left">
-        <img src="/static/ao/images/S__214065164_0.jpg" alt="画像1">
-        <div class="description-comment-box-left">
-            <div class="description-tytle">生石高原</div>
-            <div class="description-time">車で約２４分</div>
-            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
-        </div>
-    </div>
-
 
 
     <div class="sightseeing-section">
-        <div class="sightseeing-title">Sightseeing</div>
-        <div class="sightseeing-comment1">周辺情報</div>
+        <div id="sightseeing" class="sightseeing-title">Sightseeing</div>
+        <div class="sightseeing-comment1">観光地</div>
         <div class="sightseeing-container">
             <button id="prevBtn">&#10094;</button>
             <div class="sightseeing-content">
@@ -637,80 +933,98 @@ footer {
             <button id="nextBtn">&#10095;</button>
         </div>
     </div>
-
-
-    <h3>あらぎ島</h3>
-    <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
-
-    <h3>生石高原</h3>
-    <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p>
-
-    <h3>蔵王橋</h3>
-    <p>二川ダム上に架かる赤い吊り橋です。全長約160mのつり橋で、橋の上からは二川ダムの水面が見え、スリルがあります。</p>
-
-    <h3>有田川鉄道公園</h3>
-    <p>公園内の鉄道交流館では有田川町の風景を再現したジオラマがあり、400mの線路上に往年の車両が並んでいます。</p>
-
-    <h3>則岡醤油醸造元</h3>
-    <p>明治40年創業の醤油醸造元の直売店。昔ながらの本醸造醤油が看板商品。</p>
-
-    <h3>有田市みかん資料館   粟生の寺、神社も</h3>
-    <p>有田市文化福祉センターの4階にあり、400余年の歴史と伝統を誇るみかん産業の歴史と現状を紹介しています。</p>
-
-
-
-    <div class="container">
-        <h1>店舗情報</h1>
-        
-        <div class="category">
-            <h2>スーパー</h2>
-            <ul>
-                <li>オークワ　有田川店
-                    <div class="description">地域密着型の大型スーパーで、一通りのものが揃います。<br>有田インターから2分、山荘粟生から23分</div>
-                </li>
-                <li>ドラッグストア　コスモス　有田川店
-                    <div class="description">お酒、ジュース類が安い！<br>有田ICから2分、山荘粟生から24分</div>
-                </li>
-                <li>エバーグリーン　徳田店
-                    <div class="description">程よい大きさのスーパーで買いやすい！魚の品数には欠けます。<br>有田インターから6分、山荘粟生から19分</div>
-                </li>
-                <li>マツゲン　吉備店
-                    <div class="description">全体的に安い！<br>有田インターから5分、山荘粟生から24分</div>
-                </li>
-            </ul>
+    <div class="description-box">
+        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像1">
+        <div class="description-comment-box">
+            <div class="description-tytle">あらぎ島</div>
+            <div class="description-time">車で約２５分</div>
+            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
         </div>
+    </div>
 
-        <div class="category">
-            <h2>おすすめのごはん屋</h2>
-            <ul>
-                <li>海鮮食堂つなや　有田川店
-                    <div class="description">新鮮な海の幸を使った絶品料理が楽しめる食堂。<br>有田インターから1分、山荘粟生から25分</div>
-                </li>
-                <li>麵dining　月乃屋
-                    <div class="description">こだわりのラーメンと居心地の良い雰囲気が特徴。<br>有田インターから2分、山荘粟生から23分</div>
-                </li>
-            </ul>
+    <div class="description-box-left">
+        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像1">
+        <div class="description-comment-box-left">
+            <div class="description-tytle">生石高原</div>
+            <div class="description-time">車で約２４分</div>
+            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
         </div>
+    </div>
 
-        <div class="category">
-            <h2>お土産屋</h2>
-            <ul>
-                <li>ファーマーズマーケット　ありだっこ
-                    <div class="description">地元の新鮮な農産物や特産品が豊富に揃うマーケット。<br>有田インターから1分、山荘粟生から25分</div>
-                </li>
-            </ul>
+    <div class="description-box">
+        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像1">
+        <div class="description-comment-box">
+            <div class="description-tytle">あらぎ島</div>
+            <div class="description-time">車で約２５分</div>
+            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
         </div>
+    </div>
 
-        <div class="category">
-            <h2>おすすめの温泉</h2>
-            <ul>
-                <li>かなや明恵峡温泉
-                    <div class="description">自然に囲まれた露店風呂がおすすめ！<br>有田インターから25分、山荘粟生から23分</div>
-                </li>
-                <li>有田川温泉 光の湯
-                    <div class="description">サウナ有りの温泉！<br>有田インターから22分、山荘粟生から32分</div>
-                </li>
-            </ul>
+
+    <div class="supermarket-section">
+        <div id="supermarket" class="supermarket-title">Supermarket</div>
+        <div class="supermarket-comment1">スーパーマーケット</div>
+        <div class="supermarket-container">
+            <div class="equipment-list">
+                <div class="equipment-item">
+                    <span class="equipment-name">オークワ　有田川店</span>
+                    <span class="equipment-detail">地域密着型の大型スーパーで、一通りのものが揃います。<br>有田インターから2分、山荘粟生から23分</span>
+                </div>
+                <div class="equipment-item">
+                    <span class="equipment-name">ドラッグストア　コスモス<br>有田川店</span>
+                    <span class="equipment-detail">お酒、ジュース類が安い！<br>有田ICから2分、山荘粟生から24分</span>
+                </div>
+                <div class="equipment-item">
+                    <span class="equipment-name">エバーグリーン　徳田店</span>
+                    <span class="equipment-detail">
+                        程よい大きさのスーパーで買いやすい！魚の品数には欠けます。<br>有田インターから6分、山荘粟生から19分</span>
+                </div>
+                <div class="equipment-item">
+                    <span class="equipment-name">マツゲン　吉備店</span>
+                    <span class="equipment-detail">全体的に安い！<br>有田インターから5分、山荘粟生から24分</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="food-section">
+        <div id="food" class="food-title">Restaurant</div>
+        <div class="food-comment1">ごはん屋</div>
+        <div class="food-container">
+            <div class="equipment-item">
+                <span class="equipment-name">海鮮食堂つなや　有田川店</span>
+                <span class="equipment-detail">新鮮な海の幸を使った絶品料理が楽しめる食堂。<br>有田インターから1分、山荘粟生から25分</span>
+            </div>
+            <div class="equipment-item">
+                <span class="equipment-name">麵dining　月乃屋</span>
+                <span class="equipment-detail">こだわりのラーメンと居心地の良い雰囲気が特徴。<br>有田インターから2分、山荘粟生から23分</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="souvenir-section">
+        <div id="souvenir" class="souvenir-title">Souvenir</div>
+        <div class="souvenir-comment1">お土産屋</div>
+        <div class="souvenir-container">
+            <div class="equipment-item">
+                <span class="equipment-name">ファーマーズマーケット<br>ありだっこ</span>
+                <span class="equipment-detail">地元の新鮮な農産物や特産品が豊富に揃うマーケット。<br>有田インターから1分、山荘粟生から25分</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="onsen-section">
+        <div id="onsen" class="onsen-title">Onsen</div>
+        <div class="onsen-comment1">温泉温泉</div>
+        <div class="onsen-container">
+            <div class="equipment-item">
+                <span class="equipment-name">かなや明恵峡温泉</span>
+                <span class="equipment-detail">自然に囲まれた露店風呂がおすすめ！<br>有田インターから25分、山荘粟生から23分</span>
+            </div>
+            <div class="equipment-item">
+                <span class="equipment-name">有田川温泉 光の湯</span>
+                <span class="equipment-detail">サウナ有りの温泉！<br>有田インターから22分、山荘粟生から32分</span>
+            </div>
         </div>
     </div>
 
@@ -752,7 +1066,7 @@ footer {
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             if (currentScroll > lastScrollTop) {
-                document.getElementById("header").style.top = "-120px";
+                document.getElementById("header").style.top = "-140px";
             } else {
                 document.getElementById("header").style.top = "0";
             }

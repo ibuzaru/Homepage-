@@ -249,6 +249,14 @@
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
 }
+.about-content{
+    text-align: center;
+}
+.about-comment1,.about-comment2{
+    font-size: 30px;
+    font-weight: bold;
+    color: green;
+}
 
 
 
@@ -288,6 +296,7 @@
     color: #af6c6c;
     font-weight: bold;
     text-align: center;
+    margin: auto;
     word-break: keep-all; /* 日本語の単語で適切に改行 */
 }
 
@@ -1062,8 +1071,8 @@ footer {
     <div class="about-section">
         <div class="about-title">About</div>
         <div class="about-content">
-            <div class="about-comment1">自由を提供する<br>一日一組限定の貸別荘</div>
-            <div class="about-comment2">山荘アオ<br>Sanso Ao</div>
+            <div class="about-comment1">大自然の中の<br>一日一組限定の貸別荘</div>
+            <div class="about-comment2"><br>山荘アオ<br>Sanso Ao</div>
         </div>
     </div>
     
@@ -1272,7 +1281,7 @@ footer {
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             if (currentScroll > lastScrollTop) {
-                document.getElementById("header").style.top = "-120px";
+                document.getElementById("header").style.top = "-140px";
             } else {
                 document.getElementById("header").style.top = "0";
             }

@@ -11,6 +11,8 @@
     body {
     padding-top: 120px; /* ヘッダーの高さ分余白を設ける */
     font-family: 'Playfair Display', serif;
+    margin: 0 auto;
+    overflow-x: hidden;
     }
     header {
         position: fixed;
@@ -204,6 +206,11 @@
     height: 70vh;
 }
 
+
+
+
+
+
 /* 説明欄とチェックイン・チェックアウト・宿泊人数のスタイル */
 .room-details {
     font-weight: bold;
@@ -273,24 +280,23 @@
     transform:translateY(50%);
 }
 .room1-container{
-    margin: auto;
+    
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
+    justify-content: center;
+    width: 95%;
     height: 80vh;
     max-width: 1300px;
 }
 .room1-box1{
     display: flex;
     align-items: center;
-    width: 85% ;
+    width: 80% ;
     height: 70vh;
 }
 
 .room1-box1 img{
     display: none;
-    width: 100%;
-    height: 100%;
 }
 .room1-box1 img.active{
     display: block;
@@ -298,7 +304,7 @@
     height: 100%;
 }
 .room1-box2 {
-    right: 5px;
+    right: 1%;
     display: flex;
     flex-direction: column;
     width: 13%;
@@ -784,7 +790,7 @@
 <div class="room-section">
     <div class="room-title">Room</div>
     <div class="room-comment1">施設のご案内</div>
-    <div class="room-container">全体マップ
+    <div class="room-container">
         <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1" class="whole-map">
     </div>
 </div>
@@ -922,8 +928,8 @@
         </div>
     </div>
     <div class="amenity-comment2">
-        各種セットは以下のように計算されます。<br>例（お料理セット）<br>～１５人→１セット　　１６人～３０人→２セット　　３１～５０人→３セット
-        <br>例（お食事セット）<br>～２０人→１セット　　２１人～４０人→２セット　　４１～５０人→３セット
+        各種セットは以下のように計算されます。<br>例（お料理セット）<br>～１５人→１セット　１６人～３０人→２セット　３１～５０人→３セット
+        <br>例（お食事セット）<br>～２０人→１セット　２１人～４０人→２セット　４１～５０人→３セット
     </div>
 </div>
 
