@@ -16,15 +16,14 @@
     }
     header {
         position: fixed;
-        width: 100vw;
+        width: 100%;
         top: 0;
         background: white;
         transition: top 0.3s;
         z-index: 1000;
         display: flex;
         flex-direction: column;
-        padding: 10px 40px;
-        
+        padding: 10px 40px; /* 左右のpaddingを減らす */
     }
     .header-top {
         display: flex;
@@ -116,6 +115,13 @@
     }
 
     @media (max-width: 900px) {
+        .logo {
+        width: 50px;
+        height: 50px;
+    }
+    .name{
+        font-size: 18px;
+    }
     .nav-links {
         display: none;
     }
@@ -285,6 +291,7 @@
     width: 95%;
     height: 80vh;
     max-width: 1300px;
+    padding: auto;
 }
 .room1-box1{
     display: flex;
@@ -529,6 +536,7 @@
     color: #333;
     font-size: 16px;
     white-space: nowrap; /* 改行を防ぐ */
+    margin-right: 10px;
 }
 
 
@@ -749,6 +757,34 @@
 
 }
 
+@media (max-width: 500px) {
+.product-section {
+    width: 80%;
+}
+.amenity-comment2{
+    width: 80%;
+    margin-left: 10px;
+}
+.plus-comment2{
+    width: 80%;
+}
+.room-comment1 {
+    font-size: 30px;
+    margin-left: 10px;
+}
+.amenity-comment1 {
+    font-size: 30px;
+    margin-left: 10px;
+}
+.plus-comment1 {
+    font-size: 30px;
+    margin-left: 10px;
+}
+.room-name{
+    font-size: 30px;
+}
+}
+
 
     </style>
 </head>
@@ -945,12 +981,12 @@
                 <span class="equipment-detail">炭５Kg、焼肉網×２、トング×３、着火剤×２</span>
             </div>
             <div class="equipment-item">
-                <span class="equipment-name">ゲーム・漫画セット<br>２０００円<br>※元のように返却いただければ<br>全額お返しします。</span>
+                <span class="equipment-name">ゲーム・漫画セット<br>デポジット<br>２０００円</span>
                 <span class="equipment-detail">卓球台×１、Uno×１、トランプ×１、麻雀セット×１<br>ゴキブリポーカー×１、人生ゲーム×１、将棋×１、オセロ×１
                     <br></br>Hunter×Hunter、ヒロアカ、ワンパンマン、ニセコイ<br>アカメが斬る、結界師、暗殺教室</span>
             </div>
             <div class="equipment-item">
-                <span class="equipment-name">その他<br>２０００円<br>※元のように返却で<br>全額お返しします。</span>
+                <span class="equipment-name">その他<br>デポジット<br>２０００円</span>
                 <span class="equipment-detail">浮き輪、カヌー、サーフボード、虫取り網</span>
             </div>
         </div>
@@ -1043,13 +1079,26 @@
         }
 
         let lastScrollTop = 0;
+        const threshold = 20;  // ヘッダーが収納されるまでのスクロール距離
+
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > lastScrollTop) {
-                document.getElementById("header").style.top = "-140px";
-            } else {
-                document.getElementById("header").style.top = "0";
+            const header = document.getElementById("header");
+
+            // 一番上にいるときは常に表示
+            if (currentScroll === 0) {
+                header.style.top = "0";
+                lastScrollTop = currentScroll;
+                return;
             }
+
+            // 下スクロール時に距離で判定
+            if (currentScroll > lastScrollTop + threshold) {
+                header.style.top = "-140px";  // ヘッダー収納
+            } else if (currentScroll < lastScrollTop - threshold || currentScroll < threshold) {
+                header.style.top = "0";  // 上スクロール時や最上部付近では表示
+            }
+
             lastScrollTop = currentScroll;
         });
         
@@ -1123,7 +1172,7 @@ document.addEventListener("DOMContentLoaded", function () {
             endX = event.changedTouches[0].clientX; // 指が離れた位置を記録
             let diffX = startX - endX;
 
-            if (Math.abs(diffX) > 50) { // スワイプの距離が50px以上なら実行
+            if (Math.abs(diffX) > 20) { // スワイプの距離が50px以上なら実行
                 if (diffX > 0) {
                     nextBtn.click(); // 左スワイプ → 次の画像
                 } else {
