@@ -295,7 +295,6 @@
 
 /* テキストスタイル */
 .text-left, .text-right {
-    width: 40%;
     font-size: 1.4rem;
     line-height: 1.6;
     color: #af6c6c;
@@ -648,7 +647,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 90%;
+    width: 95%;
     height: 70vh;
     left: 6%;
 }
@@ -656,7 +655,7 @@
 .sightseeing-content {
     display: flex;
     overflow: hidden;
-    width: 95%;
+    width: 90%;
     height: 100%;
     justify-content: center;
 }
@@ -718,12 +717,11 @@ button {
     .sightseeing-content {
         display: flex;
         overflow-x: auto;
-        white-space: nowrap;
         scroll-snap-type: x mandatory;
     }
 
     .sightseeing-content figure {
-        transform: translateX(250%);
+        transform: translateX(400%);
         display: inline-block;
         flex: 0 0 55%; /* 縮小を防ぐ */
         margin: 10px;
@@ -1032,9 +1030,9 @@ footer {
 
 
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .text-left, .text-right {
-        font-size: 1.1rem; /* スマホでは少し小さめに */
+        font-size: 1.0rem; /* スマホでは少し小さめに */
     }
     .about-comment1,.about-comment2{
         font-size: 25px;
@@ -1050,6 +1048,17 @@ footer {
     .access-comment1 {
         font-size: 30px;
         margin-left: 10px;
+    }
+    .sightseeing-content img {
+    height: 80%;
+    object-fit: cover; /* 画像を適切にトリミング */
+    border-radius: 10px;
+    }
+    .sightseeing-content figcaption {
+    font-size: 15px;
+    }
+    .sightseeing-content figure {
+        transform: translateX(500%);
     }
 }
 
@@ -1176,7 +1185,7 @@ footer {
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
-                    <figcaption>岩倉神社＋巌（いわお）</br>(徒歩１０分)</figcaption>
+                    <figcaption>岩倉神社</br>(徒歩１０分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
@@ -1188,7 +1197,7 @@ footer {
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
-                    <figcaption>生石高原（おいしこうげん）</br>(車で約２４分)</figcaption>
+                    <figcaption>生石高原（おいし）</br>(車で約２４分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065160_0.jpg" alt="画像3">
