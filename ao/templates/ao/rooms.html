@@ -129,6 +129,7 @@
         display: flex;
         gap: 15px;
         margin-right: 50px;
+        transition: transform 0.3s ease; /* 回転時のアニメーション */
     }
     .reservation-container {
         position: fixed;
@@ -151,6 +152,7 @@
     }
     .menu-toggle.active {
         transform: rotate(90deg);
+        
     }
     }
 
@@ -290,7 +292,6 @@
     justify-content: space-evenly;
     width: 95%;
     height: 80vh;
-    max-width: 1300px;
     padding: auto;
 }
 .room1-box1{
@@ -309,7 +310,7 @@
     height: 100%;
 }
 .room1-box2 {
-    right: 1%;
+    align-items: center;
     display: flex;
     flex-direction: column;
     width: 13%;
@@ -365,6 +366,7 @@
         width: 100%;
         height: 50vh;
         justify-content: center;
+
     }
     .room1-box1 img{
         border-radius: 10px;
@@ -375,7 +377,6 @@
         width: 100%;
         height: auto;
         flex-direction: row;
-        overflow-x: auto;
         justify-content: center;
         gap: 5px;
         padding: 10px 0;
@@ -758,31 +759,36 @@
 }
 
 @media (max-width: 500px) {
-.product-section {
-    width: 80%;
-}
-.amenity-comment2{
-    width: 80%;
-    margin-left: 10px;
-}
-.plus-comment2{
-    width: 80%;
-}
-.room-comment1 {
-    font-size: 30px;
-    margin-left: 10px;
-}
-.amenity-comment1 {
-    font-size: 30px;
-    margin-left: 10px;
-}
-.plus-comment1 {
-    font-size: 30px;
-    margin-left: 10px;
-}
-.room-name{
-    font-size: 30px;
-}
+    .menu-toggle {
+        margin-right: -40px;
+    }
+    .product-section {
+        width: 80%;
+    }
+    .amenity-comment2{
+        width: 80%;
+        margin-left: 10px;
+    }
+    .plus-comment2{
+        width: 80%;
+    }
+
+    .room-name{
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+    .room-comment1,
+        .amenity-comment1,
+        .plus-comment1,
+        .news-comment1 {
+            font-size: 25px;
+            margin-left: 0;
+        }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 
@@ -977,13 +983,16 @@
     <div class="plus-container">
         <div class="equipment-list">
             <div class="equipment-item">
-                <span class="equipment-name">焼肉セット（約５人分）<br>２５００円/セット<br></span>
+                <span class="equipment-name">焼肉セット<br>（約５人分）<br>２５００円/セット</span>
                 <span class="equipment-detail">炭５Kg、焼肉網×２、トング×３、着火剤×２</span>
             </div>
             <div class="equipment-item">
-                <span class="equipment-name">ゲーム・漫画セット<br>デポジット<br>２０００円</span>
+                <span class="equipment-name">ゲームセット<br>(デポジット<br>２０００円)</span>
                 <span class="equipment-detail">卓球台×１、Uno×１、トランプ×１、麻雀セット×１<br>ゴキブリポーカー×１、人生ゲーム×１、将棋×１、オセロ×１
-                    <br></br>Hunter×Hunter、ヒロアカ、ワンパンマン、ニセコイ<br>アカメが斬る、結界師、暗殺教室</span>
+            </div>
+            <div class="equipment-item">
+                <span class="equipment-name">漫画セット<br>(デポジット<br>２０００円)</span>
+                <span class="equipment-detail">Hunter×Hunter、ヒロアカ、ワンパンマン、ニセコイ<br>アカメが斬る、結界師、暗殺教室</span>
             </div>
             <div class="equipment-item">
                 <span class="equipment-name">その他<br>デポジット<br>２０００円</span>
