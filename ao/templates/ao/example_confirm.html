@@ -95,6 +95,71 @@
             font-weight: bold;
             color: #800000;
         }
+
+
+
+        .important-notice {
+    background: #f8f9fa;         /* 背景色 */
+    border: 2px solid #d9534f;   /* 赤系の枠線 */
+    border-radius: 10px;         /* 角丸 */
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 軽い影 */
+    font-family: Arial, sans-serif;
+    line-height: 1.8;
+}
+
+.important-notice h2 {
+    font-size: 24px;
+    color: #d9534f;              /* 赤系のタイトル */
+    margin-bottom: 15px;
+}
+
+.important-notice ul {
+    list-style: none;
+    padding: 0;
+}
+
+.important-notice li {
+    margin-bottom: 20px;
+    padding-left: 30px;
+    position: relative;
+    font-size: 18px;
+}
+
+.important-notice li::before {
+    content: "✔";                /* チェックマーク */
+    position: absolute;
+    left: 0;
+    color: #5cb85c;              /* 緑色 */
+    font-size: 20px;
+}
+
+.important-notice strong {
+    font-size: 20px;
+    color: #333;                  /* 太字で強調 */
+}
+.detail-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.detail-button {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #af6c6c;
+    border: 1px solid #af6c6c;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.detail-button:hover {
+    background-color: #af6c6c;
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -125,6 +190,28 @@
         <p>ご要望: {{ data.messages }}</p>
         <p>合計金額: <span id="totalAmount">{{ total_amount|floatformat:"0" }}</span>円（税込）</p>
         <p>一人当たり金額: <span id="pricePerPerson">{{ pricePerPerson|floatformat:"0" }}</span>円（税込）</p>
+
+        <div class="important-notice">
+            <h2>📌 重要事項まとめ</h2>
+            <ul>
+                <li>
+                    <strong>🛏️ シーツ設置・片付け</strong><br>
+                    チェックイン・アウト時にお客様ご自身でお願い致します。<br>
+                    チェックイン時にスタッフがご説明いたしますので、ご協力お願い致します。
+                    <div class="detail-box">
+                        <a href="{% url 'howtostay' %}" class="detail-button">ご利用ガイド</a>
+                    </div>
+                </li>
+                <li>
+                    <strong>🍽️ お食事・お料理セット</strong><br>
+                    ※食材と調味料のみお買い求めください。
+                    <br>紙皿や調理器具などはそろっております。
+                    <div class="detail-box">
+                        <a href="{% url 'rooms' %}" class="detail-button">施設・ご用意品</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         <div class="button-container">
             <!-- 予約確定ボタン -->
