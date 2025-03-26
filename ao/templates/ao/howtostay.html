@@ -209,7 +209,7 @@
 }
 
 .info-box {
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     max-width: 900px;
     width: 100%;
@@ -320,6 +320,8 @@
 
 .notion-box{
     text-align: center;
+    justify-self: center;
+    width: 93%;
 }
 
 
@@ -341,7 +343,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 5px;
+    left: 0px;
     top: 60px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -420,7 +422,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 30px;
+    left: 20px;
     top: 45px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -555,6 +557,28 @@ footer {
         justify-content: center;
         gap: 10px;
     }
+}
+
+@media (max-width: 500px) {
+.room-comment1,
+    .amenity-comment1{
+        font-size: 25px;
+        margin-left: 5px;
+        margin-bottom: 0px;
+    }
+    .info-title {
+    font-size: 25px;
+}
+.info-text {
+    font-size: 18px;
+}
+.amenity-title {
+    left: -5px;
+}
+.payment-title {
+    left: 20px;
+    top: 40px;
+}
 
 }
 
@@ -600,7 +624,7 @@ footer {
         <div class="room-container">
             <div class="info-box">
                 <h2 class="info-title">⚠️ 重要事項のご案内</h2>
-                <p class="info-text">お布団の<strong>シーツ設置・片付けは</strong><br>以下の画像のように<strong>お客様ご自身で</strong>行っていただきます。<br>チェックイン時にスタッフが説明しますので<br>ご協力お願いいたします。</p>
+                <p class="info-text">お布団の<strong>シーツ設置・片付け</strong>は<br><strong>チェックイン・アウト時に</strong><br>以下の画像のように<strong>お客様ご自身</strong>で行っていただきます。<br>スタッフが説明しますので<br>ご協力お願いいたします。</p>
                 <div class="image-container">
                     <img src="/static/ao/images/S__214065161_0.jpg" alt="シーツ設置の説明" class="info-image">
                     <img src="/static/ao/images/S__214065163_0.jpg" alt="片付けの説明"  class="info-image">
@@ -615,7 +639,7 @@ footer {
     </div>
 
     <div class="amenity-section">
-        <div class="amenity-title">reservation</div>
+        <div class="amenity-title">Reservation</div>
         <div class="amenity-comment1">ご予約方法</div>
         <div class="amenity-comment2">
             <strong>※本サイトのみからご予約が可能です。</strong>
@@ -628,9 +652,9 @@ footer {
                         <br>例　１５名様でご利用の場合</br>基本料金２００００円＋３７５００円（１５名様×２５００円）</span>
                 </div>
                 <div class="equipment-item">
-                    <span class="equipment-name">オプション・人数追加</span>
+                    <span class="equipment-name">オプション<br>人数追加</span>
                     <span class="equipment-detail">最大５０名様まで
-                        <br><br>ご予約の際にご希望のオプションにチェックください。<br>お電話により、オプションや人数の追加が可能です。
+                        <br><br>ご予約の際にご希望のオプションにチェックください。<br>お電話により、オプションや人数の追加が可能です。<br>※最大人数を超える人数の予約については、お電話にてご相談ください。
                     </span>
                 </div>
                 <div class="equipment-item">
@@ -644,8 +668,8 @@ footer {
     </div>
 
     <div class="amenity-section">
-        <div class="amenity-title">checkin/out</div>
-        <div class="amenity-comment1">チェックイン・チェックアウトの流れ</div>
+        <div class="amenity-title">Checkin/out</div>
+        <div class="amenity-comment1">チェックイン・アウトの流れ</div>
         <div class="amenity-container">
             <div class="equipment-list">
                 <div class="equipment-item">
@@ -667,12 +691,12 @@ footer {
     </div>
 
     <div class="amenity-section">
-        <div class="payment-title">payment</div>
+        <div class="payment-title">Payment</div>
         <div class="amenity-comment1">お支払い方法</div>
         <div class="amenity-container">
             <div class="equipment-list">
                 <div class="equipment-item">
-                    <span class="equipment-name">現金のみ<br>※物販品については<br>PayPayでのご購入が可能です。</span>
+                    <span class="equipment-name">現金のみ<br>※物販品は<br>PayPayが<br>使用できます。</span>
                     <span class="equipment-detail">お支払いは現地決済です。チェックイン時にお支払いをお願いいたします。</span>
                 </div>
             </div>
