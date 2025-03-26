@@ -212,9 +212,21 @@
 
 /* 施設情報 */
 .access-box1 {
+    width: 100%;
     text-align: center;
     margin-top: 30px;
     font-size: 20px;
+}
+.access-box2 {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+}
+.access-box2 img{
+    padding: 10px 10px 10px 10px;
+    max-width: 600px;
+    width: 45%;
+    height: auto;
 }
 
 /* 交通手段セクション */
@@ -227,7 +239,7 @@
 }
 
 .access-transport-box {
-    width: 90%;
+    width: 88%;
     max-width: 600px;
     padding: 20px;
     background-color: #f8f8f8;
@@ -379,6 +391,15 @@ footer {
 .access-comment1 {
     font-size: 30px;
 }
+.access-box2 {
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.access-box2 img{
+    width: 90%;
+}
 }
 
     </style>
@@ -437,9 +458,11 @@ footer {
                 <h3>公共交通機関でお越しの方</h3>
                 <p class="access-word1">
                     JR紀勢本線「藤並駅」下車<br>
-                    → タクシーで約25分<br>
-                    ※公共交通機関の本数が少ないため、事前にご確認ください。
+                    → タクシーで約25分
+                    <br>※藤並駅からバスが出ていますが、<br>二川での下車後３０分ほど歩く必要がございます。
                 </p>
+                <a href="https://aritetsu.com/bus_info/" target="_blank" rel="noopener noreferrer">有田鉄道バス情報</a>
+
             </div>
     
             <div class="access-transport-box">
@@ -452,7 +475,14 @@ footer {
         </div>
     </div>
 
-
+    <div class="access-box1">
+        <h3>駐車場について</h3>
+        <p class="access-word1">普通自動車10台が駐車可能・大型バスも旋回可能</p>
+        <div class="access-box2">
+            <img src="/static/ao/images/S__214065160_0.jpg" alt="画像3">
+            <img src="/static/ao/images/S__214065160_0.jpg" alt="画像3">
+        </div>
+    </div>
 
     <footer>
         <div class="footer-container">
