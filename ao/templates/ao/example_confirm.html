@@ -182,6 +182,7 @@
             {% if data.yakiniku %}
             <li>焼肉セット: <span id="yakiniku">{{ data.yakiniku }}</span>セット</li>
             {% endif %}
+            {% if data.soumen %}<li>流しそうめんセット（無料）</li>{% endif %}
             {% if data.games %}<li>ゲーム・漫画セット</li>{% endif %}
             {% if data.others %}<li>その他（カヌー）など</li>{% endif %}
         </ul>
@@ -214,11 +215,15 @@
         </div>
 
         <div class="button-container">
-            <!-- 予約確定ボタン -->
+            <!-- 予約確定ボタンのフォーム -->
             <form method="post" action="{% url 'example_confirm' %}" style="margin: 0;">
                 {% csrf_token %}
                 {% for key, value in data.items %}
-                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% if key == 'games' or key == 'others' %}
+                        <input type="hidden" name="{{ key }}" value="{% if value == 'on' or value == True %}on{% else %}off{% endif %}">
+                    {% else %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endif %}
                 {% endfor %}
                 <button type="submit">予約確定</button>
             </form>
@@ -226,7 +231,11 @@
             <form method="post" action="{% url 'example_fix' %}" style="margin: 0;">
                 {% csrf_token %}
                 {% for key, value in data.items %}
-                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% if key == 'soumen' or key == 'games' or key == 'others' %}
+                        <input type="hidden" name="{{ key }}" value="{% if value == 'on' or value == True %}on{% else %}off{% endif %}">
+                    {% else %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endif %}
                 {% endfor %}
                 <button type="submit" class="button-secondary">修正する</button>
             </form>

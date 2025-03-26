@@ -782,7 +782,12 @@ footer {
                                     checkoutDateInput.value = currentDate;
                                     dayElement.classList.add('selected-out');
                                 } else {
-                                    alert("予約済みの日付をまたぐ予約はできません。");
+                                    alert("予約不可の日付をまたぐ予約はできません。");
+                                    checkInDate = null;
+                                    checkOutDate = null;
+                                    checkinDateInput.value = '';
+                                    checkoutDateInput.value = '';
+                                    document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
                                 }
                             }
                         }
@@ -821,10 +826,6 @@ footer {
         });
 
         renderCalendar();
-
-        function confirmCall() {
-            window.location.href = "tel:08025219439";
-        }
 
 
     </script>

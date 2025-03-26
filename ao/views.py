@@ -60,12 +60,19 @@ def example(request):
 
 def example_fix(request):
     if request.method == 'POST':
-        # POSTデータから初期値を設定
-        initial_data = {key: value[0] if isinstance(value, list) else value for key, value in request.POST.items()}
+        # POSTデータから初期値を設定（チェックボックスを正しく処理）
+        initial_data = {}
+        for key, value in request.POST.items():
+            # チェックボックスフィールドの場合
+            if key in ['soumen','games', 'others']:
+                initial_data[key] = True if value == 'on' else False
+            # その他のフィールド
+            else:
+                initial_data[key] = value[0] if isinstance(value, list) else value
+        
         form = ExampleForm(initial=initial_data)
         return render(request, "ao/example.html", {"form": form})
     else:
-        # 初回アクセス時の空フォーム
         form = ExampleForm()
         return render(request, "ao/example.html", {"form": form})
 
@@ -81,13 +88,21 @@ def example_confirm(request):
     if request.method == 'POST':
         data = request.POST.dict()
         
+        # チェックボックス値の正規化
+        if 'games' in data:
+            data['soumen'] = 'on' if data['soumen'] in ('on', 'true', 'True', True) else 'off'
+        if 'games' in data:
+            data['games'] = 'on' if data['games'] in ('on', 'true', 'True', True) else 'off'
+        if 'others' in data:
+            data['others'] = 'on' if data['others'] in ('on', 'true', 'True', True) else 'off'
+        
         # 合計金額計算
         total_amount, price_per_person = calculate_prices(data)
         
         # データベースに保存
         reservation = save_reservation(data, total_amount, price_per_person)
         
-        # メール送信（データと計算結果を渡す）
+        # メール送信
         send_customer_email(data, total_amount, price_per_person)
         send_admin_email(data, total_amount, reservation.id)
         
@@ -119,24 +134,29 @@ def calculate_prices(data):
     return total_amount, price_per_person
 
 def save_reservation(data, total_amount, price_per_person):
+    # チェックボックス値の処理を改善
+    soumen_value = data.get('soumen') in ('on', 'true', 'True', True)
+    games_value = data.get('games') in ('on', 'true', 'True', True)
+    others_value = data.get('others') in ('on', 'true', 'True', True)
+    
     return ExampleModel.objects.create(
         check_in_date=data['check_in_date'],
         check_out_date=data['check_out_date'],
         name=data['name'],
         furigana=data['furigana'],
-        men=data.get('men'),
-        women=data.get('women'),
+        men=data.get('men', 0),
+        women=data.get('women', 0),
         email=data['email'],
         phone_number=data['phone_number'],
         postal_code=data['postal_code'],
         address=data['address'],
         yakiniku=data.get('yakiniku', 0),
-        games=data.get('games') == 'on',
-        others=data.get('others') == 'on',
+        soumen=soumen_value,
+        games=games_value,
+        others=others_value,
         messages=data.get('messages', ''),
-        # 合計金額などの追加情報はmessagesフィールドに保存
-        # または新規フィールドを追加推奨
     )
+
 
 def send_customer_email(data, total_amount, price_per_person):
     subject = '【予約完了】ご予約ありがとうございます'

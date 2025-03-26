@@ -22,8 +22,10 @@ class ExampleModel(models.Model):
 
     # オプション
     yakiniku = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="焼肉セット数量")
-    games = models.BooleanField(null=True, verbose_name="ゲーム・漫画セット")
-    others = models.BooleanField(null=True, verbose_name="その他")
+    soumen = models.BooleanField(default=False, verbose_name="流しそうめん", blank=True)
+    games = models.BooleanField(default=False, verbose_name="ゲーム・漫画セット", blank=True)
+    others = models.BooleanField(default=False, verbose_name="その他", blank=True)
+    
 
     # 日時フィールド
     created_at = models.DateTimeField(null=True,auto_now_add=True)

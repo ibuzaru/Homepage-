@@ -34,6 +34,11 @@ class ExampleForm(forms.ModelForm):
         initial=0,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '数量'})
     )
+    soumen = forms.BooleanField(
+        label="流しそうめんセット<無料>",
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
+    )
 
     games = forms.BooleanField(
         label="ゲーム・漫画セット<デポジット2000円>",
@@ -55,13 +60,25 @@ class ExampleForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': '300文字まで'})
     )
 
+    def __init__(self, *args, **kwargs):
+        initial = kwargs.get('initial', {})
+        # チェックボックスの初期値を適切に設定
+        if 'soumen' in initial:
+            initial['soumen'] = str(initial['soumen']).lower() in ('true', 'on', '1')
+        if 'games' in initial:
+            initial['games'] = str(initial['games']).lower() in ('true', 'on', '1')
+        if 'others' in initial:
+            initial['others'] = str(initial['others']).lower() in ('true', 'on', '1')
+        kwargs['initial'] = initial
+        super().__init__(*args, **kwargs)
+
     class Meta:
         model = ExampleModel
         fields = [
             "check_in_date", "check_out_date",
             "name", "furigana", "men", "women",
             "email", "phone_number", "postal_code",
-            "address", "yakiniku", "games", "others", "messages"
+            "address", "yakiniku","soumen", "games", "others", "messages"
         ]
 
     # フィールドごとのラベルとウィジェット
