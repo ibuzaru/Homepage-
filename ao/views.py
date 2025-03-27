@@ -89,7 +89,7 @@ def example_confirm(request):
         data = request.POST.dict()
         
         # チェックボックス値の正規化
-        if 'games' in data:
+        if 'soumen' in data:
             data['soumen'] = 'on' if data['soumen'] in ('on', 'true', 'True', True) else 'off'
         if 'games' in data:
             data['games'] = 'on' if data['games'] in ('on', 'true', 'True', True) else 'off'
@@ -100,7 +100,7 @@ def example_confirm(request):
         total_amount, price_per_person = calculate_prices(data)
         
         # データベースに保存
-        reservation = save_reservation(data, total_amount, price_per_person)
+        reservation = save_reservation(data)
         
         # メール送信
         send_customer_email(data, total_amount, price_per_person)
@@ -133,11 +133,15 @@ def calculate_prices(data):
     
     return total_amount, price_per_person
 
-def save_reservation(data, total_amount, price_per_person):
-    # チェックボックス値の処理を改善
-    soumen_value = data.get('soumen') in ('on', 'true', 'True', True)
-    games_value = data.get('games') in ('on', 'true', 'True', True)
-    others_value = data.get('others') in ('on', 'true', 'True', True)
+def get_checkbox_value(value):
+    """チェックボックス値を統一して処理するヘルパー関数"""
+    return value in ('on', 'true', 'True', True)
+
+def save_reservation(data):
+    # チェックボックス値の処理をヘルパー関数を使用して統一
+    soumen_value = get_checkbox_value(data.get('soumen'))
+    games_value = get_checkbox_value(data.get('games'))
+    others_value = get_checkbox_value(data.get('others'))
     
     return ExampleModel.objects.create(
         check_in_date=data['check_in_date'],
@@ -157,34 +161,45 @@ def save_reservation(data, total_amount, price_per_person):
         messages=data.get('messages', ''),
     )
 
-
 def send_customer_email(data, total_amount, price_per_person):
+    # メール送信でも同じチェックボックス処理を適用
+    data_for_email = data.copy()
+    data_for_email['soumen'] = get_checkbox_value(data.get('soumen'))
+    data_for_email['games'] = get_checkbox_value(data.get('games'))
+    data_for_email['others'] = get_checkbox_value(data.get('others'))
+    
     subject = '【予約完了】ご予約ありがとうございます'
     message = render_to_string('ao/customer_email.txt', {
-        'data': data,
+        'data': data_for_email,
         'total_amount': f"{total_amount:,}",
         'pricePerPerson': f"{price_per_person:,}"
     })
     send_mail(
         subject,
         message,
-        settings.DEFAULT_FROM_EMAIL,
+        settings.ADMIN_EMAIL,
         [data['email']],
         fail_silently=False
     )
 
 def send_admin_email(data, total_amount, reservation_id):
+    # メール送信でも同じチェックボックス処理を適用
+    data_for_email = data.copy()
+    data_for_email['soumen'] = get_checkbox_value(data.get('soumen'))
+    data_for_email['games'] = get_checkbox_value(data.get('games'))
+    data_for_email['others'] = get_checkbox_value(data.get('others'))
+    
     subject = f'【新規予約】予約ID: {reservation_id}'
     message = render_to_string('ao/admin_email.txt', {
-        'data': data,
+        'data': data_for_email,
         'total_amount': f"{total_amount:,}",
         'reservation_id': reservation_id
     })
     send_mail(
         subject,
         message,
-        settings.DEFAULT_FROM_EMAIL,
-        [settings.ADMIN_EMAIL],
+        settings.ADMIN_EMAIL,
+        [settings.EMAIL_HOST_USER],
         fail_silently=False
     )
 def success_reserve(request):
