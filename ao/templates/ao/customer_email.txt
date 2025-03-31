@@ -4,8 +4,8 @@
 以下の内容で予約を承りました。
 
 ■予約内容
-チェックイン日: {{ data.check_in_date }}
-チェックアウト日: {{ data.check_out_date }}
+チェックイン日: {{ data.check_in_date }}　(13:00~16:00)
+チェックアウト日: {{ data.check_out_date }} (~10:30)
 男性人数: {{ data.men }}名
 女性人数: {{ data.women }}名
 合計金額: {{ total_amount }}円（税込）(デポジット料金を除く)
