@@ -283,11 +283,6 @@
     width: 100%;
     text-align: center;
     transform:translateY(50%);
-    overflow-x: auto;  /* 横スクロールを有効化 */
-    overflow-y: hidden; /* 縦スクロールを無効化 */
-    white-space: nowrap;
-    touch-action: pan-x; /* 横スクロールのみ許可 */
-    -webkit-overflow-scrolling: touch; /* スムーズスクロール */
 }
 .room1-container{
     display: flex;
@@ -1143,7 +1138,7 @@
             }
         }
         
-document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".room1-container").forEach((container) => {
         const prevBtn = container.querySelector(".room1-box1 button:first-of-type");
         const nextBtn = container.querySelector(".room1-box1 button:last-of-type");
@@ -1186,28 +1181,45 @@ document.addEventListener("DOMContentLoaded", function () {
             moveImage(box2, false);
         });
 
-        // スワイプ操作（すべてのデバイスで有効）
+        // スワイプ操作（縦スクロールを防止）
         let startX = 0;
-        let endX = 0;
+        let startY = 0;
+        let isSwiping = false;  // スワイプ判定フラグ
 
         box1.addEventListener("touchstart", function (event) {
-            startX = event.touches[0].clientX; // 指が触れた位置を記録
-        });
+            startX = event.touches[0].clientX;
+            startY = event.touches[0].clientY;
+            isSwiping = false;  // 初期状態にリセット
+        }, { passive: true });
+
+        box1.addEventListener("touchmove", function (event) {
+            const moveX = event.touches[0].clientX - startX;
+            const moveY = event.touches[0].clientY - startY;
+
+            // 横スワイプの場合は縦スクロールを無効化
+            if (Math.abs(moveX) > Math.abs(moveY)) {
+                isSwiping = true;
+                event.preventDefault();  // 縦スクロールを防止
+            }
+        }, { passive: false });
 
         box1.addEventListener("touchend", function (event) {
-            endX = event.changedTouches[0].clientX; // 指が離れた位置を記録
+            if (!isSwiping) return;  // スワイプでない場合は処理を終了
+
+            let endX = event.changedTouches[0].clientX;
             let diffX = startX - endX;
 
-            if (Math.abs(diffX) > 20) { // スワイプの距離が50px以上なら実行
+            if (Math.abs(diffX) > 20) {  // スワイプ判定距離
                 if (diffX > 0) {
-                    nextBtn.click(); // 左スワイプ → 次の画像
+                    nextBtn.click();  // 左スワイプ → 次の画像
                 } else {
-                    prevBtn.click(); // 右スワイプ → 前の画像
+                    prevBtn.click();  // 右スワイプ → 前の画像
                 }
             }
         });
     });
 });
+
 
 
     </script>
