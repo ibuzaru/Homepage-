@@ -21,3 +21,14 @@ class StaticViewSitemap(Sitemap):
 
     def location(self, item):
         return reverse(item)
+    
+    def get_urls(self, site=None, **kwargs):
+        urls = super().get_urls(site=site, **kwargs)
+        # ロゴのURLを追加
+        urls.append({
+            'location': '/static/ao/images/sansoaologo.webp',
+            'lastmod': None,
+            'changefreq': 'monthly',
+            'priority': 0.3,
+        })
+        return urls
