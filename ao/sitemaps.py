@@ -1,34 +1,21 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 
-# サイトマップ用クラス
 class StaticViewSitemap(Sitemap):
-    priority = 0.7  # 優先度を少し高めに設定
-    changefreq = "monthly"
-    protocol = "https"
+    priority = {
+        'home': 1.0,
+        'about': 0.8,
+        'facilities': 0.8,
+        'access': 0.6,
+        'contact': 0.6,
+    }
+    changefreq = 'weekly'
 
     def items(self):
-        """サイトマップに含めるページ"""
-        return [
-            'home',          # トップページ
-            'rooms',         # 部屋案内
-            'faq',           # FAQ
-            'supermarket',   # アクセス
-            'sightseeing',   # 観光
-            'howtostay',     # 宿泊方法
-            'kiyaku',        # 利用規約
-        ]
+        return ['home', 'about', 'facilities', 'access', 'contact']
 
     def location(self, item):
         return reverse(item)
-    
-    def get_urls(self, site=None, **kwargs):
-        urls = super().get_urls(site=site, **kwargs)
-        # ロゴのURLを追加
-        urls.append({
-            'location': '/static/ao/images/sansoaologo.webp',
-            'lastmod': None,
-            'changefreq': 'monthly',
-            'priority': 0.3,
-        })
-        return urls
+
+    def lastmod(self, item):
+        return '2025-04-01'  # ここは動的に更新可能
