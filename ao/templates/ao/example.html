@@ -82,22 +82,50 @@
         font-weight: bold;
     }
 
+    .buttoms {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* ボタン間のスペース */
+    flex-wrap: wrap; /* スマホで折り返し対応 */
+    margin-top: 30px;
+}
 
-    .btn-primary {
-        background-color: #007bff;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 25px;
-        transition: background-color 0.3s;
-    }
-    
-    .btn-primary:hover {
-        background-color: #0056b3;
-        text-decoration: underline;
-    }
+.btn-primary1 {
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 25px;
+    transition: background-color 0.3s;
+    min-width: 200px; /* ボタン幅を統一 */
+}
+
+.btn-primary2 {
+    text-align: center;
+    background-color: #800000;
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 25px;
+    transition: background-color 0.3s;
+    min-width: 200px; /* ボタン幅を統一 */
+}
+
+.btn-primary1:hover {
+    background-color: #0056b3;
+    text-decoration: underline;
+}
+.btn-primary2:hover {
+    background-color: #470000;
+    text-decoration: underline;
+}
+
+    a{text-decoration: none;}
     
     .btn-secondary {
         background-color: #6c757d;
@@ -207,8 +235,9 @@
         <div id="warning" class="warning" style="display: none;">300文字まで入力可能です！</div>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn-primary">予約確認へ</button>
+    <div class="buttoms">
+        <a href="{% url 'resa' %}" class="btn-primary2">日付変更へ</a>
+        <button type="submit" class="btn-primary1">予約確認へ</button>
     </div>
 </form>
 

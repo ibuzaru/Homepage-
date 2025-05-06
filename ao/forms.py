@@ -87,7 +87,7 @@ class ExampleForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'disable', 'placeholder': 'チェックイン日'})
     )
     check_out_date = forms.CharField(
-        label="チェックアウト日(~10:00)", max_length=15,
+        label="チェックアウト日(~10:30)", max_length=15,
         widget=forms.TextInput(attrs={'class': 'disable', 'placeholder': 'チェックアウト日'})
     )
     name = forms.CharField(
