@@ -28,29 +28,21 @@ class ExampleForm(forms.ModelForm):
     )
 
     yakiniku = forms.IntegerField(
-        label="焼肉セット(5人分)：2500円/セット",
+        label="焼肉セット(5人分)：800円/セット",
         min_value=0,
         max_value=10,
         initial=0,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '数量'})
     )
     soumen = forms.BooleanField(
-        label="流しそうめんセット<無料>",
+        label="流しそうめん道具セット<無料>",
         required=False,
         widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
     )
 
-    games = forms.BooleanField(
-        label="ゲーム・漫画セット<デポジット2000円>",
-        required=False,
-        widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
-    )
+    #games = forms.BooleanField(   label="ゲーム・漫画セット<デポジット2000円>",   required=False,widget=forms.CheckboxInput(attrs={"class": "form-check-input"}))
 
-    others = forms.BooleanField(
-        label="その他（カヌーなど）<デポジット2000円>",
-        required=False,
-        widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
-    )
+    #others = forms.BooleanField( label="その他（カヌーなど）<デポジット2000円>",required=False,widget=forms.CheckboxInput(attrs={"class": "form-check-input"}))
 
     # 🔥 messagesフィールドを追加
     messages = forms.CharField(
@@ -65,10 +57,8 @@ class ExampleForm(forms.ModelForm):
         # チェックボックスの初期値を適切に設定
         if 'soumen' in initial:
             initial['soumen'] = str(initial['soumen']).lower() in ('true', 'on', '1')
-        if 'games' in initial:
-            initial['games'] = str(initial['games']).lower() in ('true', 'on', '1')
-        if 'others' in initial:
-            initial['others'] = str(initial['others']).lower() in ('true', 'on', '1')
+        # if 'games' in initial:            initial['games'] = str(initial['games']).lower() in ('true', 'on', '1')
+        # if 'others' in initial:            initial['others'] = str(initial['others']).lower() in ('true', 'on', '1')
         kwargs['initial'] = initial
         super().__init__(*args, **kwargs)
 
@@ -78,8 +68,9 @@ class ExampleForm(forms.ModelForm):
             "check_in_date", "check_out_date",
             "name", "furigana", "men", "women",
             "email", "phone_number", "postal_code",
-            "address", "yakiniku","soumen", "games", "others", "messages"
+            "address", "yakiniku","soumen",  "messages"
         ]
+# "games", "others",一時解除
 
     # フィールドごとのラベルとウィジェット
     check_in_date = forms.CharField(

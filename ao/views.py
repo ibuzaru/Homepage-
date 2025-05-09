@@ -63,8 +63,8 @@ def example_fix(request):
         # POSTデータから初期値を設定（チェックボックスを正しく処理）
         initial_data = {}
         for key, value in request.POST.items():
-            # チェックボックスフィールドの場合
-            if key in ['soumen','games', 'others']:
+            # チェックボックスフィールドの場合  [],'games', 'others'
+            if key in ['soumen']:
                 initial_data[key] = True if value == 'on' else False
             # その他のフィールド
             else:
@@ -91,10 +91,8 @@ def example_confirm(request):
         # チェックボックス値の正規化
         if 'soumen' in data:
             data['soumen'] = 'on' if data['soumen'] in ('on', 'true', 'True', True) else 'off'
-        if 'games' in data:
-            data['games'] = 'on' if data['games'] in ('on', 'true', 'True', True) else 'off'
-        if 'others' in data:
-            data['others'] = 'on' if data['others'] in ('on', 'true', 'True', True) else 'off'
+        #if 'games' in data:            data['games'] = 'on' if data['games'] in ('on', 'true', 'True', True) else 'off'
+       # if 'others' in data:            data['others'] = 'on' if data['others'] in ('on', 'true', 'True', True) else 'off'
         
         # 合計金額計算
         total_amount, price_per_person = calculate_prices(data)
@@ -111,9 +109,9 @@ def example_confirm(request):
     return render(request, 'ao/example_confirm.html', {'data': data})
 
 def calculate_prices(data):
-    base_price = 20000
-    extra_price_per_person = 2000
-    yakiniku_price = 2500
+    base_price = 10000
+    extra_price_per_person = 2500
+    yakiniku_price = 800
 
     men = int(data.get('men', 0))
     women = int(data.get('women', 0))
@@ -140,8 +138,8 @@ def get_checkbox_value(value):
 def save_reservation(data):
     # チェックボックス値の処理をヘルパー関数を使用して統一
     soumen_value = get_checkbox_value(data.get('soumen'))
-    games_value = get_checkbox_value(data.get('games'))
-    others_value = get_checkbox_value(data.get('others'))
+    #games_value = get_checkbox_value(data.get('games'))
+    #others_value = get_checkbox_value(data.get('others'))
     
     return ExampleModel.objects.create(
         check_in_date=data['check_in_date'],
@@ -156,8 +154,8 @@ def save_reservation(data):
         address=data['address'],
         yakiniku=data.get('yakiniku', 0),
         soumen=soumen_value,
-        games=games_value,
-        others=others_value,
+        #games=games_value,
+        #others=others_value,
         messages=data.get('messages', ''),
     )
 
@@ -165,8 +163,8 @@ def send_customer_email(data, total_amount, price_per_person):
     # メール送信でも同じチェックボックス処理を適用
     data_for_email = data.copy()
     data_for_email['soumen'] = get_checkbox_value(data.get('soumen'))
-    data_for_email['games'] = get_checkbox_value(data.get('games'))
-    data_for_email['others'] = get_checkbox_value(data.get('others'))
+    #data_for_email['games'] = get_checkbox_value(data.get('games'))
+    #data_for_email['others'] = get_checkbox_value(data.get('others'))
     
     subject = '【予約完了】ご予約ありがとうございます'
     message = render_to_string('ao/customer_email.txt', {
@@ -186,8 +184,8 @@ def send_admin_email(data, total_amount, reservation_id):
     # メール送信でも同じチェックボックス処理を適用
     data_for_email = data.copy()
     data_for_email['soumen'] = get_checkbox_value(data.get('soumen'))
-    data_for_email['games'] = get_checkbox_value(data.get('games'))
-    data_for_email['others'] = get_checkbox_value(data.get('others'))
+    #data_for_email['games'] = get_checkbox_value(data.get('games'))
+    #data_for_email['others'] = get_checkbox_value(data.get('others'))
     
     subject = f'【新規予約】予約ID: {reservation_id}'
     message = render_to_string('ao/admin_email.txt', {
