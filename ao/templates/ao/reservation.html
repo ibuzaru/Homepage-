@@ -714,8 +714,8 @@ footer {
 
         // 前後6か月の範囲を計算
         const today = new Date();
-        const minDate = new Date(today.getFullYear(), today.getMonth(), 1);
-        const maxDate = new Date(today.getFullYear(), today.getMonth() + 3, 1);
+        const minDate = new Date(today.getFullYear(), today.getMonth(), 1); // 今月1日から
+        const maxDate = new Date(today.getFullYear(), 11, 1); // 今年の12月1日まで
 
         function renderCalendar() {
             calendar.innerHTML = '';

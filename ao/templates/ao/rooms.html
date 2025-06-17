@@ -286,17 +286,14 @@
 }
 .room1-container{
     display: flex;
-    justify-self: center;
-    justify-content: space-evenly;
-    width: 95%;
-    height: 80vh;
-    padding: auto;
+    max-width: 1200px;
+    width: 100%;
+    height: 80%;
 }
 .room1-box1{
     display: flex;
-    align-items: center;
-    width: 85% ;
-    height: 70vh;
+    width: 80%;
+    height: 70%;
 }
 
 .room1-box1 img{
@@ -305,24 +302,25 @@
 .room1-box1 img.active{
     display: block;
     width: 100%;
-    height: 100%;
 }
 .room1-box2 {
-    align-items: center;
+    margin-left: auto;
     display: flex;
     flex-direction: column;
-    width: 13%;
-    height: 70vh;
+    width: 15%;
+    height: 50vh;
     overflow: hidden;
-    position: relative;
+    position: relative;    
+    justify-content: space-evenly;
 }
 
 .room1-box2 img {
-    transform: translateY(-30%);
     opacity: 0.5;
     margin: 10px 0 5px 0;
     width: 100%;
-    height: 90%;
+    height: 100%;
+   
+    
 }
 
 .room1-box2 img.active {
@@ -361,7 +359,7 @@
     }
 
     .room1-box1 {
-        width: 100%;
+        width: 90%;
         height: 50vh;
         justify-content: center;
     }
@@ -454,7 +452,15 @@
     left: 6%;
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
-
+.amenity-image-box{
+    width: 100%;
+    height: 30%;
+    display: inline;
+}
+.amenity-image-box img{
+    width: 30%;
+    height: 30%;
+}
 
 
 
@@ -543,7 +549,15 @@
     font-size: 14px;
     color: #666;
 }
-
+.plus-image-box{
+    width: 100%;
+    height: 30%;
+    display: inline;
+}
+.plus-image-box img{
+    width: 30%;
+    height: 30%;
+}
 
 
 
@@ -839,7 +853,7 @@
     <div class="room-title">Room</div>
     <div class="room-comment1">施設のご案内</div>
     <div class="room-container">
-        <img src="/static/ao/images/施設全体マップ.png" alt="画像1" class="whole-map">
+        <img src="" alt="全体マップ" class="whole-map">
     </div>
 </div>
 
@@ -865,84 +879,100 @@
     </div>
 </div>
 
-<p class="room-name">鹿（シカ）の間</p>
+<p class="room-name">八角館</p>
 <div class="room1-container">
     <div class="room1-box1">
         <button id="prevBtn">&#10094;</button>
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3" class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="/static/ao/images/IMG_9974.jpeg" alt="画像1">
+        <img src="/static/ao/images/八角外横.jpeg" alt="画像2" class="active">
+        <img src="/static/ao/images/八角１.jpeg" alt="画像3" >
         <button id="nextBtn">&#10095;</button>
     </div>
     <div class="room1-box2">
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3"class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="/static/ao/images/IMG_9974.jpeg" alt="画像1">
+        <img src="/static/ao/images/八角外横.jpeg" alt="画像2"class="active">
+        <img src="/static/ao/images/八角１.jpeg" alt="画像3">
     </div>
 </div>
 
-<p class="room-name">栗鼠（リス）の間</p>
+<p class="room-name">体験館</p>
 <div class="room1-container">
     <div class="room1-box1">
         <button id="prevBtn">&#10094;</button>
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3" class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="/static/ao/images/体験横左.jpeg" alt="画像2">
+        <img src="/static/ao/images/体験横センター.jpeg" alt="画像3" class="active">
+        <img src="/static/ao/images/卓球台横.jpeg" alt="画像4">
         <button id="nextBtn">&#10095;</button>
     </div>
     <div class="room1-box2">
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3"class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="/static/ao/images/体験横左.jpeg" alt="画像2">
+        <img src="/static/ao/images/体験横センター.jpeg" alt="画像3"class="active">
+        <img src="/static/ao/images/卓球台横.jpeg" alt="画像4">
     </div>
 </div>
 
 
-<p class="room-name">熊（クマ）の間</p>
+<p class="room-name">清涼館</p>
 <div class="room1-container">
     <div class="room1-box1">
         <button id="prevBtn">&#10094;</button>
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3" class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/清涼館.jpg" alt="画像3" class="active">
+        <img src="" alt="画像4">
         <button id="nextBtn">&#10095;</button>
     </div>
     <div class="room1-box2">
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3"class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/清涼館.jpg" alt="画像3"class="active">
+        <img src="" alt="画像4">
     </div>
 </div>
 
-<p class="room-name">お風呂(Ohuro)</p>
+<p class="room-name">炭焼き館</p>
 <div class="room1-container">
     <div class="room1-box1">
         <button id="prevBtn">&#10094;</button>
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3" class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/炭焼き１.jpeg" alt="画像3" class="active">
+        <img src="" alt="画像4">
         <button id="nextBtn">&#10095;</button>
     </div>
     <div class="room1-box2">
-        <img src="/static/ao/images/S__214065157_0.jpg" alt="画像1">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像2">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像3"class="active">
-        <img src="/static/ao/images/S__214065162_0.jpg" alt="画像4">
-        <img src="/static/ao/images/S__214065163_0.jpg" alt="画像5">
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/炭焼き１.jpeg" alt="画像3"class="active">
+        <img src="" alt="画像4">
+    </div>
+</div>
+
+<p class="room-name">食事・調理スペース</p>
+<div class="room1-container">
+    <div class="room1-box1">
+        <button id="prevBtn">&#10094;</button>
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/清涼館.jpg" alt="画像3" class="active">
+        <img src="" alt="画像4">
+        <button id="nextBtn">&#10095;</button>
+    </div>
+    <div class="room1-box2">
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/清涼館.jpg" alt="画像3"class="active">
+        <img src="" alt="画像4">
+    </div>
+</div>
+
+<p class="room-name">お風呂</p>
+<div class="room1-container">
+    <div class="room1-box1">
+        <button id="prevBtn">&#10094;</button>
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/風呂横正面.jpeg" alt="画像3" class="active">
+        <img src="" alt="画像4">
+        <button id="nextBtn">&#10095;</button>
+    </div>
+    <div class="room1-box2">
+        <img src="" alt="画像2">
+        <img src="/static/ao/images/風呂横正面.jpeg" alt="画像3"class="active">
+        <img src="" alt="画像4">
     </div>
 </div>
 
@@ -958,7 +988,7 @@
         <div class="equipment-list">
             <div class="equipment-item">
                 <span class="equipment-name">お風呂用品</span>
-                <span class="equipment-detail">バスタオル（人数分）<br>シャンプー・リンス・ボディーソープ（２本ずつ）、ドライヤー（１つ）</span>
+                <span class="equipment-detail">バスタオル（人数分）<br>シャンプー・リンス・ボディーソープ（２本ずつ）、ドライヤー（２つ）</span>
             </div>
             <div class="equipment-item">
                 <span class="equipment-name">お料理用品</span>
@@ -970,12 +1000,16 @@
             </div>
             <div class="equipment-item">
                 <span class="equipment-name">その他</span>
-                <span class="equipment-detail">冷蔵庫×５、レンジ×１、テレビ×３、電気炊飯器5合×３、蚊取り線香<br>扇風機×３、ヒーター×３、卓球台×１
+                <span class="equipment-detail">冷蔵庫×５、レンジ×１、テレビ×３、業務用ガス炊飯器3升窯×１、電気炊飯器5合×３、蚊取り線香<br>扇風機×３、ヒーター×３、卓球台×１
                 </span>
             </div>
         </div>
     </div>
+    <div class="amenity-image-box">
+        <img src="\static\ao\images\八角道具.jpeg" alt="調理用具写真">
+    </div>
 </div>
+
 
 
 <div class="plus-section">
@@ -994,6 +1028,18 @@
                 <span class="equipment-name">焼肉セット<br>（約５人分）<br>８００円/セット</span>
                 <span class="equipment-detail">炭１Kg、焼肉網×２、トング×３、着火剤×３</span>
             </div>
+            <div class="equipment-item">
+                <span class="equipment-name">アユのつかみ取り<br>鮎1匹 ５００円<br>アマゴ1匹　４００円</span>
+                <span class="equipment-detail">竹串や炭はご用意していますので、<br>つかみ取り後、下処理や塩焼きはご自身でお願い致します<br>調理方法がわからない場合はご説明させていただきます。</span>
+            </div>
+            <div class="equipment-item">
+                <span class="equipment-name">キャンプファイヤー<br>（トーチ付き）<br>５０００円～</span>
+                <span class="equipment-detail">お値段については、<br>人数や大きさによって変わりますので<br>お電話にてご相談ください。</span>
+            </div>
+            <div class="equipment-item">
+                <span class="equipment-name">薪<br>５００円/束</span>
+                <span class="equipment-detail">飯盒炊飯などにご利用頂いております。</span>
+            </div>
             <!--
             <div class="equipment-item">
                 <span class="equipment-name">ゲームセット<br>(デポジット<br>２０００円)</span>
@@ -1010,6 +1056,12 @@
             -->
         </div>
     </div>
+    <div class="plus-image-box">
+    <img src="/static/ao/images/S__214065157_0.jpg" alt="流しそうめん風景" >
+    <img src="" alt="焼肉セット" >
+    <img src="" alt="アユのつかみ取り風景">
+    <img src="" alt="キャンプファイヤー風景">
+    </div>
 </div>
 
 
@@ -1023,10 +1075,10 @@
                 <li>紙皿（深皿） <span>150円</span></li>
                 <li>割りばし５０膳 <span>150円</span></li>
                 <li>ハンドペーパー <span>150円</span></li>
-                <li>着火剤×３ <span>150円</span></li>
+                <li>着火剤３個入り <span>150円</span></li>
                 <li>歯ブラシ(歯磨き粉付き)<span>20円</span></li>
             </ul>
-            <h2>ソフトドリンク(500ml)</h2>
+           <!--<h2>ソフトドリンク(500ml)</h2>
             <ul>
                 <li>麦茶<span>160円</span></li>
                 <li>緑茶 <span>160円</span></li>
@@ -1048,7 +1100,7 @@
                 <li>カップヌードル <span>250円</span></li>
                 <li>どん兵衛 <span>250円</span></li>
                 <li>カップ焼きそば <span>250円</span></li>
-            </ul>
+            </ul>--> 
         </div>
     </div>
 </div>
