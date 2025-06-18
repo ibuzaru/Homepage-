@@ -153,6 +153,7 @@ def save_reservation(data):
         postal_code=data['postal_code'],
         address=data['address'],
         yakiniku=data.get('yakiniku', 0),
+        maki=data.get('yakiniku', 0),
         soumen=soumen_value,
         #games=games_value,
         #others=others_value,

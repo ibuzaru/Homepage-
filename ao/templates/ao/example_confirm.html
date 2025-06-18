@@ -182,9 +182,12 @@
             {% if data.yakiniku %}
             <li>焼肉セット: <span id="yakiniku">{{ data.yakiniku }}</span>セット</li>
             {% endif %}
+            {% if data.maki %}
+            <li>薪: <span id="maki">{{ data.maki }}</span>束</li>
+            {% endif %}
             {% if data.soumen %}<li>流しそうめんセット（無料）</li>{% endif %}
-            {% if data.games %}<li>ゲーム・漫画セット</li>{% endif %}
-            {% if data.others %}<li>その他（カヌー）など</li>{% endif %}
+            <!--{% if data.games %}<li>ゲーム・漫画セット</li>{% endif %}
+           {% if data.others %}<li>その他（カヌー）など</li>{% endif %}!-->
         </ul>
 
         <p></p>
@@ -205,8 +208,8 @@
                 </li>
                 <li>
                     <strong>🍽️ お食事・お料理セット</strong><br>
-                    ※食材と調味料のみお買い求めください。
-                    <br>紙皿や調理器具などはそろっております。
+                    ※食材と調味料、紙皿はお買い求めください。
+                    <br>調理器具などはそろっております。
                     <div class="detail-box">
                         <a href="{% url 'rooms' %}" class="detail-button">施設・ご用意品</a>
                     </div>
@@ -246,13 +249,14 @@
         const basePrice = 10000;               // 基本料金
         const extraPricePerPerson = 2500;      // 追加料金/人
         const yakinikuPrice = 800;           // 焼肉セット料金
+        const makiPrice = 500;   //薪
         const depositPrice = 2000;             // デポジット料金
 
         // 宿泊人数と焼肉セット数を取得
         const men = parseInt(document.getElementById('men').textContent) || 0;
         const women = parseInt(document.getElementById('women').textContent) || 0;
         const yakinikuSets = parseInt(document.getElementById('yakiniku')?.textContent) || 0;
-
+        const makis  = parseInt(document.getElementById('maki')?.textContent) || 0;
         // 宿泊日数計算
         const checkInDate = new Date(document.getElementById('check_in_date').textContent);
         const checkOutDate = new Date(document.getElementById('check_out_date').textContent);
@@ -262,7 +266,7 @@
         // 合計金額計算
         const peopleTotal = men + women;
         const totalAmount = (basePrice + extraPricePerPerson * peopleTotal) * days 
-                          + yakinikuPrice * yakinikuSets ;
+                          + yakinikuPrice * yakinikuSets + makiPrice * makis ;
         const pricePerPerson = totalAmount/peopleTotal;
 
         // 合計金額を表示

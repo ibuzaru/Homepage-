@@ -16,6 +16,7 @@
 
 ■追加オプション
 {% if data.yakiniku %}焼肉セット: {{ data.yakiniku }}セット{% endif %}
+{% if data.maki %}薪:{{ data.maki }}束{% endif %}
 {% if data.soumen %}流しそうめんセット{% endif %}
 {% if data.games %}ゲーム・漫画セット{% endif %}
 {% if data.others %}その他（カヌー）など{% endif %}

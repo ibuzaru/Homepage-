@@ -34,6 +34,13 @@ class ExampleForm(forms.ModelForm):
         initial=0,
         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '数量'})
     )
+    maki = forms.IntegerField(
+        label="薪：500円/1束",
+        min_value=0,
+        max_value=10,
+        initial=0,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '数量'})
+    )
     soumen = forms.BooleanField(
         label="流しそうめん道具セット<無料>",
         required=False,
@@ -49,7 +56,7 @@ class ExampleForm(forms.ModelForm):
         label="ご要望",
         max_length=300,
         required=False,
-        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': '300文字まで'})
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'キャンプファイヤー(5000円～）やアユのつかみ取り（400円～)がご入用の場合はこちらに数量などをご記入ください。追って、ご連絡致します。'})
     )
 
     def __init__(self, *args, **kwargs):
@@ -68,7 +75,7 @@ class ExampleForm(forms.ModelForm):
             "check_in_date", "check_out_date",
             "name", "furigana", "men", "women",
             "email", "phone_number", "postal_code",
-            "address", "yakiniku","soumen",  "messages"
+            "address", "yakiniku","maki","soumen",  "messages"
         ]
 # "games", "others",一時解除
 
