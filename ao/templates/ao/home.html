@@ -158,9 +158,68 @@
     }
     }
 
-  
+/* --- MODIFICATION START --- */
+/* Apply max-width and centering to main content sections */
+.top-img-container,
+.about-section,
+.center-img-container,
+.point-container,
+.detail-box,
+.news-section,
+.access-section,
+.sightseeing-section .sightseeing-comment1,
+.sightseeing-section .sightseeing-container,
+.access-section .access-box1,
+.access-section .access-transport{
+    max-width: 1300px; /* Set maximum width */
+    margin-left: auto;  /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+    width: 95%; /* Ensure it takes full width within max-width, adjust as needed */
+}
 
+/* Adjustments for elements that had `left: %` or `transform: translateX(%)` */
+/* This is to ensure they are properly centered within the new max-width container */
+.about-section .about-title {
+    left: 0; /* Resetting left to allow centering of parent to take effect */
+    transform: rotate(90deg) translateY(50%) translateX(-50%); /* Adjust to center relative to its parent */
+    /* You might need to fine-tune the translateX percentage based on exact desired position */
+}
+@media (max-width: 900px) {
+    .about-section .about-title {
+        transform: rotate(90deg) translateY(50%) translateX(-50%); /* Keep consistent for mobile if needed */
+    }
+}
 
+.sightseeing-section .sightseeing-title {
+    left: 0; /* Resetting left */
+    transform: rotate(90deg) translateY(70%) translateX(-50%); /* Adjust to center relative to its parent */
+    /* You might need to fine-tune the translateX percentage */
+}
+.news-section .news-title {
+    left: 0; /* Resetting left */
+    transform: rotate(90deg) translateY(70%) translateX(-50%); /* Adjust to center relative to its parent */
+    /* You might need to fine-tune the translateX percentage */
+}
+.access-section .access-title {
+    left: 0; /* Resetting left */
+    transform: rotate(90deg) translateY(70%) translateX(-50%); /* Adjust to center relative to its parent */
+    /* You might need to fine-tune the translateX percentage */
+}
+/* Re-centering for elements that were offset with `transform: translateX(10%)` or `left: 6%` */
+.sightseeing-comment1,
+.news-comment1,
+.access-comment1 {
+    transform: translateX(0); /* Remove the offset, let margin: auto handle centering */
+    text-align: center; /* Center text if needed */
+}
+
+.sightseeing-container,
+.news-container,
+.access-container {
+    left: 0; /* Remove the offset, let margin: auto handle centering */
+    width: 100%; /* Ensure it uses full width of its parent (max-width 1300px container) */
+}
+/* --- MODIFICATION END --- */
 
 
 .top-img-container {
@@ -248,7 +307,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 3px;
+    /* left: 3px; REMOVED AND HANDLED BY PARENT CENTERING */
     top: 15px;
     transform: rotate(90deg) translateY(50%); /* 90度回転 */
 }
@@ -630,7 +689,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 0px;
+    /* left: 0px; REMOVED AND HANDLED BY PARENT CENTERING */
     top: 60px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -648,7 +707,7 @@
 .sightseeing-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
 }
 .sightseeing-container {
     display: flex;
@@ -657,7 +716,7 @@
     position: relative;
     width: 95%;
     height: 70vh;
-    left: 5%;
+    /* left: 5%; REMOVED AND HANDLED BY PARENT CENTERING */
 }
 
 .sightseeing-content {
@@ -770,7 +829,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 40px;
+    /* left: 40px; REMOVED AND HANDLED BY PARENT CENTERING */
     top: 20px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -788,7 +847,7 @@ button {
 .news-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
     margin-bottom: 50px;
 }
 .news-container {
@@ -798,7 +857,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; REMOVED AND HANDLED BY PARENT CENTERING */
 }
 .news-box {
     width: 90%;
@@ -838,7 +897,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 20px;
+    /* left: 20px; REMOVED AND HANDLED BY PARENT CENTERING */
     top: 30px;
     transform: rotate(90deg) translateY(70%);
 }
@@ -856,7 +915,7 @@ button {
 .access-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
     margin-bottom: 50px;
 }
 
@@ -867,7 +926,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; REMOVED AND HANDLED BY PARENT CENTERING */
 }
 
 .access-box {
@@ -1109,8 +1168,6 @@ footer {
     </header>
 
 
-
-.
     <div class="top-img-container">    
         <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1" class="top-left">
         <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2" class="top-right">
@@ -1127,13 +1184,11 @@ footer {
     
 
     <div class="center-img-container">    
-        <!-- 左側：画像 → 右側：テキスト -->
         <div class="center-left-wrapper">
             <img src="/static/ao/images/S__214065164_0.jpg" alt="画像1" class="center-left">
             <p class="text-right">高野山のふもとにある最大50名で利用<br>できる1日1組限定の貸別荘です。</p>
         </div>
     
-        <!-- 右側：画像 → 左側：テキスト -->
         <div class="center-right-wrapper">
             <p class="text-left">きれいな川と安心の環境<br>で楽しく過ごしてみませんか？</p>
             <img src="/static/ao/images/S__214065162_0.jpg" alt="画像2" class="center-right">  
@@ -1141,8 +1196,6 @@ footer {
     </div>
     
     
-
-
 
 
     <div class="point-container">
@@ -1182,7 +1235,6 @@ footer {
         <a href="{% url 'rooms' %}" class="detail-button">詳しく見る（施設・ご用意品）</a>
     </div>
     
-
 
 
     <div class="news-section">
@@ -1235,7 +1287,6 @@ footer {
     </div>
     
 
-
     <div class="detail-box">
         <a href="{% url 'supermarket' %}" class="detail-button">詳しく見る（アクセス）</a>
     </div>
@@ -1267,7 +1318,7 @@ footer {
                 </nav>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 山荘アオ. All rights reserved.</p>
+                <p>© 2025 山荘アオ. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1275,7 +1326,7 @@ footer {
     
     <script>
 let lastScrollTop = 0;
-const threshold = 20;  // ヘッダーが収納されるまでのスクロール距離
+const threshold = 20;   // ヘッダーが収納されるまでのスクロール距離
 
 window.addEventListener("scroll", function() {
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -1290,9 +1341,9 @@ window.addEventListener("scroll", function() {
 
     // 下スクロール時に距離で判定
     if (currentScroll > lastScrollTop + threshold) {
-        header.style.top = "-140px";  // ヘッダー収納
+        header.style.top = "-140px";    // ヘッダー収納
     } else if (currentScroll < lastScrollTop - threshold || currentScroll < threshold) {
-        header.style.top = "0";  // 上スクロール時や最上部付近では表示
+        header.style.top = "0";    // 上スクロール時や最上部付近では表示
     }
 
     lastScrollTop = currentScroll;
@@ -1344,7 +1395,7 @@ window.addEventListener("scroll", function() {
                 updateActiveImages();
             }
         });
-    });
+        });
 
 
     </script>
