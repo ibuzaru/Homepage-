@@ -465,99 +465,7 @@
 
 
 
-.plus-section {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: auto; /* 高さを自動調整に変更 */
-    position: relative;
-    margin-bottom: 50px; /* 下部に余白を追加 */
-}
 
-.plus-title {
-    color: #af6c6c;
-    font-size: 24px;
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    left: 45px;
-    top: 20px;
-    transform: rotate(90deg) translateY(70%); /* 90度回転 */
-}
-
-.plus-title::after {
-    margin-top: 10px;
-    content: "";
-    display: block;
-    width: 1px; /* 線の太さ */
-    height: 150px; /* 縦方向の長さ */
-    margin-left: 110px; /* 文字と線の間の余白 */
-    transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
-}
-
-.plus-comment1 {
-    font-size: 40px;
-    width: 90%;
-    transform: translateX(10%);
-}
-.plus-comment2{
-    font-size: medium;
-    width: 90%;
-    transform: translateX(10%);
-    margin-bottom: 10px;
-}
-
-.plus-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 90%;
-    height: auto;
-    left: 6%;
-    margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
-}
-
-.equipment-list {
-    width: 94%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.equipment-item {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #af6c6c;
-    padding: 50px 0px 50px 0px;
-}
-
-.equipment-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 16px;
-    white-space: nowrap; /* 改行を防ぐ */
-    margin-right: 10px;
-}
-
-
-.equipment-detail {
-    font-size: 14px;
-    color: #666;
-}
-.plus-image-box{
-    width: 100%;
-    height: 30%;
-    display: inline;
-}
-.plus-image-box img{
-    width: 30%;
-    height: 30%;
-}
 
 
 
@@ -1012,57 +920,7 @@
 
 
 
-<div class="plus-section">
-    <div class="plus-title">Plus</div>
-    <div class="plus-comment1">オプション</div>
-    <div class="plus-comment2">
-        <strong>追加オプションです。ご予約時に必要な項目にチェックをつけてください。</strong>
-    </div>
-    <div class="plus-container">
-        <div class="equipment-list">
-            <div class="equipment-item">
-                <span class="equipment-name">流しそうめんセット<br>（無料）</span>
-                <span class="equipment-detail">そうめんや麵つゆはご持参ください。</span>
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">焼肉セット<br>（約５人分）<br>８００円/セット</span>
-                <span class="equipment-detail">炭１Kg、焼肉網×２、トング×３、着火剤×３</span>
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">アユのつかみ取り<br>鮎1匹 ５００円<br>アマゴ1匹　４００円</span>
-                <span class="equipment-detail">竹串や炭はご用意していますので、<br>つかみ取り後の下処理や塩焼きはご自身でお願い致します<br>調理方法がわからない場合はご説明させていただきます。</span>
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">キャンプファイヤー<br>（トーチ付き）<br>５０００円～</span>
-                <span class="equipment-detail">お値段については、<br>人数や大きさによって変わりますので<br>お電話にてご相談ください。</span>
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">薪<br>５００円/束</span>
-                <span class="equipment-detail">飯盒炊飯などにご利用頂いております。</span>
-            </div>
-            <!--
-            <div class="equipment-item">
-                <span class="equipment-name">ゲームセット<br>(デポジット<br>２０００円)</span>
-                <span class="equipment-detail">卓球台×１、Uno×１、トランプ×１、麻雀セット×１<br>ゴキブリポーカー×１、人生ゲーム×１、将棋×１、オセロ×１
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">漫画セット<br>(デポジット<br>２０００円)</span>
-                <span class="equipment-detail">Hunter×Hunter、ヒロアカ、ワンパンマン、ニセコイ<br>アカメが斬る、結界師、暗殺教室</span>
-            </div>
-            <div class="equipment-item">
-                <span class="equipment-name">その他<br>デポジット<br>２０００円</span>
-                <span class="equipment-detail">浮き輪、カヌー、サーフボード、虫取り網</span>
-            </div>
-            -->
-        </div>
-    </div>
-    <div class="plus-image-box">
-    <img src="/static/ao/images/S__214065157_0.jpg" alt="流しそうめん風景" >
-    <img src="" alt="焼肉セット" >
-    <img src="" alt="アユのつかみ取り風景">
-    <img src="" alt="キャンプファイヤー風景">
-    </div>
-</div>
+
 
 
 <div class="news-section">
