@@ -9,6 +9,8 @@
     body {
     padding-top: 100px; /* ヘッダーの高さ分余白を設ける */
     font-family: 'Playfair Display', serif;
+    margin: 0 auto; /* bodyも中央寄せにしますが、ヘッダーとフッターは固定幅なので影響を受けません */
+    overflow-x: hidden;
     }
     header {
         position: fixed;
@@ -154,8 +156,159 @@
     }
     }
 
+/* --- 修正開始 --- */
+/* メインコンテンツセクションに最大幅と中央揃えを適用 */
+.room-section,
+.onsen-section,
+.river-container, /* river-containerも直接max-widthを適用して中央寄せ */
+.sightseeing-section,
+.supermarket-section,
+.food-section,
+.souvenir-section {
+    max-width: 1300px; /* 最大幅を設定 */
+    margin-left: auto;  /* 水平方向中央揃え */
+    margin-right: auto; /* 水平方向中央揃え */
+    width: 95%; /* 最大幅内で完全な幅を確保（必要に応じて調整） */
+}
+
+/* 各セクションのタイトルとコメントの調整 */
+/* absoluteな配置やtransformによるオフセットを修正 */
+
+/* .room-section のタイトルとコメント、コンテナの調整 */
+.room-section .room-title {
+    left: 0;
+    top: 21%; /* leftをリセット */
+    transform: rotate(90deg) translateY(50%) translateX(0%); /* 親に対する中央配置に調整 */
+}
+.room-section .room-comment1 {
+    transform: translateX(5%); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.room-section .room-container {
+    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+/* .onsen-section のタイトルとコメントの調整 */
+.onsen-section .onsen-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(40%) translateX(0%); /* 親に対する中央配置に調整 */
+}
+.onsen-section .onsen-comment1 {
+    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+/* river-container は上記で直接中央寄せされるので、left: 8% は削除 */
+.river-container {
+    left: 0; /* オフセットを削除 */
+    width: 100%; /* 親の幅に合わせる */
+}
 
 
+/* .sightseeing-section のタイトルとコメント、コンテナの調整 */
+.sightseeing-section .sightseeing-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(50%) translateX(0%); /* 親に対する中央配置に調整 */
+}
+.sightseeing-section .sightseeing-comment1 {
+    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.sightseeing-section .sightseeing-container {
+    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+/* .supermarket-section のタイトルとコメント、コンテナの調整 */
+.supermarket-section .supermarket-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親に対する中央配置に調整 */
+}
+.supermarket-section .supermarket-comment1 {
+    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.supermarket-section .supermarket-container {
+    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+/* .food-section のタイトルとコメント、コンテナの調整 */
+.food-section .food-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親に対する中央配置に調整 */
+}
+.food-section .food-comment1 {
+    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.food-section .food-container {
+    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+/* .souvenir-section のタイトルとコメント、コンテナの調整 */
+.souvenir-section .souvenir-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親に対する中央配置に調整 */
+}
+.souvenir-section .souvenir-comment1 {
+    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.souvenir-section .souvenir-container {
+    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+
+/* モバイルでの調整 (既存のルールを上書きして中央揃えを維持) */
+@media (max-width: 500px) {
+    /* 各セクションのコメント（見出し）のフォントサイズとマージンを調整 */
+    .room-comment1,
+    .sightseeing-comment1,
+    .food-comment1,
+    .souvenir-comment1,
+    .supermarket-comment1,
+    .onsen-comment1 {
+        font-size: 25px;
+        margin-left: 0px; /* マージンをリセット */
+        margin-bottom: 0px;
+        text-align: center; /* テキストを中央揃え */
+    }
+
+    /* 各セクションのタイトル位置の調整 */
+    .room-title,
+    .sightseeing-title,
+    .supermarket-title,
+    .food-title,
+    .souvenir-title,
+    .onsen-title {
+        left: 0; /* leftをリセット */
+        transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親要素の中央に合わせる */
+        /* top値は個別に調整されていたのでそのまま */
+    }
+
+    /* river-container 内の画像調整 */
+    .river-img img {
+        width: 100%; /* 画像を幅100%にする */
+        margin: 0 0 10px 0; /* マージンを調整 */
+    }
+    .river-detail {
+        text-align: center; /* 詳細テキストを中央揃え */
+    }
+    .river-detail2 {
+        transform: translateY(0); /* transformをリセット */
+    }
+    /* 他のスマホ用調整も、新しい中央寄せのロジックに合わせて見直し */
+    .supermarket-section {
+        margin-top: 100px; /* 必要に応じて調整 */
+    }
+    .room-section {
+        height: auto; /* 高さを自動調整 */
+    }
+}
+/* --- 修正終了 --- */
 
 
 .room-section {
@@ -175,7 +328,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 5px;
+    /* left: 5px; 削除され、親の中央揃えによって処理されます */
     top: 60px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -186,15 +339,15 @@
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
 }
 
 .room-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
     margin-bottom: 50px;
 }
 
@@ -206,7 +359,7 @@
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 .room-container a{
@@ -230,7 +383,7 @@
     position: relative;
     width: 85%;
     height: auto;
-    left: 8%;
+    /* left: 8%; 削除され、親の中央寄せによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 .river1{
@@ -276,7 +429,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 0px;
+    /* left: 0px; 削除され、親の中央揃えによって処理されます */
     top: 60px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -287,14 +440,14 @@
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
 }
 .sightseeing-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
 }
 .sightseeing-container {
     display: flex;
@@ -303,7 +456,7 @@
     position: relative;
     width: 90%;
     height: 70vh;
-    left: 5%;
+    /* left: 5%; 削除され、親の中央揃えによって処理されます */
 }
 
 .sightseeing-content {
@@ -394,100 +547,8 @@ button {
     }
 }
 
-.description-box{
-    margin-top: 50px;
-    width: 100%;
-    height: 50vh;
-    margin-bottom: 100px;
-}
-.description-box img{
-    max-width: 1000px;
-    margin-left: 5%;
-    width: 95%;
-    height: 50vh;
-    object-fit:fill;
-}
-.description-comment-box{
-    position: absolute;
-    width: 500px;
-    right: 5%;
-    background-color: white;
-    height: auto;  
-    transform: translateY(-100%);
-    border: 1px solid #ddd;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
-}
-.description-tytle{
-    padding-top: 15px;
-    justify-self: center;
-    color: #800000;
-    font-size: large;
-    font-weight: bold;
-    width: 90%;
-}
-.description-time{
-    justify-self: center;
-    font-size: medium;
-    width: 90%;
-    text-align: right;
-    padding-bottom: 15px;
-    border-bottom: 0.3px solid black;
-}
 
-.description-comment-box p{
-    width: 90%;
-    justify-self: center;
-}
-.description-box-left{
-    width: 100%;
-    height: 50vh;
-    margin-bottom: 100px;
-}
-.description-box-left img{
-    position: absolute;
-    right: 5%;
-    max-width: 1000px;
-    width: 95%;
-    height: 50vh;
-    object-fit:fill;
-}
-.description-comment-box-left{
-    position: absolute;
-    left: 5%;
-    background-color: white;
-    width: 500px;
-    height: auto;
-    margin-top: 50vh;
-    transform: translateY(-100%);
-    border: 1px solid #ddd;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); /* X方向, Y方向, ぼかし, 色 */
     
-}
-.description-comment-box-left p{
-    width: 90%;
-    justify-self: center;
-}
-@media (max-width: 900px) {
-    .description-box img{
-    margin-left: 0;
-    width: 100%;
-}
-.description-box-left img{
-    position: absolute;
-    right: 0;
-    width: 100%;
-}
-    .description-comment-box,.description-comment-box-left{
-    transform: translateY(-10%);
-    width: 70%;
-}
-.description-box,.description-box-left{
-    margin-bottom: 30vh;
-}
-}
-   
-
-
 
 .supermarket-section {
     margin-top: 200px;
@@ -506,7 +567,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    left: -5px;
+    /* left: -5px; 削除され、親の中央揃えによって処理されます */
     top: 70px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -517,15 +578,15 @@ button {
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
 }
 
 .supermarket-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
     margin-bottom: 50px;
 }
 
@@ -537,7 +598,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -561,7 +622,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 0px;
+    /* left: 0px; 削除され、親の中央揃えによって処理されます */
     top: 60px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -572,15 +633,15 @@ button {
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
 }
 
 .food-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
     margin-bottom: 50px;
 }
 
@@ -592,7 +653,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -616,7 +677,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 15px;
+    /* left: 15px; 削除され、親の中央揃えによって処理されます */
     top: 45px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -627,15 +688,15 @@ button {
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
 }
 
 .souvenir-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
     margin-bottom: 50px;
 }
 
@@ -647,7 +708,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -672,7 +733,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 30px;
+    /* left: 30px; 削除され、親の中央揃えによって処理されます */
     top: 30px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -683,15 +744,15 @@ button {
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
+    background-color: #af6c6c;
     margin-left: 110px; /* 文字と線の間の余白 */
     transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
 }
 
 .onsen-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
     margin-bottom: 50px;
 }
 
@@ -703,7 +764,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -766,7 +827,7 @@ footer {
 }
 
 .footer-container {
-   
+    
     background: #af6c6c;
     display: flex;
     justify-content: space-between;
@@ -879,33 +940,48 @@ footer {
     .supermarket-section{
         margin-top: 40vh;
     }
+    /* 各セクションのコメント（見出し）のフォントサイズとマージンを調整 */
     .room-comment1,
-    .sightseeing-comment1
-    ,.food-comment1
-    ,.souvenir-comment1
-    ,.supermarket-comment1
-    ,.onsen-comment1{
+    .sightseeing-comment1,
+    .food-comment1,
+    .souvenir-comment1,
+    .supermarket-comment1,
+    .onsen-comment1 {
         font-size: 25px;
-        margin-left: 5px;
+        margin-left: 0px; /* マージンをリセット */
         margin-bottom: 0px;
+        text-align: center; /* テキストを中央揃え */
     }
-    .supermarket-title{
-        top: 63px;
-    }
-    .room-title {
-    left: 0px;
-    top: 60px;
-    }
+
+    /* 各セクションのタイトル位置の調整 */
+    .room-title,
+    .sightseeing-title,
+    .supermarket-title,
+    .food-title,
+    .souvenir-title,
     .onsen-title {
-        left: 30px;
-        top: 25px;
+        left: 0; /* leftをリセット */
+        transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親要素の中央に合わせる */
+        /* top値は個別に調整されていたのでそのまま */
     }
-    .food-title{
-        left: 0px;
-        top: 50px;
+
+    /* river-container 内の画像調整 */
+    .river-img img {
+        width: 100%; /* 画像を幅100%にする */
+        margin: 0 0 10px 0; /* マージンを調整 */
     }
-    .souvenir-title{
-        top: 40px;
+    .river-detail {
+        text-align: center; /* 詳細テキストを中央揃え */
+    }
+    .river-detail2 {
+        transform: translateY(0); /* transformをリセット */
+    }
+    /* 他のスマホ用調整も、新しい中央寄せのロジックに合わせて見直し */
+    .supermarket-section {
+        margin-top: 100px; /* 必要に応じて調整 */
+    }
+    .room-section {
+        height: auto; /* 高さを自動調整 */
     }
 }
 
@@ -960,24 +1036,24 @@ footer {
     </div>
 
     <div class="onsen-section">
-        <div  class="onsen-title">River</div>
+        <div   class="onsen-title">River</div>
         <div id="river" class="onsen-comment1">泳ぎ場所</div>
         <div class="river-container">
             <div class="river1">初級:山荘アオ前</div>
-            <div class="river-detail">深さ：～２ｍ   <br> 冷たさ（４段階中）：２<br>  流れの速さ（４段階中）：２ </div>
+            <div class="river-detail">深さ：～２ｍ   <br> 冷たさ（４段階中）：２<br>   流れの速さ（４段階中）：２ </div>
             <div class="river-img">
                 <img src="/static/ao/images/S__214065159_0.jpg" alt="初級">
                 <img src="/static/ao/images/S__214065160_0.jpg" alt="初級">
             </div>
 
             <div class="river1">中級:岩倉神社前</div>
-            <div class="river-detail">（山荘アオから徒歩15分）<br>深さ：～４ｍ   <br> 冷たさ（４段階中）：４<br>  流れの速さ（４段階中）：３</div>
+            <div class="river-detail">（山荘アオから徒歩15分）<br>深さ：～４ｍ   <br> 冷たさ（４段階中）：４<br>   流れの速さ（４段階中）：３</div>
             <div class="river-img">
                 <img src="/static/ao/images/IMG_0314.jpeg" alt="中級">
                 <img src="/static/ao/images/IMG_0319.jpeg" alt="中級">
             </div>
             <div class="river1">上級:えのきせ橋下</div>
-            <div class="river-detail">（山荘アオから徒歩15分）<br>深さ：～５ｍ    <br> 冷たさ（４段階中）：３<br>  流れの速さ（４段階中）：４</div>
+            <div class="river-detail">（山荘アオから徒歩15分）<br>深さ：～５ｍ     <br> 冷たさ（４段階中）：３<br>   流れの速さ（４段階中）：４</div>
             <div class="river-img">
                 <img src="/static/ao/images/S__214065162_0.jpg" alt="上級">
                 <img src="/static/ao/images/S__214065163_0.jpg" alt="上級">
@@ -986,7 +1062,7 @@ footer {
     </div>
 
     <div class="sightseeing-section">
-        <div  class="sightseeing-title">Sightseeing</div>
+        <div   class="sightseeing-title">Sightseeing</div>
         <div id="sightseeing" class="sightseeing-comment1">観光地</div>
         <div class="sightseeing-container">
             <button id="prevBtn">&#10094;</button>
@@ -1023,36 +1099,10 @@ footer {
             <button id="nextBtn">&#10095;</button>
         </div>
     </div>
-    <div class="description-box">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像1">
-        <div class="description-comment-box">
-            <div class="description-tytle">あらぎ島</div>
-            <div class="description-time">車で約２５分</div>
-            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
-        </div>
-    </div>
-
-    <div class="description-box-left">
-        <img src="/static/ao/images/S__214065160_0.jpg" alt="画像1">
-        <div class="description-comment-box-left">
-            <div class="description-tytle">生石高原</div>
-            <div class="description-time">車で約２４分</div>
-            <p>標高870mの生石高原は、360度の眺望と四季おりおりの草花に彩られ、特に秋のススキは有名。</p></p>
-        </div>
-    </div>
-
-    <div class="description-box">
-        <img src="/static/ao/images/S__214065161_0.jpg" alt="画像1">
-        <div class="description-comment-box">
-            <div class="description-tytle">あらぎ島</div>
-            <div class="description-time">車で約２５分</div>
-            <p>日本の棚田百選に選ばれ、2013年には「蘭島及び三田・清水の農山村景観」として国の重要文化的景観に選定されました。</p>
-        </div>
-    </div>
-
+    
 
     <div class="supermarket-section">
-        <div  class="supermarket-title">Supermarket</div>
+        <div   class="supermarket-title">Supermarket</div>
         <div id="supermarket" class="supermarket-comment1">スーパーマーケット</div>
         <div class="supermarket-container">
             <div class="equipment-list">
@@ -1078,7 +1128,7 @@ footer {
     </div>
 
     <div class="food-section">
-        <div  class="food-title">Restaurant</div>
+        <div   class="food-title">Restaurant</div>
         <div id="food" class="food-comment1">ごはん屋</div>
         <div class="food-container">
             <div class="equipment-list">        
@@ -1228,18 +1278,7 @@ footer {
                 updateActiveImages();
             }
         });
-    });
+        });
     </script>
 </body>
 </html>
-
-
-
-    
-
-
-  
-    
-
-
-

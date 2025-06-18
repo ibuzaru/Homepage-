@@ -183,6 +183,7 @@
     left: 0; /* Resetting left to allow centering of parent to take effect */
     transform: rotate(90deg) translateY(50%) translateX(-50%); /* Adjust to center relative to its parent */
     /* You might need to fine-tune the translateX percentage based on exact desired position */
+    top: 100px;
 }
 @media (max-width: 900px) {
     .about-section .about-title {
@@ -190,21 +191,30 @@
     }
 }
 
-.sightseeing-section .sightseeing-title {
-    left: 0; /* Resetting left */
-    transform: rotate(90deg) translateY(70%) translateX(-50%); /* Adjust to center relative to its parent */
-    /* You might need to fine-tune the translateX percentage */
-}
+
 .news-section .news-title {
     left: 0; /* Resetting left */
-    transform: rotate(90deg) translateY(70%) translateX(-50%); /* Adjust to center relative to its parent */
+    transform: rotate(90deg) translateY(40%) translateX(-50%); /* Adjust to center relative to its parent */
     /* You might need to fine-tune the translateX percentage */
+    top: 120px;
+}
+@media (max-width: 900px) {
+    .news-section .news-title  {
+        transform: rotate(90deg) translateY(50%) translateX(-50%); /* Keep consistent for mobile if needed */
+    }
 }
 .access-section .access-title {
     left: 0; /* Resetting left */
-    transform: rotate(90deg) translateY(70%) translateX(-50%); /* Adjust to center relative to its parent */
+    transform: rotate(90deg) translateY(50%) translateX(-50%); /* Adjust to center relative to its parent */
     /* You might need to fine-tune the translateX percentage */
+    top: 140px;
 }
+@media (max-width: 900px) {
+    .access-section .access-title {
+        transform: rotate(90deg) translateY(50%) translateX(-50%); /* Keep consistent for mobile if needed */
+    }
+}
+
 /* Re-centering for elements that were offset with `transform: translateX(10%)` or `left: 6%` */
 .sightseeing-comment1,
 .news-comment1,
@@ -671,141 +681,7 @@
 
 
 
-.sightseeing-section {
-    margin-top: 60px;
-    margin-bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    position: relative;
-}
 
-
-.sightseeing-title {
-    color: #af6c6c;
-    font-size: 24px;
-    letter-spacing: 2px;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    /* left: 0px; REMOVED AND HANDLED BY PARENT CENTERING */
-    top: 60px;
-    transform: rotate(90deg) translateY(70%); /* 90度回転 */
-}
-
-.sightseeing-title::after {
-    margin-top: 10px;
-    content: "";
-    display: block;
-    width: 1px; /* 線の太さ */
-    height: 150px; /* 縦方向の長さ */
-    margin-left: 110px; /* 文字と線の間の余白 */
-    transform: rotate(90deg); /* 90度回転 */
-    background-color: #af6c6c;
-}
-.sightseeing-comment1 {
-    font-size: 40px;
-    width: 90%;
-    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
-}
-.sightseeing-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 95%;
-    height: 70vh;
-    /* left: 5%; REMOVED AND HANDLED BY PARENT CENTERING */
-}
-
-.sightseeing-content {
-    display: flex;
-    overflow: hidden;
-    width: 90%;
-    height: 100%;
-    justify-content: center;
-}
-
-.sightseeing-content figure {
-    display: none; /* 初期状態では非表示 */
-    flex-direction: column;
-    margin: 2% auto;
-    width: 30%;
-    height: 80%;
-}
-
-.sightseeing-content figure.active {
-    display: flex; /* activeクラスの要素だけ表示 */
-}
-
-.sightseeing-content figcaption {
-    margin-top: 5px;
-    font-size: 18px;
-    color: #333;
-}
-
-
-.sightseeing-content img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 画像を適切にトリミング */
-}
-
-button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 24px;
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    z-index: 10;
-}
-
-#prevBtn {
-    left: 1px;
-}
-
-#nextBtn {
-    right: 1px;
-}
-
-
-@media (max-width: 900px) {
-    /* ボタン非表示 */
-    #prevBtn, #nextBtn {
-        display: none;
-    }
-
-    /* 画像スライダーを全幅に */
-    .sightseeing-content {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-    }
-
-    .sightseeing-content figure {
-        transform: translateX(300%);
-        display: inline-block;
-        flex: 0 0 55%; /* 縮小を防ぐ */
-        margin: 10px;
-        scroll-snap-align: start;
-    }
-    .sightseeing-content figure.active {
-        display: inline-block;
-    }
-
-    .sightseeing-content img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 画像を適切にトリミング */
-    border-radius: 10px;
-    }
-
-}
 
 
 
@@ -829,7 +705,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    /* left: 40px; REMOVED AND HANDLED BY PARENT CENTERING */
+    left: 40px; 
     top: 20px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -847,7 +723,7 @@ button {
 .news-comment1 {
     font-size: 40px;
     width: 90%;
-    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
+    transform: translateX(10%); 
     margin-bottom: 50px;
 }
 .news-container {
@@ -857,7 +733,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    /* left: 6%; REMOVED AND HANDLED BY PARENT CENTERING */
+    left: 6%; 
 }
 .news-box {
     width: 90%;
@@ -897,7 +773,7 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    /* left: 20px; REMOVED AND HANDLED BY PARENT CENTERING */
+    left: 20px; 
     top: 30px;
     transform: rotate(90deg) translateY(70%);
 }
@@ -915,7 +791,7 @@ button {
 .access-comment1 {
     font-size: 40px;
     width: 90%;
-    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
+    transform: translateX(10%);
     margin-bottom: 50px;
 }
 
@@ -926,7 +802,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    /* left: 6%; REMOVED AND HANDLED BY PARENT CENTERING */
+    left: 6%; 
 }
 
 .access-box {

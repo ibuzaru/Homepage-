@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -154,6 +154,98 @@
     }
     }
 
+/* --- 修正開始 --- */
+/* メインコンテンツセクションに最大幅と中央揃えを適用 */
+.room-section,
+.room-details,
+.room-name,
+.room1-container,
+.amenity-section,
+.news-section {
+    max-width: 1300px; /* 最大幅を設定 */
+    margin-left: auto;  /* 水平方向中央揃え */
+    margin-right: auto; /* 水平方向中央揃え */
+    width: 95%; /* 最大幅内で完全な幅を確保（必要に応じて調整） */
+}
+
+/* 各セクションのタイトルとコメントの調整 */
+/* absoluteな配置やtransformによるオフセットを修正 */
+.room-section .room-title {
+    transform: rotate(90deg) translateY(45%) translateX(0%); /* 親に対する中央配置に調整 */
+}
+.room-section .room-comment1 {
+    transform: translateX(5%); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.room-section .room-container {
+    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+.amenity-section .amenity-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(55%) translateX(-50%); /* 親に対する中央配置に調整 */
+}
+.amenity-section .amenity-comment1,
+.amenity-section .amenity-comment2 {
+    transform: translateX(5%); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.amenity-section .amenity-container {
+    left: 6%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 90%; /* 親の幅に合わせる */
+}
+/* amenity-image-box内のimgの幅の調整（元々width:30%でしたので、必要に応じて調整） */
+.amenity-image-box {
+    display: flex; /* 画像が複数ある場合、Flexboxで中央寄せしやすくなる */
+    justify-content: center; /* 画像を中央に配置 */
+    width: 100%; /* 親の幅に合わせる */
+    height: auto; /* 高さを自動調整 */
+    margin-top: 20px; /* 必要に応じて上部余白を追加 */
+    margin-left: 5%;
+}
+.amenity-image-box img {
+    width: 30%; /* 元の幅を維持 */
+    height: auto; /* 高さを自動調整 */
+    max-width: 300px; /* 画像が大きくなりすぎないように調整 */
+}
+
+
+.news-section .news-title {
+    left: 0; /* leftをリセット */
+    transform: rotate(90deg) translateY(55%) translateX(-60%); /* 親に対する中央配置に調整 */
+}
+.news-section .news-comment1 {
+    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    text-align: center; /* 必要に応じてテキストを中央揃え */
+}
+.news-section .news-container {
+    left: 2%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 100%; /* 親の幅に合わせる */
+}
+
+/* スマホでの調整 (必要に応じて、さらに中央寄せの微調整を行う) */
+@media (max-width: 500px) {
+    .room-comment1,
+    .amenity-comment1,
+    .news-comment1 {
+        margin-left: 0; /* 元のmargin-leftをリセット */
+        text-align: center; /* テキストを中央揃え */
+        width: 100%; /* 幅を親に合わせる */
+    }
+    .amenity-comment2 {
+        margin-left: 0; /* 元のmargin-leftをリセット */
+        text-align: center; /* テキストを中央揃え */
+        width: 100%; /* 幅を親に合わせる */
+    }
+    /* room-nameの調整 */
+    .room-name {
+        transform: translateY(0); /* transformをリセットし、marginで中央寄せ */
+        margin-top: 30px; /* 適度な余白を追加 */
+        margin-bottom: 20px; /* 適度な余白を追加 */
+    }
+}
+/* --- 修正終了 --- */
 
 
 .room-section {
@@ -172,7 +264,7 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 35px;
+    /* left: 35px; REMOVED AND HANDLED BY PARENT CENTERING */
     top: 20px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
@@ -191,7 +283,7 @@
 .room-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); REMOVED AND HANDLED BY PARENT CENTERING */
     margin-bottom: 50px;
 }
 
@@ -202,7 +294,7 @@
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; REMOVED AND HANDLED BY PARENT CENTERING */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -310,7 +402,7 @@
     width: 15%;
     height: 50vh;
     overflow: hidden;
-    position: relative;    
+    position: relative;        
     justify-content: space-evenly;
 }
 
@@ -319,7 +411,7 @@
     margin: 10px 0 5px 0;
     width: 100%;
     height: 100%;
-   
+    
     
 }
 
@@ -413,8 +505,8 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 20px;
-    top: 40px;
+    /* left: 20px; 削除され、親の中央揃えによって処理されます */
+    top: 170px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
 
@@ -432,13 +524,13 @@
 .amenity-comment1 {
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
 
 }
 .amenity-comment2{
     font-size: medium;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
     margin-bottom: 10px;
 }
 
@@ -449,7 +541,7 @@
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 .amenity-image-box{
@@ -467,6 +559,35 @@
 
 
 
+.equipment-list {
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.equipment-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #af6c6c;
+    padding: 50px 0px 50px 0px;
+}
+
+.equipment-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+    white-space: nowrap; /* 改行を防ぐ */
+    margin-right: 10px;
+}
+
+
+.equipment-detail {
+    font-size: 14px;
+    color: #666;
+}
 
 
 
@@ -487,8 +608,8 @@
     display: flex;
     align-items: center;
     position: absolute;
-    left: 20px;
-    top: 45px;
+    /* left: 20px; 削除され、親の中央揃えによって処理されます */
+    top: 200px;
     transform: rotate(90deg) translateY(70%); /* 90度回転 */
 }
 
@@ -506,7 +627,7 @@
     margin: auto;
     font-size: 40px;
     width: 90%;
-    transform: translateX(10%);
+    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
 }
 .news-container {
     display: flex;
@@ -515,8 +636,12 @@
     position: relative;
     width: 90%;
     height: auto;
-    left: 6%;
+    /* left: 6%; 削除され、親の中央揃えによって処理されます */
 }
+
+
+
+
 .product-section {
     width: 85%;
     max-width: 1200px;
@@ -561,7 +686,7 @@
 
 
 
- footer {
+footer {
     margin-top: 100px;
     color: white;
     padding: 0px 0 50px; /* 下部の余白を確保 */
@@ -713,7 +838,7 @@
         top: 10px;
     }
     .news-title{
-        top: 38px;
+        top: 170px;
     }
     .room1-box1,.room1-box2{
         padding-left: 3px;
@@ -761,12 +886,11 @@
     <div class="room-title">Room</div>
     <div class="room-comment1">施設のご案内</div>
     <div class="room-container">
-        <img src="" alt="全体マップ" class="whole-map">
+        <img src="/static/ao/images/体験横センター.jpeg" alt="全体マップ" class="whole-map">
     </div>
 </div>
 
 
-<!-- 説明欄とチェックイン・チェックアウト・宿泊人数のセクション -->
 <div class="room-details">
     <div class="room-description">
         <p>山荘アオは、4棟の建物とお風呂からなり、1日1組限定の貸し切りです。<br>ご宿泊人数は最大50名様まで、</br>お部屋分けは男女の人数を考慮しこちらで決めさせていただきます。</p>
@@ -936,30 +1060,7 @@
                 <li>着火剤３個入り <span>150円</span></li>
                 <li>歯ブラシ(歯磨き粉付き)<span>20円</span></li>
             </ul>
-           <!--<h2>ソフトドリンク(500ml)</h2>
-            <ul>
-                <li>麦茶<span>160円</span></li>
-                <li>緑茶 <span>160円</span></li>
-                <li>コカ・コーラ <span>180円</span></li>
-                <li>CCレモン <span>180円</span></li>
-                <li>ファンタ <span>180円</span></li>
-                <li>なっちゃん <span>180円</span></li>
-                <li>カルピス <span>180円</span></li>
-            </ul>    
-        
-            <h2>お菓子類</h2>
-            <ul>
-                <li>ポテトチップス <span>200円</span></li>
-                <li>じゃがりこ <span>200円</span></li>
-            </ul>
-        
-            <h2>カップ麺類</h2>
-            <ul>
-                <li>カップヌードル <span>250円</span></li>
-                <li>どん兵衛 <span>250円</span></li>
-                <li>カップ焼きそば <span>250円</span></li>
-            </ul>--> 
-        </div>
+           </div>
     </div>
 </div>
 
@@ -1138,10 +1239,7 @@
         });
     });
 });
-
-
-
-    </script>
+</script>
     
 </body>
 </html>

@@ -9,14 +9,11 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-from .settings_local import *
+from .settings_local import * # settings_local.py はローカル開発環境用の設定をオーバーライドするために使用
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-# settings.py
-
-# デフォルトのタイムゾーンを日本時間に設定
-TIME_ZONE = 'Asia/Tokyo'
+import django_heroku # Heroku自動設定用
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,12 +34,21 @@ if not SECRET_KEY:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# --- 修正開始 ---
+# 環境変数 'DJANGO_DEBUG' が 'True' なら True、それ以外は False に設定
+# 本番環境では環境変数で 'False' を設定するようにしてください
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
+# 許可するホスト名の設定:
+# 本番環境では必ずセキュリティのために正確なドメインを設定してください
+# 環境変数 'DJANGO_ALLOWED_HOSTS' があればそれをカンマ区切りでリスト化、なければ空のリスト
+# DEBUGがTrueの場合は、開発用に全てのホストを許可します
+# DEBUGがFalseの場合は、環境変数からALLOWED_HOSTSを読み込みます
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if not DEBUG else ['*']
 
-
-import os
-import django_heroku  # 自動設定用（後述）
-ALLOWED_HOSTS = ['sanso-ao-glamping.herokuapp.com', '127.0.0.1', 'localhost']
+# 元の ALLOWED_HOSTS の行は削除またはコメントアウト
+# ALLOWED_HOSTS = ['sanso-ao-glamping.herokuapp.com', '127.0.0.1', 'localhost']
+# --- 修正終了 ---
 
 
 # Application definition
@@ -125,9 +131,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja' # 日本語に設定 (en-us から変更)
 
-TIME_ZONE = 'UTC'
+# --- 修正開始 ---
+TIME_ZONE = 'Asia/Tokyo' # デフォルトのタイムゾーンを日本時間に設定 (既に同じ設定が上部にあるので、重複を避けるか、一箇所にまとめる)
+# --- 修正終了 ---
 
 USE_I18N = True
 
@@ -137,9 +145,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-import os
-
-#DEBUG = True
 
 # 静的ファイルの設定
 STATIC_URL = '/static/'
@@ -152,8 +157,37 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-    # HerokuのConfigを読み込み
-django_heroku.settings(locals())
+# --- 修正開始 ---
+# HTTPSリダイレクトとその他のセキュリティ設定
+if not DEBUG:
+    # HTTPリクエストをHTTPSにリダイレクト
+    SECURE_SSL_REDIRECT = True
+
+    # プロキシからのSSLヘッダーを認識させる
+    # HerokuのようなPaaSでは、このヘッダーがHTTPSを示すために使用されます
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    # その他のセキュリティ関連設定（本番環境では強く推奨）
+    CSRF_COOKIE_SECURE = True       # CSRFクッキーをHTTPSでのみ送信
+    SESSION_COOKIE_SECURE = True    # セッションクッキーをHTTPSでのみ送信
+    SECURE_HSTS_SECONDS = 31536000  # HSTS (HTTP Strict Transport Security) を有効化（約1年間）
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True # サブドメインにもHSTSを適用
+    # SECURE_HSTS_PRELOAD = True      # これは非常に強力な設定で、一度有効にすると元に戻すのが困難なため、慎重に検討してください。
+                                    # プリロードリストへの登録を意図しない場合は False のままにするか、コメントアウトしてください。
+    SECURE_BROWSER_XSS_FILTER = True # XSSフィルタリングを有効化
+    X_FRAME_OPTIONS = 'DENY'        # クリックジャッキング対策
+
+# 元の os.environ.get('DYNO') のブロックは削除またはコメントアウト
+# if os.environ.get('DYNO'):
+#     SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# --- 修正終了 ---
+
+
+# HerokuのConfigを読み込み
+django_heroku.settings(locals()) # この行は修正後のSECURE_SSL_REDIRECTなどの設定より後に記述されるべきですが、
+                                # django_herokuが自動的に設定を上書きする可能性があるため、
+                                # 基本的にはこの設定の後に手動で上書きする形で問題ありません。
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -165,7 +199,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')  # 環境変数から取得
 DEFAULT_CHARSET = 'utf-8'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # 使用するSMTPサーバー
+EMAIL_HOST = 'smtp.gmail.com'   # 使用するSMTPサーバー
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
