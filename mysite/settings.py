@@ -159,17 +159,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # --- 修正開始 ---
 # HTTPSリダイレクトとその他のセキュリティ設定
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = not DEBUG  # DEBUG=False のときのみ HTTPS にリダイレクト
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = not DEBUG  # DEBUG=False のときのみ HTTPS にリダイレクト
 
 # セッション・CSRF Cookie を HTTPS に限定（本番環境のみ）
-CSRF_COOKIE_SECURE = not DEBUG
-SESSION_COOKIE_SECURE = not DEBUG
+#CSRF_COOKIE_SECURE = not DEBUG
+#SESSION_COOKIE_SECURE = not DEBUG
 
 # 元の os.environ.get('DYNO') のブロックは削除またはコメントアウト
-# if os.environ.get('DYNO'):
-#     SECURE_SSL_REDIRECT = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if os.environ.get('DYNO'):
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # --- 修正終了 ---
 
 
