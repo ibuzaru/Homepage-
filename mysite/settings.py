@@ -159,23 +159,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # --- 修正開始 ---
 # HTTPSリダイレクトとその他のセキュリティ設定
-if not DEBUG:
-    # HTTPリクエストをHTTPSにリダイレクト
-    SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = not DEBUG  # DEBUG=False のときのみ HTTPS にリダイレクト
 
-    # プロキシからのSSLヘッダーを認識させる
-    # HerokuのようなPaaSでは、このヘッダーがHTTPSを示すために使用されます
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-    # その他のセキュリティ関連設定（本番環境では強く推奨）
-    CSRF_COOKIE_SECURE = True       # CSRFクッキーをHTTPSでのみ送信
-    SESSION_COOKIE_SECURE = True    # セッションクッキーをHTTPSでのみ送信
-    SECURE_HSTS_SECONDS = 31536000  # HSTS (HTTP Strict Transport Security) を有効化（約1年間）
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True # サブドメインにもHSTSを適用
-    # SECURE_HSTS_PRELOAD = True      # これは非常に強力な設定で、一度有効にすると元に戻すのが困難なため、慎重に検討してください。
-                                    # プリロードリストへの登録を意図しない場合は False のままにするか、コメントアウトしてください。
-    SECURE_BROWSER_XSS_FILTER = True # XSSフィルタリングを有効化
-    X_FRAME_OPTIONS = 'DENY'        # クリックジャッキング対策
+# セッション・CSRF Cookie を HTTPS に限定（本番環境のみ）
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
 
 # 元の os.environ.get('DYNO') のブロックは削除またはコメントアウト
 # if os.environ.get('DYNO'):
