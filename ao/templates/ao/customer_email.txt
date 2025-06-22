@@ -39,10 +39,10 @@
 
 ■規約内容
 以下のURLから規約内容をご確認ください。
-https://sanso-ao-glamping-027217be6a65.herokuapp.com/kiyaku/
+https://www.sansoao.com/kiyaku/
 
 ■公式HP・インスタグラム
-https://sanso-ao-glamping-027217be6a65.herokuapp.com/
+https://www.sansoao.com
 https://www.instagram.com/sanso_ao
 
 ご不明な点がございましたら、お気軽にお問い合わせください。

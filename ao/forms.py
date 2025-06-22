@@ -56,7 +56,7 @@ class ExampleForm(forms.ModelForm):
         label="ご要望",
         max_length=300,
         required=False,
-        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'キャンプファイヤー(5000円～）やアユのつかみ取り（400円～)がご入用の場合はこちらに数量などをご記入ください。追って、ご連絡致します。'})
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'キャンプファイヤー(5000円～）や魚のつかみ取り（400円～)がご入用の場合はこちらに数量などをご記入ください。追って、ご連絡致します。'})
     )
 
     def __init__(self, *args, **kwargs):
