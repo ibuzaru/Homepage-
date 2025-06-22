@@ -61,7 +61,6 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'ao',
-    'redirects_app',
     'django.contrib.humanize',  # これを追加
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,7 +76,6 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',  # 追加
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'redirects_app.middleware.OldDomainRedirectMiddleware', # ★ この行を追加 ★
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
