@@ -46,6 +46,12 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 # DEBUGがFalseの場合は、環境変数からALLOWED_HOSTSを読み込みます
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if not DEBUG else ['*']
 
+ALLOWED_HOSTS = [
+    'www.sansoao.com',
+    'sansoao.com',
+    'sanso-ao-glamping-027217be6a65.herokuapp.com', # 古いドメインとHerokuのデフォルトドメイン
+    # その他の許可するホスト
+]
 # 元の ALLOWED_HOSTS の行は削除またはコメントアウト
 # ALLOWED_HOSTS = ['sanso-ao-glamping.herokuapp.com', '127.0.0.1', 'localhost']
 # --- 修正終了 ---
@@ -55,6 +61,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if not DEB
 
 INSTALLED_APPS = [
     'ao',
+    'redirects_app',
     'django.contrib.humanize',  # これを追加
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,6 +77,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',  # 追加
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'redirects_app.middleware.OldDomainRedirectMiddleware', # ★ この行を追加 ★
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
