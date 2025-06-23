@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>山荘アオ</title>
     <style>
-    
+
     body {
     padding-top: 100px; /* ヘッダーの高さ分余白を設ける */
     font-family: 'Playfair Display', serif;
@@ -14,7 +14,7 @@
     }
     header {
         position: fixed;
-        width: 100vw;
+        width: 100%;
         top: 0;
         background: white;
         transition: top 0.3s;
@@ -22,7 +22,7 @@
         display: flex;
         flex-direction: column;
         padding: 10px 40px;
-        
+
     }
     .header-top {
         display: flex;
@@ -175,11 +175,7 @@
 /* absoluteな配置やtransformによるオフセットを修正 */
 
 /* .room-section のタイトルとコメント、コンテナの調整 */
-.room-section .room-title {
-    left: 0;
-    top: 21%; /* leftをリセット */
-    transform: rotate(90deg) translateY(50%) translateX(0%); /* 親に対する中央配置に調整 */
-}
+
 .room-section .room-comment1 {
     transform: translateX(5%); /* オフセットを削除し、親の中央揃えを適用 */
     text-align: center; /* 必要に応じてテキストを中央揃え */
@@ -192,114 +188,102 @@
 /* .onsen-section のタイトルとコメントの調整 */
 .onsen-section .onsen-title {
     left: 0; /* leftをリセット */
-    transform: rotate(90deg) translateY(40%) translateX(0%); /* 親に対する中央配置に調整 */
+    transform: rotate(90deg) translateY(45%) translateX(0%); /* 親に対する中央配置に調整 */
 }
 .onsen-section .onsen-comment1 {
-    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    transform: translateX(5%); /* オフセットを削除し、親の中央揃えを適用 */
     text-align: center; /* 必要に応じてテキストを中央揃え */
 }
 /* river-container は上記で直接中央寄せされるので、left: 8% は削除 */
-.river-container {
-    left: 0; /* オフセットを削除 */
-    width: 100%; /* 親の幅に合わせる */
-}
 
+.river-container {
+    left: 5%; /* オフセットを削除 */
+    width: 95%; /* 親の幅に合わせる */
+}
 
 /* .sightseeing-section のタイトルとコメント、コンテナの調整 */
 .sightseeing-section .sightseeing-title {
     left: 0; /* leftをリセット */
-    transform: rotate(90deg) translateY(50%) translateX(0%); /* 親に対する中央配置に調整 */
+   
 }
 .sightseeing-section .sightseeing-comment1 {
-    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    transform: translateX(0%); /* オフセットを削除し、親の中央揃えを適用 */
     text-align: center; /* 必要に応じてテキストを中央揃え */
 }
 .sightseeing-section .sightseeing-container {
-    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
-    width: 100%; /* 親の幅に合わせる */
+    left: 2.5%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 97.5%; /* 親の幅に合わせる */
 }
+
 
 /* .supermarket-section のタイトルとコメント、コンテナの調整 */
 .supermarket-section .supermarket-title {
     left: 0; /* leftをリセット */
-    transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親に対する中央配置に調整 */
+    transform: rotate(90deg) translateY(75%) translateX(-50%); /* 親に対する中央配置に調整 */
 }
 .supermarket-section .supermarket-comment1 {
     transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
     text-align: center; /* 必要に応じてテキストを中央揃え */
 }
 .supermarket-section .supermarket-container {
-    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
-    width: 100%; /* 親の幅に合わせる */
+    left: 5%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 95%; /* 親の幅に合わせる */
 }
 
 /* .food-section のタイトルとコメント、コンテナの調整 */
-.food-section .food-title {
+.food-title {
     left: 0; /* leftをリセット */
-    transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親に対する中央配置に調整 */
+    transform: rotate(90deg) translateY(50%) translateX(0%); /* 親に対する中央配置に調整 */
 }
 .food-section .food-comment1 {
     transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
     text-align: center; /* 必要に応じてテキストを中央揃え */
 }
 .food-section .food-container {
-    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
-    width: 100%; /* 親の幅に合わせる */
+    left: 5%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 95%; /* 親の幅に合わせる */
 }
 
 /* .souvenir-section のタイトルとコメント、コンテナの調整 */
 .souvenir-section .souvenir-title {
     left: 0; /* leftをリセット */
-    transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親に対する中央配置に調整 */
+    transform: rotate(90deg) translateY(60%) translateX(0%); /* 親に対する中央配置に調整 */
 }
 .souvenir-section .souvenir-comment1 {
-    transform: translateX(0); /* オフセットを削除し、親の中央揃えを適用 */
+    transform: translateX(5%); /* オフセットを削除し、親の中央揃えを適用 */
     text-align: center; /* 必要に応じてテキストを中央揃え */
 }
 .souvenir-section .souvenir-container {
-    left: 0; /* オフセットを削除し、親の中央揃えを適用 */
-    width: 100%; /* 親の幅に合わせる */
+    left: 5%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 95%; /* 親の幅に合わせる */
 }
-
+.onsen-container{
+    left: 5%; /* オフセットを削除し、親の中央揃えを適用 */
+    width: 95%;
+}
 
 /* モバイルでの調整 (既存のルールを上書きして中央揃えを維持) */
 @media (max-width: 500px) {
     /* 各セクションのコメント（見出し）のフォントサイズとマージンを調整 */
-    .room-comment1,
-    .sightseeing-comment1,
-    .food-comment1,
-    .souvenir-comment1,
-    .supermarket-comment1,
-    .onsen-comment1 {
-        font-size: 25px;
-        margin-left: 0px; /* マージンをリセット */
-        margin-bottom: 0px;
-        text-align: center; /* テキストを中央揃え */
-    }
+
 
     /* 各セクションのタイトル位置の調整 */
     .room-title,
-    .sightseeing-title,
     .supermarket-title,
+    .river-title,
     .food-title,
     .souvenir-title,
     .onsen-title {
         left: 0; /* leftをリセット */
-        transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親要素の中央に合わせる */
+        transform: rotate(90deg) translateY(70%) translateX(-40%); /* 親要素の中央に合わせる */
         /* top値は個別に調整されていたのでそのまま */
     }
 
     /* river-container 内の画像調整 */
     .river-img img {
-        width: 100%; /* 画像を幅100%にする */
-        margin: 0 0 10px 0; /* マージンを調整 */
+        border-radius: 5px;
     }
-    .river-detail {
-        text-align: center; /* 詳細テキストを中央揃え */
-    }
-    .river-detail2 {
-        transform: translateY(0); /* transformをリセット */
-    }
+
     /* 他のスマホ用調整も、新しい中央寄せのロジックに合わせて見直し */
     .supermarket-section {
         margin-top: 100px; /* 必要に応じて調整 */
@@ -309,6 +293,7 @@
     }
 }
 /* --- 修正終了 --- */
+
 
 
 .room-section {
@@ -381,13 +366,13 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
-    width: 85%;
     height: auto;
-    /* left: 8%; 削除され、親の中央寄せによって処理されます */
+    width: 95%;
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 .river1{
     font-size: 25px;
+    width: 90%;
     border-bottom: 1px solid #af6c6c;
     text-align: left;
     display: flex;
@@ -403,9 +388,7 @@
     width: 45%;
     margin: 0 10px 10px 10px;
 }
-.river-detail2{
-    transform: translateY(-20px);
-}
+
 
 
 
@@ -424,29 +407,28 @@
 
 .sightseeing-title {
     color: #af6c6c;
-    font-size: 24px;
     letter-spacing: 2px;
+    font-size: 24px;
     display: flex;
     align-items: center;
     position: absolute;
-    /* left: 0px; 削除され、親の中央揃えによって処理されます */
-    top: 60px;
-    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+    left: 0px; 
+    top: 70px;
+    transform: rotate(90deg) translateY(70%) translateX(0%); /* 90度回転 */
 }
 
 .sightseeing-title::after {
-    margin-top: 10px;
     content: "";
     display: block;
     width: 1px; /* 線の太さ */
     height: 150px; /* 縦方向の長さ */
     background-color: #af6c6c;
-    margin-left: 110px; /* 文字と線の間の余白 */
-    transform: rotate(90deg); /* 90度回転 */
+    margin-left: 100px; /* 文字と線の間の余白 */
+    transform: rotate(90deg) ; /* 90度回転 */
 }
 .sightseeing-comment1 {
     font-size: 40px;
-    width: 90%;
+    width: 100%;
     /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
 }
 .sightseeing-container {
@@ -454,15 +436,16 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 90%;
-    height: 70vh;
-    /* left: 5%; 削除され、親の中央揃えによって処理されます */
+    height: 80vh;
+    /* コンテナ自体を親の中で中央に配置するために margin: auto を追加 */
+    margin: 0 auto;
 }
 
 .sightseeing-content {
     display: flex;
     overflow: hidden;
-    width: 95%;
+    /* これは親である .sightseeing-container の幅に対する割合です */
+    width: 90%; /* 親 (.sightseeing-container) の幅を100%占めるようにする */
     height: 100%;
     justify-content: center;
 }
@@ -470,7 +453,7 @@
 .sightseeing-content figure {
     display: none; /* 初期状態では非表示 */
     flex-direction: column;
-    margin: 2% auto;
+    margin:auto;
     width: 30%;
     height: 80%;
 }
@@ -506,48 +489,36 @@ button {
 }
 
 #prevBtn {
-    left: 1px;
+    left: 5%;
 }
 
 #nextBtn {
-    right: 1px;
+    right: 5%;
 }
 
+@media (max-width: 500px) {
 
-@media (max-width: 900px) {
-    /* ボタン非表示 */
-    #prevBtn, #nextBtn {
-        display: none;
-    }
-
-    /* 画像スライダーを全幅に */
-    .sightseeing-content {
-        display: flex;
-        overflow-x: auto;
-        white-space: nowrap;
-        scroll-snap-type: x mandatory;
-    }
-
-    .sightseeing-content figure {
-        transform: translateX(300%);
-        display: inline-block;
-        flex: 0 0 55%; /* 縮小を防ぐ */
-        margin: 10px;
-        scroll-snap-align: start;
-    }
-    .sightseeing-content figure.active {
-        display: inline-block;
-    }
-
-    .sightseeing-content img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 画像を適切にトリミング */
-    border-radius: 10px;
-    }
+.sightseeing-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%; /* これは親である .sightseeing-section の幅に対する割合です */
+    height: 50vh;
+    /* コンテナ自体を親の中で中央に配置するために margin: auto を追加 */
+    margin: 0 auto;
 }
 
+.sightseeing-content {
+    display: flex;
+    overflow: hidden;
+    /* これは親である .sightseeing-container の幅に対する割合です */
+    width: 90%; /* 親 (.sightseeing-container) の幅を100%占めるようにする */
+    height: 80%;
+    justify-content: center;
+}
 
+}
     
 
 .supermarket-section {
@@ -568,8 +539,8 @@ button {
     align-items: center;
     position: absolute;
     /* left: -5px; 削除され、親の中央揃えによって処理されます */
-    top: 70px;
-    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+    top: 220px;
+     /* transform: rotate(90deg) translateY(50%) translateX(0);90度回転 */
 }
 
 .supermarket-title::after {
@@ -708,7 +679,7 @@ button {
     position: relative;
     width: 90%;
     height: auto;
-    /* left: 6%; 削除され、親の中央揃えによって処理されます */
+    left: 6%;
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -733,9 +704,8 @@ button {
     display: flex;
     align-items: center;
     position: absolute;
-    /* left: 30px; 削除され、親の中央揃えによって処理されます */
     top: 30px;
-    transform: rotate(90deg) translateY(70%); /* 90度回転 */
+    transform: rotate(90deg) translateY(50%) ; /* 90度回転 */
 }
 
 .onsen-title::after {
@@ -752,9 +722,10 @@ button {
 .onsen-comment1 {
     font-size: 40px;
     width: 90%;
-    /* transform: translateX(10%); 削除され、親の中央揃えによって処理されます */
+    transform: translateX(50%);
     margin-bottom: 50px;
 }
+
 
 .onsen-container {
     display: flex;
@@ -762,9 +733,8 @@ button {
     justify-content: center;
     flex-direction: column;
     position: relative;
-    width: 90%;
+    width: 95%;
     height: auto;
-    /* left: 6%; 削除され、親の中央揃えによって処理されます */
     margin-bottom: 30px; /* 画像と説明欄の間に余白を追加 */
 }
 
@@ -781,7 +751,7 @@ button {
     transition: 0.3s;
 }
 .equipment-list {
-    width: 94%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -934,60 +904,29 @@ footer {
         gap: 10px;
     }
 
-}
 
-@media (max-width: 500px) {
-    .supermarket-section{
-        margin-top: 40vh;
-    }
-    /* 各セクションのコメント（見出し）のフォントサイズとマージンを調整 */
+
     .room-comment1,
     .sightseeing-comment1,
     .food-comment1,
     .souvenir-comment1,
     .supermarket-comment1,
     .onsen-comment1 {
-        font-size: 25px;
-        margin-left: 0px; /* マージンをリセット */
+        font-weight: bold;
+        font-size: 24px;
         margin-bottom: 0px;
         text-align: center; /* テキストを中央揃え */
     }
 
-    /* 各セクションのタイトル位置の調整 */
-    .room-title,
-    .sightseeing-title,
-    .supermarket-title,
-    .food-title,
-    .souvenir-title,
-    .onsen-title {
-        left: 0; /* leftをリセット */
-        transform: rotate(90deg) translateY(70%) translateX(-50%); /* 親要素の中央に合わせる */
-        /* top値は個別に調整されていたのでそのまま */
+    .sightseeing-section{
+        height: 55vh;
     }
+    
 
-    /* river-container 内の画像調整 */
-    .river-img img {
-        width: 100%; /* 画像を幅100%にする */
-        margin: 0 0 10px 0; /* マージンを調整 */
-    }
-    .river-detail {
-        text-align: center; /* 詳細テキストを中央揃え */
-    }
-    .river-detail2 {
-        transform: translateY(0); /* transformをリセット */
-    }
-    /* 他のスマホ用調整も、新しい中央寄せのロジックに合わせて見直し */
-    .supermarket-section {
-        margin-top: 100px; /* 必要に応じて調整 */
-    }
-    .room-section {
-        height: auto; /* 高さを自動調整 */
+    .supermarket-container{
+        width: 70%;
     }
 }
-
-
-
-
 
     </style>
 </head>
@@ -1062,22 +1001,22 @@ footer {
     </div>
 
     <div class="sightseeing-section">
-        <div   class="sightseeing-title">Sightseeing</div>
+        <div class="sightseeing-title">Sightseeing</div>
         <div id="sightseeing" class="sightseeing-comment1">観光地</div>
         <div class="sightseeing-container">
             <button id="prevBtn">&#10094;</button>
             <div class="sightseeing-content">
                 <figure>
-                    <img src="/static/ao/images/S__214065159_0.jpg" alt="画像1">
-                    <figcaption>吉祥寺薬師堂</br>(徒歩約１５分)</figcaption>
+                    <img src="" alt="画像1">
+                    <figcaption>薬師堂</br>(徒歩約１５分)</figcaption>
                 </figure>
                 <figure>
-                    <img src="/static/ao/images/S__214065157_0.jpg" alt="画像2">
+                    <img src="" alt="画像2">
                     <figcaption>岩倉神社</br>(徒歩１０分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/神社前2.webp" alt="画像2">
-                    <figcaption>巌（いわお）</br>(徒歩１０分)</figcaption>
+                    <figcaption>巌</br>(徒歩１０分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065170_0.jpg" alt="画像1">
@@ -1085,15 +1024,15 @@ footer {
                 </figure>
                 <figure>
                     <img src="ao/static/ao/images/S__214065167_0.jpg" alt="画像2">
-                    <figcaption>生石高原（おいし）</br>(車で約２４分)</figcaption>
+                    <figcaption>生石高原</br>(車で約２４分)</figcaption>
                 </figure>
                 <figure>
                     <img src="/static/ao/images/S__214065165_0.jpg" alt="画像3">
-                    <figcaption>蔵王橋（ざおうはし）</br>(車で約１６分)</figcaption>
+                    <figcaption>蔵王橋</br>(車で約１６分)</figcaption>
                 </figure>
                 <figure>
-                    <img src="/static/ao/images/S__214065161_0.jpg" alt="画像4">
-                    <figcaption>有田川鉄道公園</br>(車で約２２分)</figcaption>
+                    <img src="" alt="画像4">
+                    <figcaption>鉄道公園</br>(車で約２２分)</figcaption>
                 </figure>
             </div>
             <button id="nextBtn">&#10095;</button>
@@ -1103,7 +1042,7 @@ footer {
 
     <div class="supermarket-section">
         <div   class="supermarket-title">Supermarket</div>
-        <div id="supermarket" class="supermarket-comment1">スーパーマーケット</div>
+        <div id="supermarket" class="supermarket-comment1">食品スーパー</div>
         <div class="supermarket-container">
             <div class="equipment-list">
                 <div class="equipment-item">
@@ -1131,7 +1070,7 @@ footer {
         <div   class="food-title">Restaurant</div>
         <div id="food" class="food-comment1">ごはん屋</div>
         <div class="food-container">
-            <div class="equipment-list">        
+            <div class="equipment-list">         
                 <div class="equipment-item">
                     <span class="equipment-name">海鮮食堂つなや<br>有田川店</span>
                     <span class="equipment-detail">新鮮な海の幸を使った絶品料理が楽しめる食堂。<br>有田インターから1分、山荘粟生から25分</span>
@@ -1148,7 +1087,7 @@ footer {
         <div class="souvenir-title">Souvenir</div>
         <div id="souvenir" class="souvenir-comment1">お土産屋</div>
         <div class="souvenir-container">
-            <div class="equipment-list"> 
+            <div class="equipment-list">
                 <div class="equipment-item">
                     <span class="equipment-name">ありだっこ</span>
                     <span class="equipment-detail">地元の新鮮な農産物や特産品が豊富に揃うマーケット。<br>有田インターから1分、山荘粟生から25分</span>
@@ -1161,7 +1100,7 @@ footer {
         <div class="onsen-title">Onsen</div>
         <div id="onsen" class="onsen-comment1">温泉</div>
         <div class="onsen-container">
-            <div class="equipment-list"> 
+            <div class="equipment-list">
                 <div class="equipment-item">
                     <span class="equipment-name">かなや明恵峡温泉</span>
                     <span class="equipment-detail">自然に囲まれた露店風呂がおすすめ！<br>有田インターから25分、山荘粟生から23分</span>
@@ -1205,11 +1144,11 @@ footer {
             </div>
         </div>
     </footer>
-    
-    
+
+
     <script>
         let lastScrollTop = 0;
-        const threshold = 20;  // ヘッダーが収納されるまでのスクロール距離
+        const threshold = 20;   // ヘッダーが収納されるまでのスクロール距離
 
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -1224,9 +1163,9 @@ footer {
 
             // 下スクロール時に距離で判定
             if (currentScroll > lastScrollTop + threshold) {
-                header.style.top = "-140px";  // ヘッダー収納
+                header.style.top = "-140px";   // ヘッダー収納
             } else if (currentScroll < lastScrollTop - threshold || currentScroll < threshold) {
-                header.style.top = "0";  // 上スクロール時や最上部付近では表示
+                header.style.top = "0";   // 上スクロール時や最上部付近では表示
             }
 
             lastScrollTop = currentScroll;
