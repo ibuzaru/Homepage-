@@ -67,11 +67,47 @@
     .now-position{
         color: #61c4eb;
     }
-    .reservation-container {
-        display: flex;
+    /* PC用の予約ボタンコンテナ */
+    .reservation-container-pc {
+        display: flex; /* PCで表示 */
         justify-content: flex-end;
         transform: translateX(-5%);
         margin-top: 10px;
+    }
+    .reservation-button-pc {
+        transform: translateX(-20px);
+        padding: 8px 15px;
+        background: #800000;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .reservation-button-pc:hover {
+        color: #800000; /* ホバー時の色変更は残す */
+        background: #6a0000; /* ホバー時の背景色も少し濃くする */
+    }
+        /* スマホ用の固定予約ボタン */
+    .reservation-mobile-fixed {
+        display: none; /* デフォルトでは非表示 */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1001; /* ヘッダーより手前に表示 */
+        text-align: center;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .reservation-mobile-fixed a {
+        display: block;
+        padding: 12px 0;
+        background: #800000;
+        color: white;
+        text-decoration: none;
+        font-size: large;
+        box-sizing: border-box; /* paddingを含めて幅100%にする */
+    }
+    .reservation-mobile-fixed a:hover {
+        background: #6a0000;
     }
     .reservation-button {
         transform: translateX(-20px);
@@ -132,13 +168,13 @@
         gap: 15px;
         margin-right: 50px;
     }
-    .reservation-container {
-        position: fixed;
-        bottom: 0px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        text-align: center;
+        /* PC用予約ボタンをスマホで非表示 */
+    .reservation-container-pc {
+        display: none;
+    }
+    /* スマホ用固定予約ボタンをスマホで表示 */
+    .reservation-mobile-fixed {
+        display: block;
     }
     .reservation-button {
         transform: translateX(0px);
@@ -831,7 +867,7 @@ footer {
                 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             </div>
         </div>
-        <div class="reservation-container">
+        <div class="reservation-container-pc">
             <a href="{% url 'resa' %}" class="reservation-button">ご予約・空室状況</a>
         </div>
 
@@ -845,6 +881,9 @@ footer {
         </nav>
 
     </header>
+    <div class="reservation-mobile-fixed">
+        <a href="{% url 'resa' %}">ご予約・空室状況</a>
+    </div>
 
     
     <div class="room-section">
