@@ -219,7 +219,7 @@
 
         <div class="button-container">
             <!-- 予約確定ボタンのフォーム -->
-            <form method="post" action="{% url 'example_confirm' %}" style="margin: 0;">
+            <form method="post" action="{% url 'example_confirm' %}" style="margin: 0;" id="confirm-form">
                 {% csrf_token %}
                 {% for key, value in data.items %}
                     {% if key == 'games' or key == 'others' %}
@@ -228,11 +228,11 @@
                         <input type="hidden" name="{{ key }}" value="{{ value }}">
                     {% endif %}
                 {% endfor %}
-                <button type="submit">予約確定</button>
+
+                <button type="submit" id="submit-button">予約確定</button>
             </form>
             <!-- 修正するボタン -->
-            <form method="post" action="{% url 'example_fix' %}" style="margin: 0;">
-                {% csrf_token %}
+            <form method="post" action="{% url 'example_fix' %}" style="margin: 0;" id="fix-form"> {% csrf_token %}
                 {% for key, value in data.items %}
                     {% if key == 'soumen' or key == 'games' or key == 'others' %}
                         <input type="hidden" name="{{ key }}" value="{% if value == 'on' or value == True %}on{% else %}off{% endif %}">
@@ -240,7 +240,8 @@
                         <input type="hidden" name="{{ key }}" value="{{ value }}">
                     {% endif %}
                 {% endfor %}
-                <button type="submit" class="button-secondary">修正する</button>
+
+                <button type="submit" class="button-secondary" id="fix-button">修正する</button>
             </form>
         </div>
     
@@ -273,6 +274,46 @@
         document.getElementById('totalAmount').textContent = `${Math.round(totalAmount).toLocaleString()}`;
         document.getElementById('pricePerPerson').textContent = `${Math.round(pricePerPerson).toLocaleString()}`;
     }
+
+
+
+    // --- 修正後のJavaScript ---
+
+    // 1. 対象となる要素をすべて取得
+    const confirmForm = document.getElementById('confirm-form');
+    const submitButton = document.getElementById('submit-button');
+    const fixForm = document.getElementById('fix-form');
+    const fixButton = document.getElementById('fix-button');
+
+    /**
+     * 2. 両方のボタンを無効化する共通の関数
+     * @param {Event} event - フォーム送信時に発生したイベント
+     */
+    function handleFormSubmit(event) {
+        // 両方のボタンを無効化
+        if (submitButton) {
+            submitButton.disabled = true;
+        }
+        if (fixButton) {
+            fixButton.disabled = true;
+        }
+
+        // クリックされたボタンのテキストを「処理中...」に変更
+        // event.currentTarget はイベントが設定された要素（この場合はフォーム）を指す
+        const clickedButton = event.currentTarget.querySelector('button[type="submit"]');
+        if (clickedButton) {
+            clickedButton.innerText = '処理中...';
+        }
+    }
+
+    // 3. 各フォームの送信イベントに共通の関数を割り当て
+    if (confirmForm) {
+        confirmForm.addEventListener('submit', handleFormSubmit);
+    }
+    if (fixForm) {
+        fixForm.addEventListener('submit', handleFormSubmit);
+    }
+
 
     // ページ読み込み時に計算を実行
     window.addEventListener('DOMContentLoaded', calculateTotal);

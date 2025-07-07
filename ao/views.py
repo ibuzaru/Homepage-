@@ -83,30 +83,65 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from .models import ExampleModel
 from datetime import datetime
+from django.db import transaction # ★ 追加
 
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
+from .models import ExampleModel
+from datetime import datetime
+from django.db import transaction # ★ 追加
+
+# ... (他の関数はそのままでOK) ...
+
+@transaction.atomic # ★ 追加：データベース処理をトランザクション化
 def example_confirm(request):
-    if request.method == 'POST':
-        data = request.POST.dict()
-        
-        # チェックボックス値の正規化
-        if 'soumen' in data:
-            data['soumen'] = 'on' if data['soumen'] in ('on', 'true', 'True', True) else 'off'
-        #if 'games' in data:            data['games'] = 'on' if data['games'] in ('on', 'true', 'True', True) else 'off'
-       # if 'others' in data:            data['others'] = 'on' if data['others'] in ('on', 'true', 'True', True) else 'off'
-        
-        # 合計金額計算
-        total_amount, price_per_person = calculate_prices(data)
-        
-        # データベースに保存
-        reservation = save_reservation(data)
-        
-        # メール送信
-        send_customer_email(data, total_amount, price_per_person)
-        send_admin_email(data, total_amount, reservation.id)
-        
+    # ★ 追加：セッションに処理中フラグがあれば、処理済みとみなしリダイレクト
+    if request.session.get('is_processing'):
+        # フラグを削除して完了ページへ
+        del request.session['is_processing']
         return redirect('success_reserve')
-    
-    return render(request, 'ao/example_confirm.html', {'data': data})
+
+    if request.method == 'POST':
+        try:
+            # ★ 追加：処理開始時にセッションにフラグを立てる
+            request.session['is_processing'] = True
+            
+            data = request.POST.dict()
+            
+            # (チェックボックス正規化のロジックは変更なし)
+            if 'soumen' in data:
+                data['soumen'] = 'on' if data['soumen'] in ('on', 'true', 'True', True) else 'off'
+            
+            # 合計金額計算
+            total_amount, price_per_person = calculate_prices(data)
+            
+            # データベースに保存
+            reservation = save_reservation(data)
+            
+            # メール送信
+            send_customer_email(data, total_amount, price_per_person)
+            send_admin_email(data, total_amount, reservation.id)
+            
+            # ★ 修正: 処理完了後にフラグを削除してからリダイレクト
+            if 'is_processing' in request.session:
+                del request.session['is_processing']
+                
+            return redirect('success_reserve')
+        
+        except Exception as e:
+            # ★ 追加：エラーが発生した場合もフラグを必ず削除する
+            if 'is_processing' in request.session:
+                del request.session['is_processing']
+            # ここでエラーハンドリングを行う（例：エラーページ表示）
+            print(f"An error occurred: {e}") # ログ出力
+            return render(request, 'ao/error.html', {'error': '予約処理中にエラーが発生しました。'})
+
+
+    # POST以外の場合 (確認ページの表示)
+    # data = request.GET or {} # GETでデータを受け取る場合など
+    return render(request, 'ao/example_confirm.html', {'data': request.POST}) # テンプレートに渡すデータは適宜調整
 
 def calculate_prices(data):
     base_price = 10000
@@ -253,6 +288,9 @@ def howtostay(request):
 
 def kiyaku(request):
     return render(request, 'ao/kiyaku.html')
+
+def howtoGIF(request):
+    return render(request, 'ao/howtoGIF.html')
 
 
 

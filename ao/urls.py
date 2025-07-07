@@ -17,4 +17,5 @@ urlpatterns = [
    path('sightseeing/', views.sightseeing, name="sightseeing"),
    path('howtostay/', views.howtostay, name="howtostay"),
    path('kiyaku/', views.kiyaku, name="kiyaku"),
+   path('howtoGIF', views.howtoGIF, name="howtoGIF"),
 ]
