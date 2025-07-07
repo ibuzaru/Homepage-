@@ -1,150 +1,152 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>使い方 GIF集</title>
-    
-    <style>
-        /* 基本設定 */
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9; /* 背景色を少しグレーに */
-            color: #333;
-            line-height: 1.6;
-        }
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>使い方 GIF集</title>
+ 
+ <style>
+  /* 基本設定 */
+  body {
+   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+   margin: 0;
+   padding: 0;
+   background-color: #f4f4f9; /* 背景色を少しグレーに */
+   color: #333;
+   line-height: 1.6;
+  }
 
-        /* 全体を囲むコンテナ */
-        .container {
-            max-width: 1200px; /* PCでの最大幅を指定 */
-            margin: 0 auto; /* 中央寄せ */
-            padding: 20px;
-        }
+  /* 全体を囲むコンテナ */
+  .container {
+   max-width: 1200px; /* PCでの最大幅を指定 */
+   margin: 0 auto; /* 中央寄せ */
+   padding: 20px;
+  }
 
-        /* ヘッダー */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #eee;
-        }
+  /* ヘッダー */
+  header {
+   text-align: center;
+   margin-bottom: 40px;
+   padding-bottom: 20px;
+   border-bottom: 2px solid #eee;
+  }
 
-        .main-title {
-            font-size: 2.2em;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
+  .main-title {
+   font-size: 2.2em;
+   color: #2c3e50;
+   margin-bottom: 10px;
+  }
 
-        .description {
-            font-size: 1.1em;
-            color: #7f8c8d;
-        }
+  .description {
+   font-size: 1.1em;
+   color: #7f8c8d;
+  }
 
-        /* カテゴリの見出し */
-        .category h2 {
-            font-size: 1.8em;
-            color: #34495e;
-            margin-bottom: 25px;
-            padding-left: 10px;
-            border-left: 5px solid #1abc9c; /* 左側にアクセントの線 */
-        }
-        
-        /* カードを並べるためのコンテナ */
-        .card-container {
-            display: grid;
-            /* スマホでは1列で表示 */
-            grid-template-columns: 1fr; 
-            gap: 25px; /* カード間の余白 */
-        }
+  /* カテゴリの見出し */
+  .category h2 {
+   font-size: 1.8em;
+   color: #34495e;
+   margin-bottom: 25px;
+   padding-left: 10px;
+   border-left: 5px solid #1abc9c; /* 左側にアクセントの線 */
+  }
+  
+  /* カードを並べるためのコンテナ */
+  .card-container {
+   display: grid;
+   /* スマホでは1列で表示 */
+   grid-template-columns: 1fr; 
+   gap: 25px; /* カード間の余白 */
+  }
 
-        /* 各説明カードのデザイン */
-        .how-to-card {
-            background-color: #ffffff;
-            border-radius: 10px; /* 角を丸くする */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 浮き上がって見えるように影をつける */
-            overflow: hidden; /* 画像の角も丸くする */
-            transition: transform 0.2s ease-in-out; /* ホバー時のアニメーション */
-        }
+  /* 各説明カードのデザイン */
+  .how-to-card {
+   background-color: #ffffff;
+   border-radius: 10px; /* 角を丸くする */
+   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 浮き上がって見えるように影をつける */
+   overflow: hidden; /* 画像の角も丸くする */
+   transition: transform 0.2s ease-in-out; /* ホバー時のアニメーション */
+  }
 
-        .how-to-card:hover {
-            transform: translateY(-5px); /* マウスを乗せると少し浮き上がる */
-        }
+  .how-to-card:hover {
+   transform: translateY(-5px); /* マウスを乗せると少し浮き上がる */
+  }
 
-        .how-to-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            background-color: #ecf0f1; /* 画像が読み込まれるまでの背景色 */
-        }
-        
-        /* カード内のテキスト */
-        .how-to-card h3 {
-            font-size: 1.3em;
-            margin: 15px 20px;
-            color: #2980b9;
-        }
+  .how-to-card img {
+   width: 100%;
+   max-width: 400px; /* 例として最大幅を400pxに設定。必要に応じて調整してください */
+   height: auto;
+   display: block;
+   background-color: #ecf0f1; /* 画像が読み込まれるまでの背景色 */
+   margin: 0 auto; /* 中央に配置 */
+  }
+  
+  /* カード内のテキスト */
+  .how-to-card h3 {
+   font-size: 1.3em;
+   margin: 15px 20px;
+   color: #2980b9;
+  }
 
-        .how-to-card p {
-            font-size: 1em;
-            margin: 0 20px 20px;
-            padding: 0;
-        }
+  .how-to-card p {
+   font-size: 1em;
+   margin: 0 20px 20px;
+   padding: 0;
+  }
 
-        /* PC（タブレット以上）の画面幅の時の設定 */
-        @media (min-width: 768px) {
-            .card-container {
-                /* 画面幅に応じて列数を自動調整（最小320px、最大1fr） */
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            }
+  /* PC（タブレット以上）の画面幅の時の設定 */
+  @media (min-width: 768px) {
+   .card-container {
+    /* 画面幅に応じて列数を自動調整（最小320px、最大1fr） */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+   }
 
-            .main-title {
-                font-size: 2.8em;
-            }
-        }
-    </style>
-    </head>
+   .main-title {
+    font-size: 2.8em;
+   }
+  }
+ </style>
+ </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1 class="main-title">使い方 GIF集</h1>
-            <p class="description">
-                施設の利用方法を短い動画でご案内します。<br>
-                シーツの準備や片付け、BBQコンロの使い方など、わからないことがあればこちらをご確認ください。
-            </p>
-        </header>
+ <div class="container">
+  <header>
+   <h1 class="main-title">使い方 GIF集</h1>
+   <p class="description">
+    施設の利用方法を短い動画でご案内します。<br>
+    シーツの準備や片付け、BBQコンロの使い方など、わからないことがあればこちらをご確認ください。
+   </p>
+  </header>
 
-        <main>
-            <section class="category">
-                <h2>🛏️ 寝具の準備</h2>
-                <div class="card-container">
-                    <div class="how-to-card">
-                        <h3>シーツのセッティング方法</h3>
-                        <img src="/static/ao/images/シーツのセッティング方法.gif" alt="セッティング" >
-                        <p>下布団にシーツをかけ、掛け布団にカバーを通してください。</p>
-                    </div>
-                    <div class="how-to-card">
-                        <h3>シーツの片付け方</h3>
-                        <img src="/static/ao/images/シーツの片付け方.gif" alt="片付け">
-                        <p>使用後の下シーツと上シーツは入り口付近、枕カバーはタオルと一緒に置いてください。</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="category">
-                <h2>🔥 BBQ・火の扱い</h2>
-                <div class="card-container">
-                    <div class="how-to-card">
-                        <h3>着火剤の使い方</h3>
-                        <img src="/static/ao/images/着火剤の使い方.gif" alt="着火剤">
-                        <p>着火剤をコンロの中央に置き、その周りを囲むように炭を組んでください。</p>
-                    </div>
-                </div>
-            </section>
-        </main>
+  <main>
+   <section class="category">
+    <h2>🛏️ 寝具の準備</h2>
+    <div class="card-container">
+     <div class="how-to-card">
+      <h3>シーツのセッティング方法</h3>
+      <img src="/static/ao/images/シーツのセッティング方法.gif" alt="セッティング" >
+      <p>下布団にシーツをかけ、掛け布団にカバーを通してください。</p>
+     </div>
+     <div class="how-to-card">
+      <h3>シーツの片付け方</h3>
+      <img src="/static/ao/images/シーツの片付け方.gif" alt="片付け">
+      <p>使用後の下シーツと上シーツは入り口付近、枕カバーはタオルと一緒に置いてください。</p>
+     </div>
     </div>
+   </section>
+
+   <section class="category">
+    <h2>🔥 BBQ・火の扱い</h2>
+    <div class="card-container">
+     <div class="how-to-card">
+      <h3>着火剤の使い方</h3>
+      <img src="/static/ao/images/着火剤の使い方.gif" alt="着火剤">
+      <p>着火剤をコンロの中央に置き、その周りを囲むように炭を組んでください。</p>
+     </div>
+    </div>
+   </section>
+  </main>
+ </div>
 
 </body>
 </html>
