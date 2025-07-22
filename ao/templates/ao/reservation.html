@@ -313,6 +313,7 @@
     .day {
         background-color: #4dc2f8;
         cursor: pointer;
+        position: relative; /* 子要素の位置指定の基準にする */
     }
 
     .day:hover { background-color: #e0e0e0; }
@@ -321,6 +322,7 @@
         background-color: #ccc;
         cursor: not-allowed;
     }
+    
 
     .selected { background-color: #4caf50; color: white; }
     .selected-out { background-color: #ff7043; color: white; }
@@ -688,18 +690,16 @@ footer {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             const header = document.getElementById("header");
 
-            // 一番上にいるときは常に表示
             if (currentScroll === 0) {
                 header.style.top = "0";
                 lastScrollTop = currentScroll;
                 return;
             }
 
-            // 下スクロール時に距離で判定
             if (currentScroll > lastScrollTop + threshold) {
-                header.style.top = "-140px";  // ヘッダー収納
+                header.style.top = "-140px";
             } else if (currentScroll < lastScrollTop - threshold || currentScroll < threshold) {
-                header.style.top = "0";  // 上スクロール時や最上部付近では表示
+                header.style.top = "0";
             }
 
             lastScrollTop = currentScroll;
@@ -711,31 +711,30 @@ footer {
 
             if (menu.style.display === "none" || menu.style.display === "") {
                 menu.style.display = "flex";
-                toggleButton.innerHTML = "✖"; // バツ印に変更
+                toggleButton.innerHTML = "✖";
                 toggleButton.classList.add("active");
             } else {
                 menu.style.display = "none";
-                toggleButton.innerHTML = "☰"; // ハンバーガーメニューに戻す
+                toggleButton.innerHTML = "☰";
                 toggleButton.classList.remove("active");
             }
         }
 
-
         const submitButton = document.getElementById('submit-button');
         const checkinDateInput = document.getElementById('checkin-date');
         const checkoutDateInput = document.getElementById('checkout-date');
-    
+
         submitButton.addEventListener('click', (event) => {
             if (!checkinDateInput.value) {
                 alert("チェックイン日を選択してください。");
-                event.preventDefault(); // フォーム送信をキャンセル
+                event.preventDefault();
             } 
             else if (!checkoutDateInput.value) {
                 alert("チェックアウト日を選択してください。");
-                event.preventDefault(); // フォーム送信をキャンセル
+                event.preventDefault();
             }
         });
-    
+
         const calendar = document.getElementById('calendar');
         const currentMonth = document.getElementById('current-month');
         const prevMonthButton = document.getElementById('prev-month');
@@ -746,20 +745,17 @@ footer {
         let checkOutDate = null;
 
         const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
-
-        // Djangoから渡された予約済み日付を取得
         const reservedDates = JSON.parse('{{ reserved_dates|safe }}');
 
-        // 前後6か月の範囲を計算
         const today = new Date();
-        const minDate = new Date(today.getFullYear(), today.getMonth(), 1); // 今月1日から
-        const maxDate = new Date(today.getFullYear(), 11, 1); // 今年の12月1日まで
+        const minDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        const maxDate = new Date(today.getFullYear() + 1, today.getMonth(), 0);
 
         function renderCalendar() {
             calendar.innerHTML = '';
             const year = date.getFullYear();
             const month = date.getMonth();
-            currentMonth.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
+            currentMonth.textContent = `${year}年 ${month + 1}月`;
             
             weekdays.forEach(day => {
                 const weekdayElement = document.createElement('div');
@@ -781,39 +777,65 @@ footer {
                 dayElement.textContent = day;
                 dayElement.classList.add('day');
 
-                const currentDate = new Date(year, month, day + 1).toISOString().slice(0, 10);
+                const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const currentDate = new Date(dateString);
+                const isReserved = reservedDates.includes(dateString);
+                const isPast = currentDate < new Date(today.toDateString());
 
-                // 予約済み日付を無効にする
-                if (reservedDates.includes(currentDate)) {
-                    dayElement.classList.add('ReservedDates');
-                } else if (currentDate <= new Date().toISOString().slice(0, 10)) {
+                if (isPast) {
                     dayElement.classList.add('disabled');
-                } else {
-                    dayElement.addEventListener('click', () => {
-                        if (!checkInDate || (checkInDate && checkOutDate)) {
-                            checkInDate = new Date(currentDate);
-                            checkOutDate = null;
-                            checkinDateInput.value = currentDate;
-                            checkoutDateInput.value = '';
-                            document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
-                            dayElement.classList.add('selected');
-                        } else if (!checkOutDate) {
-                            const selectedDate = new Date(currentDate);
+                } else if (isReserved) {
+                    dayElement.classList.add('ReservedDates');
+                }
 
-                            if (selectedDate < checkInDate) {
-                                checkInDate = selectedDate;
-                                checkOutDate = null;
-                                checkinDateInput.value = currentDate;
-                                checkoutDateInput.value = '';
-                                document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
+                if (!isPast) {
+                    dayElement.addEventListener('click', () => {
+                        const clickedDate = currentDate;
+
+                        // 予約済みの日をクリックしたが、チェックイン日として選択しようとした場合
+                        if (isReserved && (!checkInDate || (checkInDate && checkOutDate))) {
+                            alert("予約済みの日付はチェックイン日に選択できません。");
+                            return;
+                        }
+
+                        // --- 日付選択ロジック ---
+
+                        // 1. チェックイン・アウトが両方選択済み、またはどちらも未選択の場合 -> 新しいチェックイン日を選択
+                        if ((checkInDate && checkOutDate) || !checkInDate) {
+                            checkInDate = clickedDate;
+                            checkOutDate = null;
+                            checkinDateInput.value = dateString;
+                            checkoutDateInput.value = '';
+                            document.querySelectorAll('.day').forEach(el => {
+                                el.classList.remove('selected', 'selected-out', 'in-range');
+                            });
+                            dayElement.classList.add('selected');
+                        }
+                        // 2. チェックインのみ選択済みの場合 -> チェックアウト日を選択
+                        else if (checkInDate && !checkOutDate) {
+                            // 2a. チェックイン日より前の日をクリックした場合 -> 新しいチェックイン日に変更
+                            if (clickedDate < checkInDate) {
+                                // 予約済みの日は新たなチェックイン日にできない
+                                if (isReserved) {
+                                    alert("予約済みの日付はチェックイン日に選択できません。");
+                                    return;
+                                }
+                                checkInDate = clickedDate;
+                                checkinDateInput.value = dateString;
+                                document.querySelectorAll('.day').forEach(el => {
+                                    el.classList.remove('selected', 'selected-out', 'in-range');
+                                });
                                 dayElement.classList.add('selected');
-                            } else {
+                            }
+                            // 2b. チェックイン日より後の日をクリックした場合 -> チェックアウト日として設定を試みる
+                            else if (clickedDate > checkInDate) {
                                 let isValid = true;
                                 let tempDate = new Date(checkInDate);
                                 tempDate.setDate(tempDate.getDate() + 1);
 
-                                while (tempDate <= selectedDate) {
-                                    const tempDateString = tempDate.toISOString().slice(0, 10);
+                                // チェックイン日とクリックされた日の「間」に予約済みの日がないかチェック
+                                while (tempDate < clickedDate) {
+                                    const tempDateString = `${tempDate.getFullYear()}-${String(tempDate.getMonth() + 1).padStart(2, '0')}-${String(tempDate.getDate()).padStart(2, '0')}`;
                                     if (reservedDates.includes(tempDateString)) {
                                         isValid = false;
                                         break;
@@ -821,33 +843,41 @@ footer {
                                     tempDate.setDate(tempDate.getDate() + 1);
                                 }
 
+                                // 間の日に問題がなければ、チェックアウト日として設定
                                 if (isValid) {
-                                    checkOutDate = selectedDate;
-                                    checkoutDateInput.value = currentDate;
+                                    checkOutDate = clickedDate;
+                                    checkoutDateInput.value = dateString;
+                                    // 'selected-out' クラスだけを一旦リセットし、クリックした要素に再適用
+                                    document.querySelectorAll('.day.selected-out').forEach(el => el.classList.remove('selected-out'));
                                     dayElement.classList.add('selected-out');
                                 } else {
+                                    // 間に予約日があった場合は、アラートを出して選択をリセット
                                     alert("予約不可の日付をまたぐ予約はできません。");
                                     checkInDate = null;
                                     checkOutDate = null;
                                     checkinDateInput.value = '';
                                     checkoutDateInput.value = '';
-                                    document.querySelectorAll('.day').forEach(el => el.classList.remove('selected', 'selected-out'));
+                                    document.querySelectorAll('.day').forEach(el => {
+                                        el.classList.remove('selected', 'selected-out', 'in-range');
+                                    });
                                 }
                             }
+                            // 2c. 同じチェックイン日をクリックした場合 (任意: 選択解除など)
+                            // 今回は特に何もしない
                         }
                     });
                 }
-
+                
                 calendar.appendChild(dayElement);
             }
 
-            // ボタンの表示/非表示を設定
-            if (date <= minDate) {
+            const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+            if (firstDayOfCurrentMonth <= minDate) {
                 prevMonthButton.classList.add('limit');
             } else {
                 prevMonthButton.classList.remove('limit');
             }
-
+            
             if (date >= maxDate) {
                 nextMonthButton.classList.add('limit');
             } else {
@@ -856,7 +886,8 @@ footer {
         }
 
         prevMonthButton.addEventListener('click', () => {
-            if (date > minDate) {
+            const firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+            if (firstDayOfCurrentMonth > minDate) {
                 date.setMonth(date.getMonth() - 1);
                 renderCalendar();
             }
@@ -864,14 +895,12 @@ footer {
 
         nextMonthButton.addEventListener('click', () => {
             if (date < maxDate) {
-                date.setMonth(date.getMonth() +1);
+                date.setMonth(date.getMonth() + 1);
                 renderCalendar();
             }
         });
 
         renderCalendar();
-
-
     </script>
     
    
