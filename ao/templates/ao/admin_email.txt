@@ -5,7 +5,7 @@
 チェックアウト日: {{ data.check_out_date }}
 男性人数: {{ data.men }}名
 女性人数: {{ data.women }}名
-合計金額: {{ total_amount }}円（税込）(デポジット料金を除く)
+合計金額: {{ total_amount }}円（税込）
 
 ■お客様情報
 名前: {{ data.name }}
@@ -18,8 +18,6 @@
 {% if data.yakiniku %}焼肉セット: {{ data.yakiniku }}セット{% endif %}
 {% if data.maki %}薪:{{ data.maki }}束{% endif %}
 {% if data.soumen %}流しそうめんセット{% endif %}
-{% if data.games %}ゲーム・漫画セット{% endif %}
-{% if data.others %}その他（カヌー）など{% endif %}
 
 ■ご要望
 {{ data.messages }}
