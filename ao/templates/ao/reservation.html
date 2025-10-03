@@ -747,17 +747,25 @@ footer {
         const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
         const reservedDates = JSON.parse('{{ reserved_dates|safe }}');
 
+        let today = new Date();
+        let minDate;
+        let maxDate;
 
+        // 🔹 年度に応じて min/max を設定する関数
         function updateMinMaxDates() {
-            const today = new Date();
+            today = new Date(); // 常に最新の今日を取得
             const currentYear = today.getFullYear();
-            minDate.setFullYear(currentYear, today.getMonth(), 1);
-            maxDate.setFullYear(currentYear, 11, 31);
+
+            // 当月の1日を最小値にする
+            minDate = new Date(currentYear, today.getMonth(), 1);
+
+            // その年の12/31を最大値にする
+            maxDate = new Date(currentYear, 10, 31);
         }
 
-
         function renderCalendar() {
-            updateMinMaxDates();  // ← 年をまたいだら自動更新
+            updateMinMaxDates(); // ← 年をまたいだら自動で更新
+
             calendar.innerHTML = '';
             const year = date.getFullYear();
             const month = date.getMonth();
@@ -798,15 +806,12 @@ footer {
                     dayElement.addEventListener('click', () => {
                         const clickedDate = currentDate;
 
-                        // 予約済みの日をクリックしたが、チェックイン日として選択しようとした場合
+                        // --- 以下、チェックイン・アウト処理はそのまま ---
                         if (isReserved && (!checkInDate || (checkInDate && checkOutDate))) {
                             alert("予約済みの日付はチェックイン日に選択できません。");
                             return;
                         }
 
-                        // --- 日付選択ロジック ---
-
-                        // 1. チェックイン・アウトが両方選択済み、またはどちらも未選択の場合 -> 新しいチェックイン日を選択
                         if ((checkInDate && checkOutDate) || !checkInDate) {
                             checkInDate = clickedDate;
                             checkOutDate = null;
@@ -816,12 +821,8 @@ footer {
                                 el.classList.remove('selected', 'selected-out', 'in-range');
                             });
                             dayElement.classList.add('selected');
-                        }
-                        // 2. チェックインのみ選択済みの場合 -> チェックアウト日を選択
-                        else if (checkInDate && !checkOutDate) {
-                            // 2a. チェックイン日より前の日をクリックした場合 -> 新しいチェックイン日に変更
+                        } else if (checkInDate && !checkOutDate) {
                             if (clickedDate < checkInDate) {
-                                // 予約済みの日は新たなチェックイン日にできない
                                 if (isReserved) {
                                     alert("予約済みの日付はチェックイン日に選択できません。");
                                     return;
@@ -832,14 +833,11 @@ footer {
                                     el.classList.remove('selected', 'selected-out', 'in-range');
                                 });
                                 dayElement.classList.add('selected');
-                            }
-                            // 2b. チェックイン日より後の日をクリックした場合 -> チェックアウト日として設定を試みる
-                            else if (clickedDate > checkInDate) {
+                            } else if (clickedDate > checkInDate) {
                                 let isValid = true;
                                 let tempDate = new Date(checkInDate);
                                 tempDate.setDate(tempDate.getDate() + 1);
 
-                                // チェックイン日とクリックされた日の「間」に予約済みの日がないかチェック
                                 while (tempDate < clickedDate) {
                                     const tempDateString = `${tempDate.getFullYear()}-${String(tempDate.getMonth() + 1).padStart(2, '0')}-${String(tempDate.getDate()).padStart(2, '0')}`;
                                     if (reservedDates.includes(tempDateString)) {
@@ -849,15 +847,12 @@ footer {
                                     tempDate.setDate(tempDate.getDate() + 1);
                                 }
 
-                                // 間の日に問題がなければ、チェックアウト日として設定
                                 if (isValid) {
                                     checkOutDate = clickedDate;
                                     checkoutDateInput.value = dateString;
-                                    // 'selected-out' クラスだけを一旦リセットし、クリックした要素に再適用
                                     document.querySelectorAll('.day.selected-out').forEach(el => el.classList.remove('selected-out'));
                                     dayElement.classList.add('selected-out');
                                 } else {
-                                    // 間に予約日があった場合は、アラートを出して選択をリセット
                                     alert("予約不可の日付をまたぐ予約はできません。");
                                     checkInDate = null;
                                     checkOutDate = null;
@@ -868,12 +863,10 @@ footer {
                                     });
                                 }
                             }
-                            // 2c. 同じチェックイン日をクリックした場合 (任意: 選択解除など)
-                            // 今回は特に何もしない
                         }
                     });
                 }
-                
+
                 calendar.appendChild(dayElement);
             }
 
@@ -907,6 +900,7 @@ footer {
         });
 
         renderCalendar();
+
     </script>
     
    
