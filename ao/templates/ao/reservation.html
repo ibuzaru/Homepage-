@@ -747,11 +747,17 @@ footer {
         const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
         const reservedDates = JSON.parse('{{ reserved_dates|safe }}');
 
-        const today = new Date();
-        const minDate = new Date(today.getFullYear(), today.getMonth(), 1);
-        const maxDate = new Date(today.getFullYear() + 1, today.getMonth(), 0);
+
+        function updateMinMaxDates() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            minDate.setFullYear(currentYear, today.getMonth(), 1);
+            maxDate.setFullYear(currentYear, 11, 31);
+        }
+
 
         function renderCalendar() {
+            updateMinMaxDates();  // ← 年をまたいだら自動更新
             calendar.innerHTML = '';
             const year = date.getFullYear();
             const month = date.getMonth();
